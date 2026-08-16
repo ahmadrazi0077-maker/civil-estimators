@@ -37,6 +37,11 @@ export default function Sidebar() {
   icon: '📧',
   href: '/admin/subscribers',
 },
+{
+  title: 'Reviews',
+  icon: '⭐',
+  href: '/admin/reviews',
+},
   ];
 
   const handleLogout = () => {

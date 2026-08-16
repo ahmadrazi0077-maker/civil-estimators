@@ -23,23 +23,16 @@ export default function Header() {
   }, [router.pathname]);
 
   const navigation = [
-    { name: 'Home', href: '/' },
-    { 
-      name: 'Services', 
-      href: '/services',
-      dropdown: [
-        { name: 'Steel Detailing', href: '/services/steel-detailing' },
-        { name: 'Rebar Detailing', href: '/services/rebar-detailing' },
-        { name: 'Quantity Takeoff', href: '/services/quantity-takeoff' },
-        { name: 'Cost Estimation', href: '/services/cost-estimation' },
-        { name: 'BOQ Preparation', href: '/services/boq-preparation' },
-        { name: 'Shop Drawings', href: '/services/shop-drawings' },
-      ]
-    },
-    { name: 'Blog', href: '/blog' },
-    { name: 'About', href: '/about' },
-    { name: 'Contact', href: '/contact' },
-  ];
+  { name: 'Home', href: '/' },
+  { 
+    name: 'Services', 
+    href: '/services',
+  },
+  { name: 'Blog', href: '/blog' },
+  { name: 'Reviews', href: '/reviews' },  // Ye add karo
+  { name: 'About', href: '/about' },
+  { name: 'Contact', href: '/contact' },
+];
 
   return (
     <>

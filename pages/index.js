@@ -10,6 +10,7 @@ import FAQ from '../components/FAQ';
 import Newsletter from '../components/Newsletter';
 import CTA from '../components/Home/CTA';
 import { servicesAPI } from '../lib/api';
+import ReviewsDisplay from '../components/ReviewsDisplay';
 
 export default function Home() {
   const [services, setServices] = useState([]);
@@ -63,6 +64,7 @@ export default function Home() {
           <Services services={services} />
           <Stats />
           <Portfolio />
+          <ReviewsDisplay />
           <Pricing />
           <Testimonials />
           <FAQ />

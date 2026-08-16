@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
-import { uploadToCloudinary, isCloudinaryConfigured } from '../../lib/cloudinary';
+
 import ImageURLInput from './ImageURLInput';
 
 export default function ImageUpload({ 

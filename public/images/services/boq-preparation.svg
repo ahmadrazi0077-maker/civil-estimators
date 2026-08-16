@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#ea580c"/>
+  <rect x="50" y="30" width="300" height="240" fill="white" rx="5"/>
+  <g fill="#ea580c">
+    <rect x="70" y="50" width="120" height="15" rx="3"/>
+    <rect x="70" y="80" width="260" height="10" rx="2"/>
+    <rect x="70" y="100" width="260" height="10" rx="2"/>
+    <rect x="70" y="120" width="260" height="10" rx="2"/>
+    <rect x="70" y="150" width="120" height="15" rx="3"/>
+    <rect x="70" y="180" width="260" height="10" rx="2"/>
+    <rect x="70" y="200" width="260" height="10" rx="2"/>
+    <rect x="70" y="220" width="260" height="10" rx="2"/>
+  </g>
+  <text x="200" y="285" text-anchor="middle" fill="#ffffff" font-size="16" font-family="Arial">BOQ Preparation</text>
+</svg>

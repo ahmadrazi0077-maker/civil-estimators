@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#dc2626"/>
+  <g fill="none" stroke="#ffffff" stroke-width="4">
+    <path d="M50 150 Q100 100 150 150 Q200 200 250 150 Q300 100 350 150"/>
+    <path d="M50 100 Q100 50 150 100 Q200 150 250 100 Q300 50 350 100"/>
+    <path d="M50 200 Q100 150 150 200 Q200 250 250 200 Q300 150 350 200"/>
+  </g>
+  <circle cx="100" cy="150" r="10" fill="#ffffff"/>
+  <circle cx="200" cy="150" r="10" fill="#ffffff"/>
+  <circle cx="300" cy="150" r="10" fill="#ffffff"/>
+  <text x="200" y="280" text-anchor="middle" fill="#ffffff" font-size="16" font-family="Arial">Rebar Detailing</text>
+</svg>

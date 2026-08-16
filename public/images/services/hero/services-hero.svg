@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="600" viewBox="0 0 1920 600">
+  <defs>
+    <linearGradient id="servicesHero" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e3a8a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+    </linearGradient>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="60" y2="0" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+      <line x1="0" y1="0" x2="0" y2="60" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  
+  <rect width="1920" height="600" fill="url(#servicesHero)"/>
+  <rect width="1920" height="600" fill="url(#grid)"/>
+  
+  <!-- Decorative Elements -->
+  <circle cx="300" cy="450" r="200" fill="rgba(255,255,255,0.03)"/>
+  <circle cx="1600" cy="150" r="250" fill="rgba(255,255,255,0.03)"/>
+  <circle cx="800" cy="500" r="150" fill="rgba(255,255,255,0.02)"/>
+  
+  <!-- Building Icon -->
+  <g transform="translate(960, 250)" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="3">
+    <rect x="-100" y="-150" width="200" height="300" rx="10"/>
+    <line x1="-100" y1="-50" x2="100" y2="-50"/>
+    <line x1="-100" y1="50" x2="100" y2="50"/>
+    <line x1="-100" y1="150" x2="100" y2="150"/>
+    <line x1="-50" y1="-150" x2="-50" y2="150"/>
+    <line x1="0" y1="-150" x2="0" y2="150"/>
+    <line x1="50" y1="-150" x2="50" y2="150"/>
+  </g>
+  
+  <!-- Gear Icon -->
+  <g transform="translate(400, 200)" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2">
+    <circle cx="0" cy="0" r="60"/>
+    <circle cx="0" cy="0" r="30"/>
+    <line x1="-15" y1="-15" x2="15" y2="15"/>
+    <line x1="-15" y1="15" x2="15" y2="-15"/>
+  </g>
+  
+  <!-- Ruler Icon -->
+  <g transform="translate(1520, 350)" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2">
+    <rect x="-40" y="-120" width="80" height="240" rx="5"/>
+    <line x1="-30" y1="-90" x2="30" y2="-90"/>
+    <line x1="-30" y1="-60" x2="30" y2="-60"/>
+    <line x1="-30" y1="-30" x2="30" y2="-30"/>
+    <line x1="-30" y1="0" x2="30" y2="0"/>
+    <line x1="-30" y1="30" x2="30" y2="30"/>
+    <line x1="-30" y1="60" x2="30" y2="60"/>
+    <line x1="-30" y1="90" x2="30" y2="90"/>
+  </g>
+  
+  <text x="960" y="550" text-anchor="middle" fill="rgba(255,255,255,0.1)" font-size="24" font-family="Arial">
+    Civil Engineering Services
+  </text>
+</svg>

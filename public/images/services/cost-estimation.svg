@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#7c3aed"/>
+  <circle cx="200" cy="150" r="80" fill="none" stroke="#ffffff" stroke-width="3"/>
+  <text x="200" y="145" text-anchor="middle" fill="#ffffff" font-size="60" font-family="Arial" font-weight="bold">$</text>
+  <text x="200" y="280" text-anchor="middle" fill="#ffffff" font-size="16" font-family="Arial">Cost Estimation</text>
+</svg>

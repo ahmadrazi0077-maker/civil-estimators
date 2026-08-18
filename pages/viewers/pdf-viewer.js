@@ -15,21 +15,29 @@ export default function PDFViewer() {
       setPdfFile(file);
       setError('');
       setLoading(true);
-      setTimeout(() => setLoading(false), 500);
+      setTimeout(() => setLoading(false), 1000);
     } else {
       setError('Please upload a PDF file');
     }
   };
 
-  const handleUrlLoad = () => {
-    if (pdfUrl.trim()) {
-      setError('');
-      setLoading(true);
-      setTimeout(() => setLoading(false), 500);
-    } else {
-      setError('Please enter a PDF URL');
-    }
-  };
+ const samplePDFs = [
+  { 
+    name: 'Sample PDF 1', 
+    url: 'https://www.africau.edu/images/default/sample.pdf',
+    description: 'Sample document for testing'
+  },
+  { 
+    name: 'Sample PDF 2', 
+    url: 'https://www.orimi.com/pdf-test.pdf',
+    description: 'Another sample document'
+  },
+  { 
+    name: 'Sample PDF 3', 
+    url: 'https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf',
+    description: 'Test PDF document'
+  },
+];
 
   return (
     <Layout>
@@ -37,7 +45,7 @@ export default function PDFViewer() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold mb-2">PDF Drawing Viewer</h1>
-            <p className="text-gray-600">Upload or enter URL to view PDF drawings</p>
+            <p className="text-gray-600">View and analyze PDF drawings online</p>
           </div>
 
           {/* Upload Section */}
@@ -76,7 +84,7 @@ export default function PDFViewer() {
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                   />
                   <button
-                    onClick={handleUrlLoad}
+                    onClick={() => pdfUrl && setError('')}
                     className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
                   >
                     Load PDF
@@ -98,68 +106,39 @@ export default function PDFViewer() {
                   <h3 className="font-semibold">Document Preview</h3>
                   <p className="text-sm text-gray-600">{pdfFile?.name || 'External PDF'}</p>
                 </div>
-                <div className="flex gap-2">
-                  <a
-                    href={pdfUrl}
-                    target="_blank"
-                    className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700"
-                  >
-                    Open in New Tab
-                  </a>
-                  {pdfFile && (
-                    <a
-                      href={pdfUrl}
-                      download={pdfFile.name}
-                      className="bg-green-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-700"
-                    >
-                      Download
-                    </a>
-                  )}
-                </div>
+                <a
+                  href={pdfUrl}
+                  target="_blank"
+                  download
+                  className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700"
+                >
+                  Download
+                </a>
               </div>
-              
-              {loading ? (
-                <div className="h-[600px] flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-blue-600 border-t-transparent"></div>
-                    <p className="mt-3 text-gray-600">Loading PDF...</p>
-                  </div>
-                </div>
-              ) : (
-                <iframe
-                  src={pdfUrl}
-                  className="w-full"
-                  style={{ height: '600px', border: 'none' }}
-                  title="PDF Viewer"
-                  onError={() => setError('Failed to load PDF. Please check the URL.')}
-                />
-              )}
+              <iframe
+                src={pdfUrl}
+                className="w-full"
+                style={{ height: '600px', border: 'none' }}
+                title="PDF Viewer"
+              />
             </div>
           ) : (
             <div className="bg-white rounded-2xl shadow-lg p-6">
-              <h3 className="font-semibold mb-4">How to Use</h3>
-              <div className="space-y-4">
-                <div className="flex items-start">
-                  <span className="text-2xl mr-3">1️⃣</span>
-                  <div>
-                    <p className="font-medium">Upload PDF</p>
-                    <p className="text-sm text-gray-600">Click the upload area and select your PDF file</p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <span className="text-2xl mr-3">2️⃣</span>
-                  <div>
-                    <p className="font-medium">Enter URL</p>
-                    <p className="text-sm text-gray-600">Paste a direct link to a PDF file</p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <span className="text-2xl mr-3">3️⃣</span>
-                  <div>
-                    <p className="font-medium">View & Download</p>
-                    <p className="text-sm text-gray-600">View in browser or download the file</p>
-                  </div>
-                </div>
+              <h3 className="font-semibold mb-4">Sample Drawings</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {samplePDFs.map((sample, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setPdfUrl(sample.url)}
+                    className="border-2 border-gray-200 rounded-lg p-4 hover:border-blue-500 hover:shadow-lg transition-all"
+                  >
+                    <svg className="w-12 h-12 text-red-500 mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                    </svg>
+                    <p className="font-medium text-sm">{sample.name}</p>
+                    <p className="text-xs text-gray-500 mt-1">{sample.description}</p>
+                  </button>
+                ))}
               </div>
             </div>
           )}

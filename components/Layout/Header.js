@@ -22,14 +22,20 @@ export default function Header() {
     setActiveDropdown(null);
   }, [router.pathname]);
 
-  const navigation = [
+ const navigation = [
   { name: 'Home', href: '/' },
-  { 
-    name: 'Services', 
-    href: '/services',
-  },
+  { name: 'Services', href: '/services' },
   { name: 'Blog', href: '/blog' },
-  { name: 'Reviews', href: '/reviews' },  // Ye add karo
+  { name: 'Reviews', href: '/reviews' },
+  { 
+    name: 'Viewers', 
+    href: '/viewers',
+    dropdown: [
+      { name: 'PDF Viewer', href: '/viewers/pdf-viewer' },
+      { name: 'DWG Viewer', href: '/viewers/dwg-viewer' },
+      { name: 'IFC Viewer', href: '/viewers/ifc-viewer' },
+    ]
+  },
   { name: 'About', href: '/about' },
   { name: 'Contact', href: '/contact' },
 ];

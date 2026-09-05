@@ -50,15 +50,73 @@ export default function Chatbot() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleSendMessage = async (e) => {
-    e.preventDefault();
-    if (!inputMessage.trim()) return;
+ const handleSendMessage = async (e) => {
+  e.preventDefault();
+  if (!inputMessage.trim()) return;
 
-    const userMessage = {
-      type: 'user',
-      text: inputMessage,
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-    };
+  const userMessage = {
+    type: 'user',
+    text: inputMessage,
+    time: new Date().toLocaleTimeString(),
+  };
+  
+  setMessages(prev => [...prev, userMessage]);
+  const userInput = inputMessage;
+  setInputMessage('');
+  setIsTyping(true);
+
+  try {
+    // Direct API call with full URL
+    const response = await fetch('/api/chatbot', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: userInput }),
+    });
+
+    if (!response.ok) {
+      throw new Error('API error');
+    }
+
+    const data = await response.json();
+    
+    setMessages(prev => [...prev, {
+      type: 'bot',
+      text: data.reply,
+      time: new Date().toLocaleTimeString(),
+      usedAI: data.usedAI || false,
+    }]);
+  } catch (error) {
+    // Local fallback if API fails
+    const fallbackReply = getLocalResponse(userInput);
+    setMessages(prev => [...prev, {
+      type: 'bot',
+      text: fallbackReply,
+      time: new Date().toLocaleTimeString(),
+      usedAI: false,
+    }]);
+  } finally {
+    setIsTyping(false);
+  }
+};
+
+// Local fallback function (component ke andar)
+function getLocalResponse(input) {
+  const text = input.toLowerCase();
+  
+  if (text.includes('service')) {
+    return `Our Services:\n\n1. Steel Detailing - $500\n2. Rebar Detailing - $400\n3. Quantity Takeoff - $300\n4. Cost Estimation - $600\n5. BOQ Preparation - $450\n6. Shop Drawings - $550`;
+  }
+  if (text.includes('steel')) {
+    return `Steel Detailing: from $500, 3-5 days delivery`;
+  }
+  if (text.includes('price')) {
+    return `Prices from $300 to $600 depending on service`;
+  }
+  if (text.includes('contact')) {
+    return `Contact: info@civilpro.com, +1 (555) 123-4567`;
+  }
+  return `I can help with services, pricing, and contact info.`;
+}
     
     const currentMessages = [...messages, userMessage];
     setMessages(currentMessages);
@@ -153,7 +211,7 @@ export default function Chatbot() {
           
           {/* Header */}
           <div className="relative bg-gradient-to-r from-blue-700 via-blue-800 to-blue-900 text-white">
-            <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.05"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-10"></div>
+            <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cg fill=%22none%22 fill-rule=%22evenodd%22%3E%3Cg fill=%22%23ffffff%22 fill-opacity=%220.05%22%3E%3Cpath d=%22M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-10"></div>
             
             <div className="relative p-5">
               <div className="flex items-center">

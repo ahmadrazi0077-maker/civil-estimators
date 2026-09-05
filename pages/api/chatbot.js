@@ -5,70 +5,80 @@ export default async function handler(req, res) {
 
   try {
     const { message } = req.body;
-    const apiKey = process.env.GEMINI_API_KEY || 'AQ.Ab8RN6K6SdTP_Wph8sG2wLVTF6Xu7048KPP63E6RTh7-e2hj4g';
+    const apiKey = process.env.GEMINI_API_KEY;
 
-    console.log('Message:', message);
-    console.log('API Key exists:', !!apiKey);
+    console.log('=== Chatbot Debug ===');
+    console.log('1. Message:', message);
+    console.log('2. API Key exists:', !!apiKey);
+    console.log('3. API Key length:', apiKey?.length);
 
-    // Gemini API call
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{
-            parts: [{
-              text: `You are CivilPro Assistant for a civil engineering company. Services: Steel Detailing $500, Rebar Detailing $400, Quantity Takeoff $300, Cost Estimation $600, BOQ Preparation $450, Shop Drawings $550. Contact: info@civilpro.com, +1 (555) 123-4567.\n\nUser: ${message}\n\nProvide a helpful, concise response.`
-            }]
-          }]
-        }),
-      }
-    );
-
-    console.log('Gemini status:', response.status);
-
-    if (response.ok) {
-      const data = await response.json();
-      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
-      
-      if (reply) {
-        return res.status(200).json({ reply, usedAI: true });
-      }
+    if (!apiKey) {
+      console.log('❌ No API key found');
+      return res.status(500).json({ 
+        reply: 'Gemini API key not found. Please check .env.local',
+        usedAI: false,
+      });
     }
 
-    // Fallback
-    return res.status(200).json({
-      reply: getFallback(message),
-      usedAI: false,
+    console.log('4. API Key prefix:', apiKey.substring(0, 10) + '...');
+
+    // Use gemini-1.5-flash (free tier)
+    const model = 'gemini-1.5-flash';
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+
+    console.log('5. URL:', url.replace(apiKey, 'HIDDEN'));
+
+    const requestBody = {
+      contents: [
+        {
+          parts: [
+            {
+              text: `You are CivilPro Assistant. Answer: ${message}`,
+            },
+          ],
+        },
+      ],
+    };
+
+    console.log('6. Sending request to Gemini...');
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    });
+
+    console.log('7. Response status:', response.status);
+
+    const responseText = await response.text();
+    console.log('8. Response body:', responseText.substring(0, 200));
+
+    if (!response.ok) {
+      console.error('❌ Gemini API error:', responseText);
+      return res.status(500).json({ 
+        reply: 'API Error: ' + response.status,
+        usedAI: false,
+      });
+    }
+
+    const data = JSON.parse(responseText);
+    console.log('9. Parsed response');
+
+    const botReply = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response';
+    
+    console.log('✅ Success! Reply:', botReply.substring(0, 50));
+
+    res.status(200).json({ 
+      reply: botReply,
+      usedAI: true,
     });
   } catch (error) {
-    console.error('Error:', error);
-    return res.status(200).json({
-      reply: getFallback(req.body?.message || ''),
+    console.error('❌ Chatbot Error:', error.message);
+    res.status(500).json({ 
+      reply: 'Error: ' + error.message,
       usedAI: false,
     });
   }
-}
-
-function getFallback(input) {
-  const text = (input || '').toLowerCase();
-  
-  if (text.includes('service')) {
-    return `Our 6 Services:\n\n1. Steel Detailing - $500\n2. Rebar Detailing - $400\n3. Quantity Takeoff - $300\n4. Cost Estimation - $600\n5. BOQ Preparation - $450\n6. Shop Drawings - $550`;
-  }
-  
-  if (text.includes('price') || text.includes('cost')) {
-    return `Pricing:\nSteel: $500\nRebar: $400\nQuantity: $300\nCost Estimation: $600\nBOQ: $450\nShop Drawings: $550`;
-  }
-  
-  if (text.includes('contact')) {
-    return `Contact: info@civilpro.com\nPhone: +1 (555) 123-4567`;
-  }
-  
-  if (text.includes('hi') || text.includes('hello')) {
-    return `Hello! Ask me about services, pricing, or delivery times.`;
-  }
-  
-  return `I can help with services, pricing, and contact info.`;
 }

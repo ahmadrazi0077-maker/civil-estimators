@@ -5,17 +5,15 @@ export default async function handler(req, res) {
 
   try {
     const { message, history = [] } = req.body;
-    const apiKey = process.env.OPENAI_API_KEY;
+    const apiKey = process.env.GEMINI_API_KEY;
 
-    console.log('=== Chatbot Request ===');
+    console.log('=== Gemini Chatbot ===');
     console.log('Message:', message);
     console.log('API Key exists:', !!apiKey);
-    console.log('API Key prefix:', apiKey ? apiKey.substring(0, 15) + '...' : 'none');
 
     if (!apiKey) {
-      console.log('No API key found');
       return res.status(500).json({ 
-        reply: 'API key not configured',
+        reply: 'Gemini API key not configured',
         usedAI: false,
       });
     }
@@ -30,80 +28,79 @@ Services and Pricing:
 - BOQ Preparation: from $450 (3-6 days)
 - Shop Drawings: from $550 (4-6 days)
 
-Contact:
-- Email: info@civilpro.com
-- Phone: +1 (555) 123-4567
-- WhatsApp: +1 (555) 123-4567
-- Address: 123 Engineering St, City, State 12345
-- Hours: Mon-Sat 9AM-6PM
+Contact: info@civilpro.com, +1 (555) 123-4567
+Hours: Mon-Sat 9AM-6PM
 
-Company Stats:
-- 10+ Years Experience
-- 500+ Projects Completed
-- 200+ Happy Clients
-- 4.9/5 Rating
+Company: 10+ Years, 500+ Projects, 200+ Clients, 4.9/5 Rating
 
-Be professional, helpful, and concise. Answer questions about services, pricing, timelines, and company info. If user asks something unrelated, politely redirect to civil engineering topics.`;
+Be professional, helpful, and concise. Answer questions about services, pricing, timelines, and company info.`;
 
-    const messages = [
-      { role: 'system', content: systemPrompt },
-    ];
-
-    // Add conversation history (last 10 messages)
+    // Build conversation history
+    let conversationContext = systemPrompt + '\n\n';
+    
     if (history && history.length > 0) {
       const recentHistory = history.slice(-10);
       recentHistory.forEach(msg => {
-        messages.push({
-          role: msg.type === 'user' ? 'user' : 'assistant',
-          content: msg.text,
-        });
+        if (msg.type === 'user') {
+          conversationContext += `User: ${msg.text}\n`;
+        } else {
+          conversationContext += `Assistant: ${msg.text}\n`;
+        }
       });
     }
+    
+    conversationContext += `User: ${message}\nAssistant:`;
 
-    // Add current message
-    messages.push({ role: 'user', content: message });
+    // Gemini API call
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [
+                {
+                  text: conversationContext,
+                },
+              ],
+            },
+          ],
+          generationConfig: {
+            temperature: 0.7,
+            maxOutputTokens: 500,
+            topK: 40,
+            topP: 0.8,
+          },
+        }),
+      }
+    );
 
-    console.log('Calling OpenAI API...');
-    console.log('Messages count:', messages.length);
-
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model: 'gpt-3.5-turbo',
-        messages: messages,
-        max_tokens: 300,
-        temperature: 0.7,
-      }),
-    });
-
-    console.log('OpenAI Response Status:', response.status);
+    console.log('Gemini Response Status:', response.status);
 
     if (!response.ok) {
       const errorData = await response.json();
-      console.error('OpenAI Error:', errorData);
+      console.error('Gemini Error:', errorData);
       return res.status(500).json({ 
-        reply: errorData.error?.message || 'OpenAI API error',
+        reply: errorData.error?.message || 'Gemini API error',
         usedAI: false,
       });
     }
 
     const data = await response.json();
-    const botReply = data.choices[0].message.content;
-    
-    console.log('OpenAI Response:', botReply.substring(0, 50) + '...');
-    console.log('Tokens used:', data.usage?.total_tokens);
+    const botReply = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response generated';
+
+    console.log('Gemini Response:', botReply.substring(0, 100) + '...');
 
     res.status(200).json({ 
       reply: botReply,
       usedAI: true,
-      tokens: data.usage?.total_tokens,
     });
   } catch (error) {
-    console.error('Chatbot API Error:', error);
+    console.error('Gemini API Error:', error);
     res.status(500).json({ 
       reply: error.message || 'API error',
       usedAI: false,

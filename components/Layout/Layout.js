@@ -3,6 +3,7 @@ import Footer from './Footer';
 import ErrorBoundary from '../ErrorBoundary';
 import ScrollToTop from '../ScrollToTop';
 import WhatsAppButton from '../WhatsAppButton';
+import Chatbot from '../Chatbot';
 
 export default function Layout({ children }) {
   return (
@@ -13,6 +14,7 @@ export default function Layout({ children }) {
         <Footer />
         <ScrollToTop />
         <WhatsAppButton />
+        <Chatbot />
       </div>
     </ErrorBoundary>
   );

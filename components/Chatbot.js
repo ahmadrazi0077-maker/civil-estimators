@@ -5,13 +5,13 @@ export default function Chatbot() {
   const [messages, setMessages] = useState([
     {
       type: 'bot',
-      text: '👋 Hello! Welcome to CivilPro Services. How can I help you today?',
+      text: '👋 Hello! Welcome to CivilPro Services. I\'m your AI assistant. How can I help you today?',
       time: new Date().toLocaleTimeString(),
     },
   ]);
   const [inputMessage, setInputMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
-  const [unreadCount, setUnreadCount] = useState(0);
+  const [isOnline, setIsOnline] = useState(true);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -19,134 +19,103 @@ export default function Chatbot() {
     scrollToBottom();
   }, [messages]);
 
-  useEffect(() => {
-    if (isOpen && unreadCount > 0) {
-      setUnreadCount(0);
-    }
-  }, [isOpen]);
-
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const getBotResponse = (userInput) => {
-    const input = userInput.toLowerCase();
-    
-    // Services related
-    if (input.includes('service') || input.includes('what do you')) {
-      return `We offer the following services:\n\n🏗️ Steel Detailing\n🔩 Rebar Detailing\n📏 Quantity Takeoff\n💰 Cost Estimation\n📋 BOQ Preparation\n📐 Shop Drawings\n\nWhich service are you interested in?`;
+  const getAIResponse = async (userMessage, history) => {
+    try {
+      const response = await fetch('/api/chatbot', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: userMessage,
+          history: history,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to get response');
+      }
+
+      const data = await response.json();
+      return data.reply;
+    } catch (error) {
+      console.error('AI response error:', error);
+      return getFallbackResponse(userMessage);
     }
-    
-    if (input.includes('steel') || input.includes('detailing')) {
-      return `Our Steel Detailing services include:\n\n✅ Structural steel shop drawings\n✅ Connection design and detailing\n✅ Anchor bolt plans\n✅ Material lists and BOM\n✅ Erection drawings\n\nStarting from $500. Would you like a free quote?`;
-    }
-    
-    if (input.includes('rebar')) {
-      return `Our Rebar Detailing services include:\n\n✅ Bar bending schedules\n✅ Rebar placement drawings\n✅ Reinforcement details\n✅ Quantity calculations\n\nStarting from $400. Need more details?`;
-    }
-    
-    if (input.includes('quantity') || input.includes('takeoff')) {
-      return `Our Quantity Takeoff services include:\n\n✅ Material quantity calculations\n✅ Area and volume calculations\n✅ Component counting\n✅ Digital takeoff reports\n\nStarting from $300. Want to get started?`;
-    }
-    
-    if (input.includes('cost') || input.includes('estimat') || input.includes('price') || input.includes('quote')) {
-      return `For accurate cost estimation, please provide:\n\n📐 Project drawings\n📏 Project size/area\n🏗️ Type of structure\n⏰ Timeline\n\nYou can use our Instant Quote Calculator or contact us for a detailed estimate.`;
-    }
-    
-    if (input.includes('boq')) {
-      return `Our BOQ Preparation services include:\n\n✅ Tender BOQ preparation\n✅ Item descriptions\n✅ Unit rate analysis\n✅ Contract documentation\n\nStarting from $450. Would you like a sample?`;
-    }
-    
-    if (input.includes('shop') || input.includes('drawing')) {
-      return `Our Shop Drawing services include:\n\n✅ Fabrication drawings\n✅ Installation drawings\n✅ As-built drawings\n✅ Assembly details\n\nStarting from $550. Want to know more?`;
-    }
-    
-    // Contact related
-    if (input.includes('contact') || input.includes('phone') || input.includes('email') || input.includes('whatsapp')) {
-      return `You can reach us through:\n\n📧 Email: info@civilpro.com\n📞 Phone: +1 (555) 123-4567\n💬 WhatsApp: +1 (555) 123-4567\n\nOr use our Contact Us page!`;
-    }
-    
-    if (input.includes('address') || input.includes('location') || input.includes('where')) {
-      return `Our office is located at:\n\n📍 123 Engineering St, City, State 12345\n\nWorking Hours:\nMon-Sat: 9:00 AM - 6:00 PM\nSunday: Closed`;
-    }
-    
-    // Pricing related
-    if (input.includes('price') || input.includes('cost') || input.includes('fee') || input.includes('charge')) {
-      return `Our pricing:\n\n🏗️ Steel Detailing - from $500\n🔩 Rebar Detailing - from $400\n📏 Quantity Takeoff - from $300\n💰 Cost Estimation - from $600\n📋 BOQ Preparation - from $450\n📐 Shop Drawings - from $550\n\nPrices vary based on project complexity. Get a free quote!`;
-    }
-    
-    // Time related
-    if (input.includes('time') || input.includes('delivery') || input.includes('deadline') || input.includes('how long')) {
-      return `Typical delivery times:\n\n⚡ Quantity Takeoff: 1-3 days\n⚡ Rebar Detailing: 2-4 days\n⚡ Steel Detailing: 3-5 days\n⚡ BOQ Preparation: 3-6 days\n⚡ Shop Drawings: 4-6 days\n⚡ Cost Estimation: 4-7 days\n\nRush services available!`;
-    }
-    
-    // Greetings
-    if (input.includes('hi') || input.includes('hello') || input.includes('hey')) {
-      return `Hello! 😊 How can I help you today? You can ask me about our services, pricing, or delivery times.`;
-    }
-    
-    if (input.includes('thank')) {
-      return `You're welcome! 😊 Is there anything else I can help you with?`;
-    }
-    
-    if (input.includes('bye')) {
-      return `Goodbye! 👋 Feel free to come back if you have more questions. Have a great day!`;
-    }
-    
-    // Reviews/Quality
-    if (input.includes('review') || input.includes('quality') || input.includes('experience')) {
-      return `We have a 4.9/5 rating from 200+ happy clients! ⭐⭐⭐⭐⭐\n\nCheck out our Reviews page to see what our clients say about us.`;
-    }
-    
-    if (input.includes('project') || input.includes('work') || input.includes('portfolio')) {
-      return `We've completed 500+ projects worldwide! 🌍\n\nCheck our Portfolio section to see recent projects and case studies.`;
-    }
-    
-    // Default response
-    return `I can help you with:\n\n✅ Our services\n✅ Pricing information\n✅ Delivery times\n✅ Contact details\n✅ Project information\n\nCould you please rephrase your question? Or contact us directly for immediate assistance.`;
   };
 
-  const handleSendMessage = (e) => {
+  const getFallbackResponse = (userInput) => {
+    const input = userInput.toLowerCase();
+    
+    if (input.includes('service')) {
+      return `We offer:\n\n🏗️ Steel Detailing (from $500)\n🔩 Rebar Detailing (from $400)\n📏 Quantity Takeoff (from $300)\n💰 Cost Estimation (from $600)\n📋 BOQ Preparation (from $450)\n📐 Shop Drawings (from $550)\n\nWhich service interests you?`;
+    }
+    
+    if (input.includes('price') || input.includes('cost')) {
+      return `Our pricing starts from $300 for Quantity Takeoff up to $600 for Cost Estimation. For a detailed quote, please share your project details or use our Quote Calculator.`;
+    }
+    
+    if (input.includes('contact') || input.includes('email') || input.includes('phone')) {
+      return `Contact us:\n\n📧 info@civilpro.com\n📞 +1 (555) 123-4567\n💬 WhatsApp: +1 (555) 123-4567`;
+    }
+    
+    if (input.includes('time') || input.includes('delivery')) {
+      return `Delivery times:\n\n⚡ Quantity Takeoff: 1-3 days\n⚡ Rebar Detailing: 2-4 days\n⚡ Steel Detailing: 3-5 days\n⚡ Shop Drawings: 4-6 days`;
+    }
+    
+    return `I can help you with our services, pricing, delivery times, and contact information. What would you like to know?`;
+  };
+
+  const handleSendMessage = async (e) => {
     e.preventDefault();
     if (!inputMessage.trim()) return;
 
-    // Add user message
     const userMessage = {
       type: 'user',
       text: inputMessage,
       time: new Date().toLocaleTimeString(),
     };
-    setMessages(prev => [...prev, userMessage]);
+    
+    const updatedMessages = [...messages, userMessage];
+    setMessages(updatedMessages);
     setInputMessage('');
     setIsTyping(true);
 
-    // Bot typing response
-    setTimeout(() => {
-      const botResponse = getBotResponse(inputMessage);
-      setMessages(prev => [...prev, {
-        type: 'bot',
-        text: botResponse,
-        time: new Date().toLocaleTimeString(),
-      }]);
-      setIsTyping(false);
-    }, 1000 + Math.random() * 1000);
+    const history = updatedMessages
+      .filter(msg => msg.type === 'user' || msg.type === 'bot')
+      .slice(-10) // Last 10 messages for context
+      .map(msg => ({
+        type: msg.type,
+        text: msg.text,
+      }));
+
+    const botResponse = await getAIResponse(inputMessage, history);
+
+    setMessages(prev => [...prev, {
+      type: 'bot',
+      text: botResponse,
+      time: new Date().toLocaleTimeString(),
+    }]);
+    setIsTyping(false);
   };
 
   const quickQuestions = [
     'What services do you offer?',
-    'How much does it cost?',
-    'What is delivery time?',
+    'How much does steel detailing cost?',
+    'What is the delivery time?',
     'How can I contact you?',
+    'Do you provide free quotes?',
   ];
 
   return (
     <>
       {/* Chatbot Toggle Button */}
       <button
-        onClick={() => {
-          setIsOpen(!isOpen);
-          if (!isOpen) setUnreadCount(0);
-        }}
+        onClick={() => setIsOpen(!isOpen)}
         className="fixed bottom-24 left-8 z-50 bg-gradient-to-br from-blue-600 to-blue-800 text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-all duration-300"
       >
         {isOpen ? (
@@ -154,16 +123,9 @@ export default function Chatbot() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         ) : (
-          <>
-            <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-            </svg>
-            {unreadCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                {unreadCount}
-              </span>
-            )}
-          </>
+          <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+          </svg>
         )}
       </button>
 
@@ -177,10 +139,10 @@ export default function Chatbot() {
                 🤖
               </div>
               <div className="flex-1">
-                <h3 className="font-semibold">CivilPro Assistant</h3>
+                <h3 className="font-semibold">CivilPro AI Assistant</h3>
                 <p className="text-xs text-blue-100 flex items-center">
                   <span className="w-2 h-2 bg-green-400 rounded-full mr-1"></span>
-                  Online - Typically replies instantly
+                  {isOnline ? 'Online - AI Powered' : 'Connecting...'}
                 </p>
               </div>
               <button
@@ -248,7 +210,8 @@ export default function Chatbot() {
                     key={index}
                     onClick={() => {
                       setInputMessage(question);
-                      handleSendMessage({ preventDefault: () => {} });
+                      const event = { preventDefault: () => {} };
+                      handleSendMessage(event);
                     }}
                     className="text-xs bg-blue-50 text-blue-600 px-3 py-1 rounded-full hover:bg-blue-100 transition-colors"
                   >
@@ -267,7 +230,7 @@ export default function Chatbot() {
                 type="text"
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
-                placeholder="Type your message..."
+                placeholder="Ask me anything..."
                 className="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
               />
               <button

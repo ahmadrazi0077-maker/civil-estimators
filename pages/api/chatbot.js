@@ -4,39 +4,77 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { message } = req.body;
-    
-    console.log('=== Chatbot Debug ===');
-    console.log('Message:', message);
-    console.log('API Key exists:', !!process.env.OPENAI_API_KEY);
-    console.log('API Key length:', process.env.OPENAI_API_KEY?.length);
-    console.log('API Key prefix:', process.env.OPENAI_API_KEY?.substring(0, 10));
+    const { message, history = [] } = req.body;
+    const apiKey = process.env.OPENAI_API_KEY;
 
-    if (!process.env.OPENAI_API_KEY) {
+    console.log('=== Chatbot Request ===');
+    console.log('Message:', message);
+    console.log('API Key exists:', !!apiKey);
+    console.log('API Key prefix:', apiKey ? apiKey.substring(0, 15) + '...' : 'none');
+
+    if (!apiKey) {
+      console.log('No API key found');
       return res.status(500).json({ 
-        reply: 'API key not configured. Please check environment variables.' 
+        reply: 'API key not configured',
+        usedAI: false,
       });
     }
 
-    // Test OpenAI API with simple fetch
+    const systemPrompt = `You are CivilPro Assistant, an AI chatbot for CivilPro Services, a professional civil engineering company.
+
+Services and Pricing:
+- Steel Detailing: from $500 (3-5 days)
+- Rebar Detailing: from $400 (2-4 days)
+- Quantity Takeoff: from $300 (1-3 days)
+- Cost Estimation: from $600 (4-7 days)
+- BOQ Preparation: from $450 (3-6 days)
+- Shop Drawings: from $550 (4-6 days)
+
+Contact:
+- Email: info@civilpro.com
+- Phone: +1 (555) 123-4567
+- WhatsApp: +1 (555) 123-4567
+- Address: 123 Engineering St, City, State 12345
+- Hours: Mon-Sat 9AM-6PM
+
+Company Stats:
+- 10+ Years Experience
+- 500+ Projects Completed
+- 200+ Happy Clients
+- 4.9/5 Rating
+
+Be professional, helpful, and concise. Answer questions about services, pricing, timelines, and company info. If user asks something unrelated, politely redirect to civil engineering topics.`;
+
+    const messages = [
+      { role: 'system', content: systemPrompt },
+    ];
+
+    // Add conversation history (last 10 messages)
+    if (history && history.length > 0) {
+      const recentHistory = history.slice(-10);
+      recentHistory.forEach(msg => {
+        messages.push({
+          role: msg.type === 'user' ? 'user' : 'assistant',
+          content: msg.text,
+        });
+      });
+    }
+
+    // Add current message
+    messages.push({ role: 'user', content: message });
+
+    console.log('Calling OpenAI API...');
+    console.log('Messages count:', messages.length);
+
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+        'Authorization': `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
         model: 'gpt-3.5-turbo',
-        messages: [
-          {
-            role: 'system',
-            content: 'You are a helpful assistant for CivilPro Services, a civil engineering company.',
-          },
-          {
-            role: 'user',
-            content: message,
-          },
-        ],
+        messages: messages,
         max_tokens: 300,
         temperature: 0.7,
       }),
@@ -46,21 +84,29 @@ export default async function handler(req, res) {
 
     if (!response.ok) {
       const errorData = await response.json();
-      console.error('OpenAI Error Details:', errorData);
-      
-      return res.status(500).json({
-        reply: `OpenAI Error: ${errorData.error?.message || 'Unknown error'}`
+      console.error('OpenAI Error:', errorData);
+      return res.status(500).json({ 
+        reply: errorData.error?.message || 'OpenAI API error',
+        usedAI: false,
       });
     }
 
     const data = await response.json();
-    console.log('OpenAI Response:', data.choices[0].message.content);
+    const botReply = data.choices[0].message.content;
+    
+    console.log('OpenAI Response:', botReply.substring(0, 50) + '...');
+    console.log('Tokens used:', data.usage?.total_tokens);
 
-    res.status(200).json({ reply: data.choices[0].message.content });
+    res.status(200).json({ 
+      reply: botReply,
+      usedAI: true,
+      tokens: data.usage?.total_tokens,
+    });
   } catch (error) {
-    console.error('Chatbot Error:', error);
+    console.error('Chatbot API Error:', error);
     res.status(500).json({ 
-      reply: `Error: ${error.message}` 
+      reply: error.message || 'API error',
+      usedAI: false,
     });
   }
 }

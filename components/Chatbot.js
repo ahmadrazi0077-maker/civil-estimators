@@ -5,7 +5,7 @@ export default function Chatbot() {
   const [messages, setMessages] = useState([
     {
       type: 'bot',
-      text: '👋 Hello! Welcome to CivilPro Services. I\'m your AI assistant. How can I help you today?',
+      text: '👋 Hello! Welcome to CivilPro Services. How can I help you today?',
       time: new Date().toLocaleTimeString(),
       usedAI: false,
     },
@@ -21,37 +21,6 @@ export default function Chatbot() {
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  // Fallback responses
-  const getFallbackResponse = (userInput) => {
-    const input = userInput.toLowerCase();
-    
-    if (input.includes('boq')) {
-      return `📋 BOQ Preparation:\n\n✅ Tender BOQ preparation\n✅ Item descriptions\n✅ Unit rate analysis\n✅ Quantity verification\n✅ Contract documentation\n\n💲 From $450\n⏰ 3-6 business days`;
-    }
-    
-    if (input.includes('steel')) {
-      return `🏗️ Steel Detailing:\n\n✅ Structural steel shop drawings\n✅ Connection design\n✅ Anchor bolt plans\n✅ Material lists\n✅ Erection drawings\n\n💲 From $500\n⏰ 3-5 business days`;
-    }
-    
-    if (input.includes('rebar')) {
-      return `🔩 Rebar Detailing:\n\n✅ Bar bending schedules\n✅ Placement drawings\n✅ Reinforcement details\n\n💲 From $400\n⏰ 2-4 business days`;
-    }
-    
-    if (input.includes('service')) {
-      return `Our Services:\n\n1️⃣ Steel Detailing - $500\n2️⃣ Rebar Detailing - $400\n3️⃣ Quantity Takeoff - $300\n4️⃣ Cost Estimation - $600\n5️⃣ BOQ Preparation - $450\n6️⃣ Shop Drawings - $550`;
-    }
-    
-    if (input.includes('contact')) {
-      return `📞 Contact:\n\n📧 info@civilpro.com\n📞 +1 (555) 123-4567\n💬 WhatsApp: +1 (555) 123-4567`;
-    }
-    
-    if (input.includes('hi') || input.includes('hello')) {
-      return `Hello! 😊 Ask me about our services, pricing, or delivery times!`;
-    }
-    
-    return `I can help with:\n✅ Services\n✅ Pricing\n✅ Delivery times\n✅ Contact info`;
   };
 
   const handleSendMessage = async (e) => {
@@ -71,14 +40,16 @@ export default function Chatbot() {
     setIsTyping(true);
 
     try {
+      // Build history
       const history = currentMessages
         .filter(msg => msg.type === 'user' || msg.type === 'bot')
-        .slice(-10)
+        .slice(-8)
         .map(msg => ({
           type: msg.type,
           text: msg.text,
         }));
 
+      // Call API
       const response = await fetch('/api/chatbot', {
         method: 'POST',
         headers: {
@@ -90,40 +61,19 @@ export default function Chatbot() {
         }),
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        
-        if (data.usedAI) {
-          setMessages(prev => [...prev, {
-            type: 'bot',
-            text: data.reply,
-            time: new Date().toLocaleTimeString(),
-            usedAI: true,
-          }]);
-        } else {
-          const fallbackReply = getFallbackResponse(userInput);
-          setMessages(prev => [...prev, {
-            type: 'bot',
-            text: fallbackReply,
-            time: new Date().toLocaleTimeString(),
-            usedAI: false,
-          }]);
-        }
-      } else {
-        const fallbackReply = getFallbackResponse(userInput);
-        setMessages(prev => [...prev, {
-          type: 'bot',
-          text: fallbackReply,
-          time: new Date().toLocaleTimeString(),
-          usedAI: false,
-        }]);
-      }
-    } catch (error) {
-      console.error('Chatbot error:', error);
-      const fallbackReply = getFallbackResponse(userInput);
+      const data = await response.json();
+
       setMessages(prev => [...prev, {
         type: 'bot',
-        text: fallbackReply,
+        text: data.reply,
+        time: new Date().toLocaleTimeString(),
+        usedAI: data.usedAI,
+      }]);
+    } catch (error) {
+      console.error('Error:', error);
+      setMessages(prev => [...prev, {
+        type: 'bot',
+        text: 'Sorry, I encountered an error. Please try again.',
         time: new Date().toLocaleTimeString(),
         usedAI: false,
       }]);
@@ -136,7 +86,6 @@ export default function Chatbot() {
     'What services do you offer?',
     'How much does steel detailing cost?',
     'What is the delivery time?',
-    'How can I contact you?',
   ];
 
   return (
@@ -160,9 +109,7 @@ export default function Chatbot() {
         <div className="fixed bottom-24 left-8 z-50 w-96 max-w-[calc(100vw-4rem)] bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
           <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-4">
             <div className="flex items-center">
-              <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-2xl mr-3">
-                🤖
-              </div>
+              <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-2xl mr-3">🤖</div>
               <div className="flex-1">
                 <h3 className="font-semibold">CivilPro Assistant</h3>
                 <p className="text-xs text-blue-100 flex items-center">
@@ -182,18 +129,14 @@ export default function Chatbot() {
             {messages.map((message, index) => (
               <div key={index} className={`mb-4 flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
                 {message.type === 'bot' && (
-                  <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm mr-2 flex-shrink-0">
-                    🤖
-                  </div>
+                  <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm mr-2 flex-shrink-0">🤖</div>
                 )}
                 <div className={`max-w-[75%] p-3 rounded-2xl ${
                   message.type === 'user' ? 'bg-blue-600 text-white rounded-br-none' : 'bg-white text-gray-800 rounded-bl-none shadow-sm'
                 }`}>
                   <p className="text-sm whitespace-pre-line">{message.text}</p>
                   <div className="flex items-center justify-between mt-1">
-                    <p className={`text-xs ${message.type === 'user' ? 'text-blue-200' : 'text-gray-400'}`}>
-                      {message.time}
-                    </p>
+                    <p className={`text-xs ${message.type === 'user' ? 'text-blue-200' : 'text-gray-400'}`}>{message.time}</p>
                     {message.usedAI && <span className="text-xs text-green-500">AI ✨</span>}
                   </div>
                 </div>
@@ -205,7 +148,7 @@ export default function Chatbot() {
                 <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm mr-2">🤖</div>
                 <div className="bg-white p-3 rounded-2xl shadow-sm">
                   <div className="flex space-x-1">
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
+                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
                     <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                     <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
                   </div>
@@ -242,7 +185,7 @@ export default function Chatbot() {
                 type="text"
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
-                placeholder="Type your message..."
+                placeholder="Ask me anything..."
                 className="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-blue-500 outline-none"
               />
               <button type="submit" className="bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700">

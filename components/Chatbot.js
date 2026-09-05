@@ -118,47 +118,6 @@ function getLocalResponse(input) {
   return `I can help with services, pricing, and contact info.`;
 }
     
-    const currentMessages = [...messages, userMessage];
-    setMessages(currentMessages);
-    const userInput = inputMessage;
-    setInputMessage('');
-    setIsTyping(true);
-    setShowEmojiPicker(false);
-
-    try {
-      const history = currentMessages
-        .filter(msg => msg.type === 'user' || msg.type === 'bot')
-        .slice(-8)
-        .map(msg => ({ type: msg.type, text: msg.text }));
-
-      const response = await fetch('/api/chatbot', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userInput, history }),
-      });
-
-      const data = await response.json();
-
-      setTimeout(() => {
-        setMessages(prev => [...prev, {
-          type: 'bot',
-          text: data.reply,
-          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-          usedAI: data.usedAI,
-        }]);
-        setIsTyping(false);
-      }, 600);
-    } catch (error) {
-      setMessages(prev => [...prev, {
-        type: 'bot',
-        text: 'I apologize, but I\'m experiencing technical difficulties. Please try again or contact us at info@civilpro.com',
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        usedAI: false,
-      }]);
-      setIsTyping(false);
-    }
-  };
-
   const handleQuickReply = (query) => {
     setInputMessage(query);
     const event = { preventDefault: () => {} };

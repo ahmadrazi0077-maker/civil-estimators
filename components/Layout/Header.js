@@ -9,36 +9,46 @@ export default function Header() {
   const router = useRouter();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu on route change
   useEffect(() => {
     setIsOpen(false);
     setActiveDropdown(null);
   }, [router.pathname]);
 
- const navigation = [
-  { name: 'Home', href: '/' },
-  { name: 'Services', href: '/services' },
-  { name: 'Blog', href: '/blog' },
-  { name: 'Reviews', href: '/reviews' },
-  { 
-    name: 'Viewers', 
-    href: '/viewers',
-    dropdown: [
-      { name: 'PDF Viewer', href: '/viewers/pdf-viewer' },
-      { name: 'DWG Viewer', href: '/viewers/dwg-viewer' },
-      { name: 'IFC Viewer', href: '/viewers/ifc-viewer' },
-    ]
-  },
-  { name: 'About', href: '/about' },
-  { name: 'Contact', href: '/contact' },
-];
+  const navigation = [
+    { name: 'Home', href: '/' },
+    { 
+      name: 'Services', 
+      href: '/services',
+      dropdown: [
+        { name: 'Steel Detailing', href: '/services/steel-detailing' },
+        { name: 'Rebar Detailing', href: '/services/rebar-detailing' },
+        { name: 'Quantity Takeoff', href: '/services/quantity-takeoff' },
+        { name: 'Cost Estimation', href: '/services/cost-estimation' },
+        { name: 'BOQ Preparation', href: '/services/boq-preparation' },
+        { name: 'Shop Drawings', href: '/services/shop-drawings' },
+      ]
+    },
+    { name: 'Projects', href: '/projects' },
+    { 
+      name: 'Tools', 
+      href: '/tools',
+      dropdown: [
+        { name: 'Steel Weight Calculator', href: '/tools/steel-weight' },
+        { name: 'Concrete Calculator', href: '/tools/concrete' },
+        { name: 'Rebar Calculator', href: '/tools/rebar' },
+        { name: 'PDF Viewer', href: '/viewers/pdf-viewer' },
+        { name: 'DWG Viewer', href: '/viewers/dwg-viewer' },
+        { name: 'IFC Viewer', href: '/viewers/ifc-viewer' },
+      ]
+    },
+    { name: 'About', href: '/about' },
+    { name: 'Contact', href: '/contact' },
+  ];
 
   return (
     <>
@@ -62,23 +72,6 @@ export default function Header() {
             </div>
             <div className="flex items-center space-x-4">
               <span>Mon - Sat: 9:00 AM - 6:00 PM</span>
-              <div className="flex space-x-3">
-                <a href="#" className="hover:text-blue-300 transition-colors">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                  </svg>
-                </a>
-                <a href="#" className="hover:text-blue-300 transition-colors">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                  </svg>
-                </a>
-                <a href="#" className="hover:text-blue-300 transition-colors">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                  </svg>
-                </a>
-              </div>
             </div>
           </div>
         </div>
@@ -86,31 +79,24 @@ export default function Header() {
 
       {/* Main Header */}
       <header className={`sticky top-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-white/95 backdrop-blur-md shadow-lg shadow-blue-900/5' 
-          : 'bg-white'
+        isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-white'
       }`}>
         <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
-            <div className="flex-shrink-0">
-              <Link href="/" className="flex items-center group">
-                <div className="relative">
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-600/30 group-hover:scale-110 transition-transform duration-300">
-                    AH
-                  </div>
-                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full border-2 border-white"></div>
-                </div>
-                <div className="ml-3">
-                  <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-                    CivilPro
-                  </span>
-                  <span className="block text-xs text-gray-500 font-medium tracking-wider">
-                    Engineering Services
-                  </span>
-                </div>
-              </Link>
-            </div>
+            <Link href="/" className="flex items-center group">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:scale-110 transition-transform">
+                C
+              </div>
+              <div className="ml-3">
+                <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+                  CivilPro
+                </span>
+                <span className="block text-xs text-gray-500 font-medium tracking-wider">
+                  Engineering Services
+                </span>
+              </div>
+            </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-1">
@@ -123,7 +109,7 @@ export default function Header() {
                 >
                   <Link
                     href={item.href}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center ${
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center ${
                       router.pathname === item.href
                         ? 'text-blue-600 bg-blue-50'
                         : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'
@@ -137,7 +123,6 @@ export default function Header() {
                     )}
                   </Link>
 
-                  {/* Dropdown */}
                   {item.dropdown && activeDropdown === item.name && (
                     <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-2xl border border-gray-100 py-2 animate-fadeIn">
                       {item.dropdown.map((subItem) => (
@@ -155,19 +140,16 @@ export default function Header() {
               ))}
             </div>
 
-            {/* Right Actions */}
+            {/* CTA + Admin */}
             <div className="hidden lg:flex items-center space-x-3">
               <Link
-                href="/contact"
-                className="relative group"
+                href="/quote"
+                className="relative group px-6 py-2.5 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-lg font-semibold text-sm hover:from-blue-700 hover:to-blue-900 transition-all shadow-lg shadow-blue-600/30"
               >
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-blue-800 rounded-lg blur opacity-60 group-hover:opacity-100 transition duration-200"></div>
-                <button className="relative px-6 py-2.5 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-lg font-semibold text-sm hover:from-blue-700 hover:to-blue-900 transition-all duration-200 flex items-center">
-                  Get a Quote
-                  <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
-                </button>
+                Get a Quote
+                <svg className="w-4 h-4 ml-2 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
               </Link>
               
               <Link
@@ -182,33 +164,30 @@ export default function Header() {
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="lg:hidden">
-              <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="p-2 rounded-lg text-gray-600 hover:bg-gray-100 focus:outline-none"
-                aria-label="Toggle menu"
-              >
-                <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  {isOpen ? (
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  ) : (
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                  )}
-                </svg>
-              </button>
-            </div>
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="lg:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100"
+            >
+              <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                {isOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
           </div>
 
           {/* Mobile Navigation */}
           <div className={`lg:hidden transition-all duration-300 overflow-hidden ${
-            isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
+            isOpen ? 'max-h-screen opacity-100 pb-4' : 'max-h-0 opacity-0'
           }`}>
-            <div className="py-4 space-y-2 border-t border-gray-100">
+            <div className="space-y-1 border-t border-gray-100 pt-4">
               {navigation.map((item) => (
                 <div key={item.name}>
                   <Link
                     href={item.href}
-                    className={`block px-4 py-3 rounded-lg text-base font-medium transition-colors ${
+                    className={`block px-4 py-3 rounded-lg text-base font-medium ${
                       router.pathname === item.href
                         ? 'bg-blue-50 text-blue-600'
                         : 'text-gray-700 hover:bg-gray-50'
@@ -217,12 +196,12 @@ export default function Header() {
                     {item.name}
                   </Link>
                   {item.dropdown && (
-                    <div className="ml-4 mt-1 space-y-1 border-l-2 border-blue-100 pl-4">
+                    <div className="ml-4 space-y-1 border-l-2 border-blue-100 pl-4 mt-1">
                       {item.dropdown.map((subItem) => (
                         <Link
                           key={subItem.name}
                           href={subItem.href}
-                          className="block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                          className="block px-3 py-2 text-sm text-gray-600 hover:text-blue-600"
                         >
                           {subItem.name}
                         </Link>
@@ -234,14 +213,14 @@ export default function Header() {
               
               <div className="pt-4 space-y-3">
                 <Link
-                  href="/contact"
-                  className="block text-center bg-gradient-to-r from-blue-600 to-blue-800 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-blue-900 transition-all"
+                  href="/quote"
+                  className="block text-center bg-gradient-to-r from-blue-600 to-blue-800 text-white py-3 rounded-lg font-semibold"
                 >
                   Get a Free Quote
                 </Link>
                 <Link
                   href="/admin/login"
-                  className="block text-center border-2 border-gray-200 text-gray-700 py-3 rounded-lg font-semibold hover:border-blue-600 hover:text-blue-600 transition-all"
+                  className="block text-center border-2 border-gray-200 text-gray-700 py-3 rounded-lg font-semibold"
                 >
                   Admin Login
                 </Link>

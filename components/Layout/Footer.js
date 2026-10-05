@@ -302,29 +302,34 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-gray-800">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-gray-500 text-sm">
-              &copy; {new Date().getFullYear()} CivilPro Services. All rights reserved.
-            </p>
-            
-            <div className="flex items-center space-x-4">
-              <Link href="/privacy-policy" className="text-gray-500 hover:text-blue-400 text-sm transition-colors">
-                Privacy Policy
-              </Link>
-              <span className="text-gray-700">|</span>
-              <Link href="/terms-of-service" className="text-gray-500 hover:text-blue-400 text-sm transition-colors">
-                Terms of Service
-              </Link>
-              <span className="text-gray-700">|</span>
-              <Link href="/sitemap" className="text-gray-500 hover:text-blue-400 text-sm transition-colors">
-                Sitemap
-              </Link>
-            </div>
-          </div>
-        </div>
+      {/* Bottom Bar */}
+<div className="border-t border-gray-800">
+  <div className="container mx-auto px-4 py-6">
+    <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+      <p className="text-gray-500 text-sm">
+        &copy; {new Date().getFullYear()} CivilPro Services. All rights reserved.
+      </p>
+      
+      <div className="flex flex-wrap items-center justify-center gap-3 text-sm">
+        <Link href="/privacy-policy" className="text-gray-500 hover:text-blue-400">Privacy Policy</Link>
+        <span className="text-gray-700">|</span>
+        <Link href="/terms-of-service" className="text-gray-500 hover:text-blue-400">Terms of Service</Link>
+        <span className="text-gray-700">|</span>
+        <Link href="/refund-policy" className="text-gray-500 hover:text-blue-400">Refund Policy</Link>
+        <span className="text-gray-700">|</span>
+        <Link href="/complaints" className="text-gray-500 hover:text-blue-400">Complaints</Link>
+        <span className="text-gray-700">|</span>
+        <Link href="/sitemap" className="text-gray-500 hover:text-blue-400">Sitemap</Link>
       </div>
+    </div>
+    
+    <div className="mt-4 pt-4 border-t border-gray-800 text-center">
+      <p className="text-xs text-gray-500">
+        🔒 Secure Payments powered by <span className="text-blue-400 font-semibold">Safepay</span>
+      </p>
+    </div>
+  </div>
+</div>
     </footer>
   );
 }

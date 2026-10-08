@@ -54,7 +54,7 @@ export default function WhatsAppButton() {
 
       {/* Tooltip */}
       {showTooltip && isVisible && (
-        <div className={`fixed bottom-24 right-24 z-50 transition-all duration-300 ${
+        <div className={`fixed bottom-44 right-24 z-50 transition-all duration-300 ${
           showTooltip ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
         }`}>
           <div className="bg-white rounded-xl shadow-2xl p-4 max-w-xs">

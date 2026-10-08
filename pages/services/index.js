@@ -1,131 +1,103 @@
-import Link from 'next/link';
-import ServiceCard from '../ServiceCard';
+import { useState, useEffect } from 'react';
+import Layout from '../../components/Layout/Layout';
+import ServiceCard from '../../components/ServiceCard';
+import { servicesAPI } from '../../lib/api';
 
-export default function Services({ services = [], loading = false, error = null, onRetry }) {
-  // Loading State
-  if (loading) {
-    return (
-      <section className="py-20 bg-gradient-to-b from-white to-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <span className="inline-block bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">
-              Our Services
-            </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-              What We <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800">Offer</span>
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Comprehensive engineering solutions tailored to meet your project requirements
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className="bg-white rounded-2xl shadow-lg overflow-hidden animate-pulse">
-                <div className="h-52 bg-gray-200"></div>
-                <div className="p-6">
-                  <div className="h-6 bg-gray-200 rounded mb-2"></div>
-                  <div className="h-4 bg-gray-200 rounded mb-4"></div>
-                  <div className="h-4 bg-gray-200 rounded"></div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    );
-  }
+export default function ServicesPage() {
+  const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortBy, setSortBy] = useState('default');
 
-  // Error State
-  if (error) {
-    return (
-      <section className="py-20 bg-gradient-to-b from-white to-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center">
-            <div className="text-6xl mb-4">⚠️</div>
-            <h2 className="text-2xl font-bold mb-4">Unable to Load Services</h2>
-            <p className="text-gray-600 mb-6">{error}</p>
-            {onRetry && (
-              <button
-                onClick={onRetry}
-                className="bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors"
-              >
-                Try Again
-              </button>
-            )}
-          </div>
-        </div>
-      </section>
-    );
-  }
+  useEffect(() => {
+    fetchServices();
+  }, []);
 
-  // Empty State
-  if (!services || services.length === 0) {
-    return (
-      <section className="py-20 bg-gradient-to-b from-white to-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <span className="inline-block bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">
-              Our Services
-            </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-              What We <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800">Offer</span>
-            </h2>
-          </div>
-          <div className="text-center py-12">
-            <p className="text-gray-600 text-lg">Services will appear here soon.</p>
-          </div>
-        </div>
-      </section>
-    );
-  }
+  const fetchServices = async () => {
+    try {
+      setLoading(true);
+      const data = await servicesAPI.getAll();
+      setServices(Array.isArray(data) ? data : []);
+      setError(null);
+    } catch (err) {
+      console.error('Error fetching services:', err);
+      setError('Failed to load services. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  // Success State - Show Services
+  const filteredServices = services.filter(service =>
+    service.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    service.shortDescription?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const sortedServices = [...filteredServices].sort((a, b) => {
+    if (sortBy === 'title') return a.title.localeCompare(b.title);
+    if (sortBy === 'price') return (a.price || '').localeCompare(b.price || '');
+    return 0;
+  });
+
   return (
-    <section className="py-20 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
-      {/* Background Decoration */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-50 rounded-full -mr-48 -mt-48 opacity-50"></div>
-      <div className="absolute bottom-0 left-0 w-72 h-72 bg-blue-50 rounded-full -ml-36 -mb-36 opacity-50"></div>
-
-      <div className="container mx-auto px-4 relative">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <span className="inline-block bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">
-            Our Services
-          </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            What We <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800">Offer</span>
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Comprehensive engineering solutions tailored to meet your project requirements
+    <Layout>
+      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">Our Services</h1>
+          <p className="text-xl text-blue-100 max-w-3xl mx-auto">
+            Professional civil engineering services tailored to meet your project requirements
           </p>
         </div>
+      </div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <div
-              key={service._id || service.id || index}
-              className="animate-fadeIn"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <ServiceCard service={service} />
+      <div className="bg-gray-50 py-16">
+        <div className="container mx-auto px-4">
+          <div className="mb-12 flex flex-col md:flex-row gap-4 justify-between items-center">
+            <div className="w-full md:w-96">
+              <input
+                type="text"
+                placeholder="Search services..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+              />
             </div>
-          ))}
-        </div>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="px-4 py-2 border border-gray-300 rounded-lg"
+            >
+              <option value="default">Sort by: Default</option>
+              <option value="title">Sort by: Title</option>
+              <option value="price">Sort by: Price</option>
+            </select>
+          </div>
 
-        {/* View All Button */}
-        <div className="text-center mt-12">
-          <Link
-            href="/services"
-            className="inline-flex items-center px-8 py-4 bg-white border-2 border-blue-600 text-blue-600 font-semibold rounded-xl hover:bg-blue-600 hover:text-white transition-all duration-300 hover:shadow-xl hover:scale-105"
-          >
-            View All Services
-            <svg className="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </Link>
+          {loading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div key={i} className="bg-white rounded-lg shadow-md p-6 animate-pulse">
+                  <div className="h-48 bg-gray-200 rounded-lg mb-4"></div>
+                  <div className="h-6 bg-gray-200 rounded mb-2"></div>
+                  <div className="h-4 bg-gray-200 rounded"></div>
+                </div>
+              ))}
+            </div>
+          ) : error ? (
+            <div className="text-center py-8 text-red-600">{error}</div>
+          ) : sortedServices.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {sortedServices.map((service) => (
+                <ServiceCard key={service._id || service.id} service={service} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-gray-600 text-lg">No services found.</p>
+            </div>
+          )}
         </div>
       </div>
-    </section>
+    </Layout>
   );
 }

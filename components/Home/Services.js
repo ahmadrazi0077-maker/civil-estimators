@@ -1,111 +1,76 @@
-import { useState, useEffect, useRef } from 'react';
+import ServiceCard from '../ServiceCard';
 
-export default function Stats() {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef(null);
+export default function Services({ services = [], loading = false, error = null, onRetry }) {
+  console.log('🔍 Services component rendering with:', services?.length, 'services');
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
+  // Loading
+  if (loading) {
+    return (
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[1,2,3,4,5,6].map(i => (
+              <div key={i} className="bg-white rounded-2xl shadow-lg overflow-hidden animate-pulse">
+                <div className="h-52 bg-gray-200"></div>
+                <div className="p-6">
+                  <div className="h-6 bg-gray-200 rounded mb-2"></div>
+                  <div className="h-4 bg-gray-200 rounded"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     );
+  }
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+  // Error
+  if (error) {
+    return (
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-red-600 mb-4">{error}</p>
+          {onRetry && (
+            <button onClick={onRetry} className="bg-blue-600 text-white px-6 py-2 rounded-xl">
+              Retry
+            </button>
+          )}
+        </div>
+      </section>
+    );
+  }
 
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
-  }, []);
-
-  const stats = [
-    { value: 500, suffix: '+', label: 'Projects Completed', icon: '🎯' },
-    { value: 10, suffix: '+', label: 'Years Experience', icon: '⏰' },
-    { value: 200, suffix: '+', label: 'Happy Clients', icon: '😊' },
-    { value: 25, suffix: '+', label: 'Team Members', icon: '👥' },
-    { value: 98, suffix: '%', label: 'Success Rate', icon: '📈' },
-    { value: 50, suffix: '+', label: 'Countries Served', icon: '🌍' },
-  ];
-
+  // Always render grid (even if empty, show message)
   return (
-    <section ref={sectionRef} className="py-20 bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 relative overflow-hidden">
-      {/* Pattern Overlay */}
-      <div className="absolute inset-0 opacity-10" style={{
-        backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)',
-        backgroundSize: '30px 30px',
-      }}></div>
-
-      <div className="container mx-auto px-4 relative">
+    <section className="py-20 bg-gradient-to-b from-white to-gray-50">
+      <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">Achievements</span>
+          <span className="inline-block bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+            Our Services
+          </span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+            What We <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800">Offer</span>
           </h2>
-          <p className="text-blue-200 text-lg">
-            Numbers that speak for themselves
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            Comprehensive engineering solutions tailored to meet your project requirements
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-          {stats.map((stat, index) => (
-            <div
-              key={index}
-              className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 text-center hover:bg-white/10 transition-all duration-300 hover:scale-105 group"
-              style={{ transitionDelay: `${index * 50}ms` }}
-            >
-              <div className="text-3xl mb-3 group-hover:scale-125 transition-transform duration-300">
-                {stat.icon}
-              </div>
-              <div className="text-3xl md:text-4xl font-bold text-white mb-2">
-                {isVisible ? (
-                  <Counter target={stat.value} suffix={stat.suffix} />
-                ) : (
-                  '0'
-                )}
-              </div>
-              <div className="text-sm text-blue-200">
-                {stat.label}
-              </div>
-            </div>
-          ))}
-        </div>
+        {services && services.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {services.map((service, index) => (
+              <ServiceCard 
+                key={service._id || service.id || `service-${index}`} 
+                service={service} 
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-12">
+            <p className="text-gray-500">No services available.</p>
+          </div>
+        )}
       </div>
     </section>
-  );
-}
-
-// Counter Component
-function Counter({ target, suffix = '' }) {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    const duration = 2000;
-    const steps = 50;
-    const increment = target / steps;
-    let current = 0;
-
-    const timer = setInterval(() => {
-      current += increment;
-      if (current >= target) {
-        setCount(target);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(current));
-      }
-    }, duration / steps);
-
-    return () => clearInterval(timer);
-  }, [target]);
-
-  return (
-    <span>
-      {count}{suffix}
-    </span>
   );
 }

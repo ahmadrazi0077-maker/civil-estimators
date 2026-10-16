@@ -269,6 +269,16 @@ export default function AdminInquiries() {
                     <td className="px-6 py-4">{inquiry.email}</td>
                     <td className="px-6 py-4">{inquiry.service}</td>
                     <td className="px-6 py-4">
+  <div className="flex items-center gap-2">
+    <span>{inquiry.service}</span>
+    {inquiry.attachments && inquiry.attachments.length > 0 && (
+      <span className="bg-blue-100 text-blue-700 text-xs px-2 py-0.5 rounded-full">
+        📎 {inquiry.attachments.length}
+      </span>
+    )}
+  </div>
+</td>
+                    <td className="px-6 py-4">
                       <span className={`px-2 py-1 text-xs rounded-full ${getStatusColor(inquiry.status)}`}>
                         {inquiry.status}
                       </span>
@@ -315,99 +325,134 @@ export default function AdminInquiries() {
       </div>
 
       {/* Inquiry Detail Modal */}
-      {selectedInquiry && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6">
-              <div className="flex justify-between items-start mb-4">
-                <h3 className="text-xl font-semibold">Inquiry Details</h3>
-                <button
-                  onClick={() => setSelectedInquiry(null)}
-                  className="text-gray-500 hover:text-gray-700"
-                >
-                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
+      {/* Inquiry Detail Modal - Add this section */}
+{selectedInquiry && (
+  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div className="bg-white rounded-2xl shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+      <div className="p-6">
+        {/* Header */}
+        <div className="flex justify-between items-start mb-6 pb-4 border-b">
+          <div>
+            <h3 className="text-2xl font-bold">Inquiry Details</h3>
+            {selectedInquiry.isQuote && (
+              <span className="inline-block mt-2 bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold">
+                📋 QUOTE REQUEST
+              </span>
+            )}
+          </div>
+          <button
+            onClick={() => setSelectedInquiry(null)}
+            className="p-2 hover:bg-gray-100 rounded-lg"
+          >
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
 
-              <div className="space-y-4 mb-6">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <p className="text-sm text-gray-600">Name</p>
-                    <p className="font-medium">{selectedInquiry.name}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">Email</p>
-                    <p className="font-medium">{selectedInquiry.email}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">Phone</p>
-                    <p className="font-medium">{selectedInquiry.phone || 'N/A'}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">Service</p>
-                    <p className="font-medium">{selectedInquiry.service}</p>
-                  </div>
-                </div>
-                {(() => {
-                  const attachments = extractAttachments(selectedInquiry.message);
-                  return attachments.length > 0 ? (
-                    <div className="mb-4">
-                      <p className="text-sm text-gray-600 mb-2">📎 Attached Drawings ({attachments.length})</p>
-                      <ul className="space-y-2">
-                        {attachments.map((file, i) => (
-                          <li key={i} className="flex items-center justify-between bg-blue-50 border border-blue-200 rounded-lg px-4 py-2.5">
-                            <span className="text-sm font-medium text-gray-800 truncate mr-3">📄 {file.name}</span>
-                            <a
-                              href={file.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex-shrink-0 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 px-4 py-1.5 rounded-lg transition-colors"
-                            >
-                              View / Download
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ) : null;
-                })()}
-                <div>
-                  <p className="text-sm text-gray-600">Message</p>
-                  <p className="mt-1 text-gray-800 bg-gray-50 p-3 rounded-lg whitespace-pre-wrap">{renderWithLinks(selectedInquiry.message)}</p>
-                </div>
-              </div>
-
-              {/* Reply Section */}
-              <div className="border-t pt-4">
-                <h4 className="font-semibold mb-3">Reply to Inquiry</h4>
-                <textarea
-                  value={replyText}
-                  onChange={(e) => setReplyText(e.target.value)}
-                  rows="4"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg mb-3"
-                  placeholder="Type your reply here..."
-                />
-                <div className="flex justify-end space-x-3">
-                  <button
-                    onClick={() => setSelectedInquiry(null)}
-                    className="px-4 py-2 border border-gray-300 rounded-lg"
-                  >
-                    Close
-                  </button>
-                  <button
-                    onClick={() => handleReply(selectedInquiry._id || selectedInquiry.id)}
-                    className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-                  >
-                    Send Reply
-                  </button>
-                </div>
-              </div>
-            </div>
+        {/* Contact Info */}
+        <div className="grid grid-cols-2 gap-4 mb-6">
+          <div>
+            <p className="text-sm text-gray-600">Name</p>
+            <p className="font-medium">{selectedInquiry.name}</p>
+          </div>
+          <div>
+            <p className="text-sm text-gray-600">Email</p>
+            <p className="font-medium">{selectedInquiry.email}</p>
+          </div>
+          <div>
+            <p className="text-sm text-gray-600">Phone</p>
+            <p className="font-medium">{selectedInquiry.phone || 'N/A'}</p>
+          </div>
+          <div>
+            <p className="text-sm text-gray-600">Service</p>
+            <p className="font-medium">{selectedInquiry.service}</p>
           </div>
         </div>
-      )}
+
+        {/* Message */}
+        <div className="mb-6">
+          <p className="text-sm text-gray-600 mb-2">Message</p>
+          <div className="bg-gray-50 p-4 rounded-xl whitespace-pre-line text-sm">
+            {selectedInquiry.message}
+          </div>
+        </div>
+
+        {/* Attachments */}
+        {selectedInquiry.attachments && selectedInquiry.attachments.length > 0 && (
+          <div className="mb-6">
+            <p className="text-sm text-gray-600 mb-3">
+              📎 Attached Files ({selectedInquiry.attachments.length})
+            </p>
+            <div className="space-y-2">
+              {selectedInquiry.attachments.map((file, i) => (
+                <div
+                  key={i}
+                  className="flex items-center justify-between bg-blue-50 border border-blue-200 rounded-xl px-4 py-3"
+                >
+                  <div className="flex items-center min-w-0 flex-1">
+                    <span className="text-2xl mr-3">
+                      {file.name?.endsWith('.pdf') ? '📄' :
+                       file.name?.match(/\.(dwg|dxf)$/i) ? '📐' :
+                       file.name?.endsWith('.ifc') ? '🏗️' :
+                       file.name?.match(/\.(png|jpg|jpeg|webp)$/i) ? '🖼️' : '📎'}
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm font-medium text-gray-800 truncate">{file.name}</p>
+                      {file.size && (
+                        <p className="text-xs text-gray-500">
+                          {(file.size / 1024 / 1024).toFixed(2)} MB
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  {file.url ? (
+                    <a
+                      href={file.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="ml-3 bg-blue-600 text-white px-4 py-2 rounded-lg text-xs font-semibold hover:bg-blue-700 transition-colors"
+                    >
+                      Download
+                    </a>
+                  ) : (
+                    <span className="text-xs text-gray-500 italic">Upload failed</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Reply Section */}
+        <div className="border-t pt-6">
+          <h4 className="font-semibold mb-3">Reply to Inquiry</h4>
+          <textarea
+            value={replyText}
+            onChange={(e) => setReplyText(e.target.value)}
+            rows="4"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg mb-3"
+            placeholder="Type your reply here..."
+          />
+          <div className="flex justify-end space-x-3">
+            <button
+              onClick={() => setSelectedInquiry(null)}
+              className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+            >
+              Close
+            </button>
+            <button
+              onClick={() => handleReply(selectedInquiry._id || selectedInquiry.id)}
+              className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            >
+              Send Reply
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
     </AdminLayout>
   );
 }

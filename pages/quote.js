@@ -4,6 +4,7 @@ import Layout from '../components/Layout/Layout';
 import { inquiryAPI, uploadAPI } from '../lib/api';
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+const MAX_FILES = 5;
 
 export default function Quote() {
   const [formData, setFormData] = useState({
@@ -17,6 +18,7 @@ export default function Quote() {
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
 
@@ -27,6 +29,7 @@ export default function Quote() {
   const handleFiles = (e) => {
     const selected = Array.from(e.target.files || []);
     const valid = [];
+    
     for (const file of selected) {
       if (file.size > MAX_FILE_SIZE) {
         setError(`"${file.name}" is larger than 10MB and was skipped.`);
@@ -34,11 +37,14 @@ export default function Quote() {
       }
       valid.push(file);
     }
-    setFiles((prev) => [...prev, ...valid].slice(0, 5));
+    
+    const combined = [...files, ...valid].slice(0, MAX_FILES);
+    setFiles(combined);
   };
 
   const removeFile = (index) => {
     setFiles((prev) => prev.filter((_, i) => i !== index));
+    setError('');
   };
 
   const readAsDataURL = (file) =>
@@ -49,46 +55,110 @@ export default function Quote() {
       reader.readAsDataURL(file);
     });
 
+  const formatFileSize = (bytes) => {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / 1024 / 1024).toFixed(1) + ' MB';
+  };
+
+  const getFileIcon = (fileName) => {
+    const ext = fileName.split('.').pop().toLowerCase();
+    if (['pdf'].includes(ext)) return '📄';
+    if (['dwg', 'dxf'].includes(ext)) return '📐';
+    if (['ifc'].includes(ext)) return '🏗️';
+    if (['png', 'jpg', 'jpeg', 'gif', 'webp'].includes(ext)) return '🖼️';
+    if (['zip', 'rar'].includes(ext)) return '🗜️';
+    if (['doc', 'docx'].includes(ext)) return '📝';
+    if (['xls', 'xlsx'].includes(ext)) return '📊';
+    return '📎';
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
     setSuccess(false);
+    setUploadProgress(0);
 
     try {
-      // Upload drawings first
-      let fileLinks = [];
+      // Upload all files first
+      const uploadedAttachments = [];
+      
       if (files.length > 0) {
         setUploading(true);
-        for (const file of files) {
+        
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          
           try {
             const dataUrl = await readAsDataURL(file);
-            const result = await uploadAPI.uploadImage(dataUrl, 'quote-drawings', file.name);
-            const url = result?.url || result?.imageUrl || result?.data?.url;
-            fileLinks.push(url ? `${file.name}: ${url}` : file.name);
+            
+            const result = await uploadAPI.uploadImage(
+              dataUrl, 
+              'quote-drawings', 
+              file.name
+            );
+            
+            console.log('Upload result for', file.name, ':', result);
+
+            if (result && result.url) {
+              uploadedAttachments.push({
+                name: file.name,
+                url: result.url,
+                publicId: result.publicId || '',
+                size: file.size,
+                type: file.type || file.name.split('.').pop(),
+              });
+            }
           } catch (uploadErr) {
             console.error('Upload failed for', file.name, uploadErr);
-            fileLinks.push(`${file.name} (upload failed - will be requested by email)`);
+            // Still add file info without URL
+            uploadedAttachments.push({
+              name: file.name,
+              url: '',
+              publicId: '',
+              size: file.size,
+              type: file.type || file.name.split('.').pop(),
+              uploadFailed: true,
+            });
           }
+          
+          setUploadProgress(Math.round(((i + 1) / files.length) * 100));
         }
+        
         setUploading(false);
       }
 
-      const timelineLabel = formData.timeline === 'rush' ? 'Rush (24-48 hours)' : 'Standard (1-5 business days)';
+      // Build message with attachments info
+      const timelineLabel = formData.timeline === 'rush' 
+        ? 'Rush (24-48 hours)' 
+        : 'Standard (1-5 business days)';
 
+      const messageWithFiles = `QUOTE REQUEST\nTimeline: ${timelineLabel}\n\nProject details:\n${formData.message}${
+        uploadedAttachments.length > 0 
+          ? `\n\n📎 Attached files (${uploadedAttachments.length}):\n${uploadedAttachments.map(f => `- ${f.name}`).join('\n')}` 
+          : ''
+      }`;
+
+      // Submit inquiry with attachments
       await inquiryAPI.create({
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
         service: formData.service,
-        message: `QUOTE REQUEST\nTimeline: ${timelineLabel}\n\nProject details:\n${formData.message}${
-          fileLinks.length > 0 ? `\n\nAttached drawings/files:\n- ${fileLinks.join('\n- ')}` : ''
-        }`,
+        message: messageWithFiles,
+        attachments: uploadedAttachments,
+        timeline: formData.timeline,
+        isQuote: true,
       });
 
       setSuccess(true);
-      setFormData({ name: '', email: '', phone: '', service: '', timeline: 'standard', message: '' });
+      setFormData({ 
+        name: '', email: '', phone: '', service: '', 
+        timeline: 'standard', message: '' 
+      });
       setFiles([]);
+      setUploadProgress(0);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
       setUploading(false);
@@ -143,13 +213,16 @@ export default function Quote() {
                   <span className="text-2xl mr-3">✅</span>
                   <div>
                     <p className="font-semibold text-green-800">Quote Request Sent!</p>
-                    <p className="text-green-700 text-sm">Thank you! We'll review your drawings and get back to you within 24 hours.</p>
+                    <p className="text-green-700 text-sm">
+                      Thank you! We'll review your drawings and get back to you within 24 hours.
+                    </p>
                   </div>
                 </div>
               )}
 
               {error && (
-                <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6">
+                <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6 flex items-start">
+                  <span className="text-2xl mr-3">⚠️</span>
                   <p className="text-red-800 text-sm">{error}</p>
                 </div>
               )}
@@ -231,28 +304,56 @@ export default function Quote() {
                   </div>
                 </div>
 
+                {/* File Upload */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Upload Drawings <span className="text-gray-400 font-normal">(PDF, DWG, DXF, IFC, images — max 5 files, 10MB each)</span>
+                    Upload Drawings{' '}
+                    <span className="text-gray-400 font-normal">
+                      (PDF, DWG, DXF, IFC, images — max {MAX_FILES} files, 10MB each)
+                    </span>
                   </label>
+                  
                   <label className="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-xl p-8 cursor-pointer hover:border-blue-500 hover:bg-blue-50/50 transition-all">
                     <span className="text-4xl mb-2">📤</span>
                     <span className="font-medium text-gray-700">Click to upload or drag & drop</span>
                     <span className="text-xs text-gray-500 mt-1">Your files are kept 100% confidential</span>
                     <input
-                      type="file" multiple accept=".pdf,.dwg,.dxf,.ifc,.png,.jpg,.jpeg,.zip"
+                      type="file" multiple
+                      accept=".pdf,.dwg,.dxf,.ifc,.png,.jpg,.jpeg,.zip"
                       onChange={handleFiles} className="hidden"
                     />
                   </label>
+
+                  {/* Uploaded files list */}
                   {files.length > 0 && (
-                    <ul className="mt-3 space-y-2">
+                    <ul className="mt-4 space-y-2">
                       {files.map((file, i) => (
-                        <li key={i} className="flex items-center justify-between bg-gray-50 border rounded-lg px-4 py-2 text-sm">
-                          <span className="truncate">📎 {file.name} <span className="text-gray-400">({(file.size / 1024 / 1024).toFixed(1)} MB)</span></span>
-                          <button type="button" onClick={() => removeFile(i)} className="text-red-500 hover:text-red-700 ml-3 font-bold">✕</button>
+                        <li key={i} className="flex items-center justify-between bg-gray-50 border border-gray-200 rounded-xl px-4 py-3">
+                          <div className="flex items-center min-w-0 flex-1">
+                            <span className="text-2xl mr-3">{getFileIcon(file.name)}</span>
+                            <div className="min-w-0 flex-1">
+                              <p className="text-sm font-medium text-gray-800 truncate">{file.name}</p>
+                              <p className="text-xs text-gray-500">{formatFileSize(file.size)}</p>
+                            </div>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => removeFile(i)}
+                            className="ml-3 p-2 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors"
+                          >
+                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
                         </li>
                       ))}
                     </ul>
+                  )}
+
+                  {files.length >= MAX_FILES && (
+                    <p className="text-xs text-orange-600 mt-2">
+                      Maximum {MAX_FILES} files allowed. Remove a file to add another.
+                    </p>
                   )}
                 </div>
 
@@ -267,13 +368,35 @@ export default function Quote() {
                   ></textarea>
                 </div>
 
+                {/* Upload progress */}
+                {uploading && (
+                  <div className="bg-blue-50 rounded-xl p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-sm font-medium text-blue-800">Uploading drawings...</p>
+                      <p className="text-sm text-blue-600">{uploadProgress}%</p>
+                    </div>
+                    <div className="w-full bg-blue-200 rounded-full h-2">
+                      <div
+                        className="bg-blue-600 h-2 rounded-full transition-all"
+                        style={{ width: `${uploadProgress}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                )}
+
                 <button
                   type="submit" disabled={loading}
                   className="w-full py-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-bold rounded-xl hover:from-blue-700 hover:to-blue-900 transition-all shadow-lg shadow-blue-600/30 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {uploading ? 'Uploading drawings...' : loading ? 'Sending...' : 'Upload Drawings & Get a Quote →'}
+                  {uploading
+                    ? `Uploading drawings... (${uploadProgress}%)`
+                    : loading
+                    ? 'Sending...'
+                    : 'Upload Drawings & Get a Quote →'}
                 </button>
-                <p className="text-xs text-gray-500 text-center">🔒 Your drawings and project data are always protected.</p>
+                <p className="text-xs text-gray-500 text-center">
+                  🔒 Your drawings and project data are always protected.
+                </p>
               </form>
             </div>
 
@@ -282,16 +405,29 @@ export default function Quote() {
               <div className="bg-white rounded-2xl shadow-xl p-6">
                 <h3 className="font-bold text-lg mb-4">Why CivilPro?</h3>
                 <ul className="space-y-3 text-sm text-gray-700">
-                  <li className="flex items-start"><span className="mr-2">✓</span> Accuracy guaranteed — double-checked by senior engineers</li>
-                  <li className="flex items-start"><span className="mr-2">⚡</span> Fast turnaround — most projects in 1-5 business days</li>
-                  <li className="flex items-start"><span className="mr-2">💰</span> Competitive pricing — starting from $300, no hidden fees</li>
-                  <li className="flex items-start"><span className="mr-2">🔒</span> 100% confidential — strict NDA on every project</li>
+                  <li className="flex items-start">
+                    <span className="mr-2">✓</span> Accuracy guaranteed — double-checked by senior engineers
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2">⚡</span> Fast turnaround — most projects in 1-5 business days
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2">💰</span> Competitive pricing — starting from $300, no hidden fees
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2">🔒</span> 100% confidential — strict NDA on every project
+                  </li>
                 </ul>
               </div>
               <div className="bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl shadow-xl p-6 text-white">
                 <h3 className="font-bold text-lg mb-2">Prefer to talk?</h3>
-                <p className="text-blue-100 text-sm mb-4">Reach out directly and we'll help you get started.</p>
-                <Link href="/contact" className="inline-block bg-white text-blue-700 font-semibold px-6 py-2.5 rounded-xl hover:bg-blue-50 transition-colors">
+                <p className="text-blue-100 text-sm mb-4">
+                  Reach out directly and we'll help you get started.
+                </p>
+                <Link
+                  href="/contact"
+                  className="inline-block bg-white text-blue-700 font-semibold px-6 py-2.5 rounded-xl hover:bg-blue-50 transition-colors"
+                >
                   Contact Us
                 </Link>
               </div>

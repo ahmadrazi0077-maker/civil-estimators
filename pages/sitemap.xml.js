@@ -36,6 +36,54 @@ function generateSiteMap(services, blogPosts, projects) {
       <changefreq>monthly</changefreq>
       <priority>0.7</priority>
     </url>
+    <url>
+      <loc>${BASE_URL}/quote</loc>
+      <lastmod>${new Date().toISOString()}</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.9</priority>
+    </url>
+    <url>
+      <loc>${BASE_URL}/projects</loc>
+      <lastmod>${new Date().toISOString()}</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    <url>
+      <loc>${BASE_URL}/tools</loc>
+      <lastmod>${new Date().toISOString()}</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.7</priority>
+    </url>
+    <url>
+      <loc>${BASE_URL}/tools/steel-weight</loc>
+      <lastmod>${new Date().toISOString()}</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.6</priority>
+    </url>
+    <url>
+      <loc>${BASE_URL}/tools/concrete</loc>
+      <lastmod>${new Date().toISOString()}</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.6</priority>
+    </url>
+    <url>
+      <loc>${BASE_URL}/tools/rebar</loc>
+      <lastmod>${new Date().toISOString()}</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.6</priority>
+    </url>
+    <url>
+      <loc>${BASE_URL}/complaints</loc>
+      <lastmod>${new Date().toISOString()}</lastmod>
+      <changefreq>yearly</changefreq>
+      <priority>0.4</priority>
+    </url>
+    <url>
+      <loc>${BASE_URL}/reviews</loc>
+      <lastmod>${new Date().toISOString()}</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.6</priority>
+    </url>
 
     <!-- Services Pages -->
     ${services.map(service => `

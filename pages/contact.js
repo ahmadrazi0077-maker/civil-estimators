@@ -203,32 +203,25 @@ export default function Contact() {
             </div>
           </div>
 
-          {/* Map Section */}
+          {/* Map Section — add a real map embed here once the office address is finalized.
+              Example: replace the card below with a Google Maps / OpenStreetMap iframe. */}
           <div className="mt-16" id="map">
             <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
               <div className="p-6 border-b">
                 <h2 className="text-2xl font-bold">Our Location</h2>
                 <p className="text-gray-600">Find us at our office</p>
               </div>
-              <div className="relative h-[400px] bg-gray-200">
-                {/* Placeholder Map */}
-                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100">
-                  <div className="text-center">
-                    <div className="text-6xl mb-4">🗺️</div>
-                    <p className="text-xl font-bold mb-2">Map Placeholder</p>
-                    <p className="text-gray-600">Add Google Maps integration here</p>
+              <div className="p-8 bg-gradient-to-br from-blue-50 to-blue-100">
+                <div className="flex flex-col md:flex-row items-center gap-6 max-w-3xl mx-auto">
+                  <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center text-white text-3xl flex-shrink-0 shadow-lg">
+                    📍
+                  </div>
+                  <div className="text-center md:text-left">
+                    <p className="text-lg font-bold mb-1">CivilPro Engineering Services</p>
+                    <p className="text-gray-600">123 Engineering St, City, State 12345</p>
+                    <p className="text-sm text-gray-500 mt-1">Mon - Sat: 9:00 AM - 6:00 PM</p>
                   </div>
                 </div>
-                {/* Uncomment to use Google Maps
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.1422937950147!2d-73.98731968459382!3d40.74844797932839!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a9b3117469%3A0xd134e199a405a163!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1645564756836!5m2!1sen!2sus"
-                  width="100%"
-                  height="400"
-                  style={{ border: 0 }}
-                  allowFullScreen=""
-                  loading="lazy"
-                />
-                */}
               </div>
             </div>
           </div>

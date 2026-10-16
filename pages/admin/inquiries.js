@@ -2,6 +2,47 @@ import { useState, useEffect } from 'react';
 import AdminLayout from '../../components/Admin/AdminLayout';
 import { inquiryAPI } from '../../lib/api';
 
+// Extract attached file links from a quote-request message.
+// Expected format (written by the /quote page):
+//   Attached drawings/files:
+//   - filename: https://...
+//   - filename: https://...
+function extractAttachments(message) {
+  if (!message || typeof message !== 'string') return [];
+  const lines = message.split('\n');
+  const start = lines.findIndex((l) => l.toLowerCase().includes('attached drawings/files'));
+  if (start === -1) return [];
+  const attachments = [];
+  for (let i = start + 1; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (!line.startsWith('-')) break;
+    const match = line.slice(1).trim().match(/^(.*?):\s*(https?:\/\/\S+)/);
+    if (match) {
+      attachments.push({ name: match[1].trim(), url: match[2] });
+    } else {
+      const urlMatch = line.match(/https?:\/\/\S+/);
+      if (urlMatch) attachments.push({ name: urlMatch[0].split('/').pop() || 'file', url: urlMatch[0] });
+    }
+  }
+  return attachments;
+}
+
+// Render plain text with clickable links for any URLs it contains
+function renderWithLinks(text) {
+  if (!text || typeof text !== 'string') return text;
+  // With a capturing group, split() puts the matched URLs at odd indexes
+  const parts = text.split(/(https?:\/\/[^\s]+)/g);
+  return parts.map((part, i) =>
+    i % 2 === 1 ? (
+      <a key={i} href={part} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline break-all">
+        {part}
+      </a>
+    ) : (
+      <span key={i}>{part}</span>
+    )
+  );
+}
+
 export default function AdminInquiries() {
   const [inquiries, setInquiries] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -309,9 +350,32 @@ export default function AdminInquiries() {
                     <p className="font-medium">{selectedInquiry.service}</p>
                   </div>
                 </div>
+                {(() => {
+                  const attachments = extractAttachments(selectedInquiry.message);
+                  return attachments.length > 0 ? (
+                    <div className="mb-4">
+                      <p className="text-sm text-gray-600 mb-2">📎 Attached Drawings ({attachments.length})</p>
+                      <ul className="space-y-2">
+                        {attachments.map((file, i) => (
+                          <li key={i} className="flex items-center justify-between bg-blue-50 border border-blue-200 rounded-lg px-4 py-2.5">
+                            <span className="text-sm font-medium text-gray-800 truncate mr-3">📄 {file.name}</span>
+                            <a
+                              href={file.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex-shrink-0 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 px-4 py-1.5 rounded-lg transition-colors"
+                            >
+                              View / Download
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null;
+                })()}
                 <div>
                   <p className="text-sm text-gray-600">Message</p>
-                  <p className="mt-1 text-gray-800 bg-gray-50 p-3 rounded-lg">{selectedInquiry.message}</p>
+                  <p className="mt-1 text-gray-800 bg-gray-50 p-3 rounded-lg whitespace-pre-wrap">{renderWithLinks(selectedInquiry.message)}</p>
                 </div>
               </div>
 

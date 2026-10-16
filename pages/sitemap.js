@@ -186,14 +186,41 @@ export default function Sitemap() {
                 Quick Links
               </h2>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <Link href="/" className="text-blue-600 hover:text-blue-800">
+                  Home
+                </Link>
+                <Link href="/services" className="text-blue-600 hover:text-blue-800">
+                  Services
+                </Link>
+                <Link href="/projects" className="text-blue-600 hover:text-blue-800">
+                  Projects
+                </Link>
+                <Link href="/quote" className="text-blue-600 hover:text-blue-800">
+                  Get a Quote
+                </Link>
+                <Link href="/tools" className="text-blue-600 hover:text-blue-800">
+                  Free Tools
+                </Link>
+                <Link href="/about" className="text-blue-600 hover:text-blue-800">
+                  About Us
+                </Link>
+                <Link href="/blog" className="text-blue-600 hover:text-blue-800">
+                  Blog
+                </Link>
+                <Link href="/reviews" className="text-blue-600 hover:text-blue-800">
+                  Reviews
+                </Link>
+                <Link href="/contact" className="text-blue-600 hover:text-blue-800">
+                  Contact Us
+                </Link>
+                <Link href="/complaints" className="text-blue-600 hover:text-blue-800">
+                  Complaints
+                </Link>
                 <Link href="/sitemap.xml" className="text-blue-600 hover:text-blue-800">
                   XML Sitemap
                 </Link>
                 <Link href="/robots.txt" className="text-blue-600 hover:text-blue-800">
                   Robots.txt
-                </Link>
-                <Link href="/contact" className="text-blue-600 hover:text-blue-800">
-                  Contact Us
                 </Link>
               </div>
             </div>

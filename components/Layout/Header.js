@@ -140,7 +140,7 @@ export default function Header() {
               ))}
             </div>
 
-            {/* CTA + Admin */}
+            {/* CTA */}
             <div className="hidden lg:flex items-center space-x-3">
               <Link
                 href="/quote"
@@ -149,16 +149,6 @@ export default function Header() {
                 Get a Quote
                 <svg className="w-4 h-4 ml-2 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </Link>
-              
-              <Link
-                href="/admin/login"
-                className="p-2.5 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                title="Admin Login"
-              >
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                 </svg>
               </Link>
             </div>
@@ -217,12 +207,6 @@ export default function Header() {
                   className="block text-center bg-gradient-to-r from-blue-600 to-blue-800 text-white py-3 rounded-lg font-semibold"
                 >
                   Get a Free Quote
-                </Link>
-                <Link
-                  href="/admin/login"
-                  className="block text-center border-2 border-gray-200 text-gray-700 py-3 rounded-lg font-semibold"
-                >
-                  Admin Login
                 </Link>
               </div>
             </div>

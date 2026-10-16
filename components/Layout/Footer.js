@@ -199,8 +199,9 @@ export default function Footer() {
               and cost estimation.
             </p>
 
-            {/* Social Links */}
-            <div className="flex space-x-3">
+            {/* Social Links — hidden until real profiles are added.
+                To re-enable, restore the socialLinks array above with real URLs. */}
+            {/* <div className="flex space-x-3">
               {socialLinks.map((social) => (
                 <a
                   key={social.name}
@@ -211,7 +212,7 @@ export default function Footer() {
                   {social.icon}
                 </a>
               ))}
-            </div>
+            </div> */}
           </div>
 
           {/* Quick Links */}

@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { authAPI } from '../lib/api';
 
 const AuthContext = createContext();
 
@@ -27,50 +28,21 @@ export function AuthProvider({ children }) {
 
   const login = async (credentials) => {
     try {
-      // Simple demo login - always works with admin/admin123
-      if (credentials.username === 'admin' && credentials.password === 'admin123') {
-        const adminData = {
-          _id: '1',
-          username: 'admin',
-          email: 'admin@civilpro.com',
-          role: 'admin',
-          token: 'demo-token-123',
-        };
-        
-        localStorage.setItem('adminToken', adminData.token);
-        localStorage.setItem('adminData', JSON.stringify(adminData));
-        setAdmin(adminData);
-        
-        return { success: true };
-      }
+      // Real API login — backend verifies the password and returns a signed JWT
+      const data = await authAPI.login(credentials);
 
-      // Try API login
-      try {
-        const response = await fetch('http://localhost:5000/api/auth/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(credentials),
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-          localStorage.setItem('adminToken', data.token);
-          localStorage.setItem('adminData', JSON.stringify(data));
-          setAdmin(data);
-          return { success: true };
-        } else {
-          return { success: false, error: data.message || 'Invalid credentials' };
-        }
-      } catch (apiError) {
-        console.warn('API not available, using demo login only');
+      if (!data || !data.token) {
         return { success: false, error: 'Invalid username or password' };
       }
+
+      localStorage.setItem('adminToken', data.token);
+      localStorage.setItem('adminData', JSON.stringify(data));
+      setAdmin(data);
+
+      return { success: true };
     } catch (error) {
       console.error('Login error:', error);
-      return { success: false, error: 'Login failed. Please try again.' };
+      return { success: false, error: error.message || 'Invalid username or password' };
     }
   };
 

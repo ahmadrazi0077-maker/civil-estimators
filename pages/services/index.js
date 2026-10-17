@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Layout from '../../components/Layout/Layout';
+import SEO from '../../components/SEO';
 import ServiceCard from '../../components/ServiceCard';
 import { servicesAPI } from '../../lib/api';
 
@@ -41,6 +42,11 @@ export default function ServicesPage() {
 
   return (
     <Layout>
+      <SEO
+        title="Our Services"
+        description="Explore our construction estimating services: steel detailing, rebar detailing, quantity takeoff, cost estimation, BOQ preparation & shop drawings — starting from $99."
+        keywords="construction estimating services, steel detailing services, quantity takeoff services, cost estimation services, BOQ preparation, shop drawings"
+      />
       <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Our Services</h1>

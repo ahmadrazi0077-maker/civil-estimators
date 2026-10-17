@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Layout from '../components/Layout/Layout';
+import SEO from '../components/SEO';
 
 // Home Components
 import Hero from '../components/Home/Hero';
@@ -12,6 +13,7 @@ import HowItWorks from '../components/Home/HowItWorks';
 import SoftwareExpertise from '../components/Home/SoftwareExpertise';
 import Testimonials from '../components/Home/Testimonials';
 import FreeTools from '../components/Home/FreeTools';
+import Pricing from '../components/Pricing';
 import FAQ from '../components/FAQ';
 import FinalCTA from '../components/Home/FinalCTA';
 
@@ -27,7 +29,7 @@ const FALLBACK_SERVICES = [
     shortDescription: 'Precise steel detailing including connection design, anchor bolt plans, and shop drawings.',
     description: 'Complete steel detailing for structural projects.',
     features: ['Shop drawings', 'Connection design', 'Anchor bolts'],
-    price: 'From $500',
+    price: 'Starting from $199',
     timeline: '3-5 business days',
     image: '/images/services/steel-detailing.svg',
   },
@@ -39,7 +41,7 @@ const FALLBACK_SERVICES = [
     shortDescription: 'Detailed reinforcement bar schedules, placement drawings, and bar bending schedules.',
     description: 'Complete rebar detailing services.',
     features: ['Bar schedules', 'Placement drawings'],
-    price: 'From $400',
+    price: 'Starting from $149',
     timeline: '2-4 business days',
     image: '/images/services/rebar-detailing.svg',
   },
@@ -51,7 +53,7 @@ const FALLBACK_SERVICES = [
     shortDescription: 'Accurate material quantity calculations, area, volume, and component counting.',
     description: 'Precise quantity calculations.',
     features: ['Material quantities', 'Digital reports'],
-    price: 'From $300',
+    price: 'Starting from $99',
     timeline: '1-3 business days',
     image: '/images/services/quantity-takeoff.svg',
   },
@@ -63,7 +65,7 @@ const FALLBACK_SERVICES = [
     shortDescription: 'Detailed cost analysis including material, labor, and equipment cost estimation.',
     description: 'Comprehensive cost estimation.',
     features: ['Material costs', 'Labor costs'],
-    price: 'From $600',
+    price: 'Starting from $199',
     timeline: '4-7 business days',
     image: '/images/services/cost-estimation.svg',
   },
@@ -75,7 +77,7 @@ const FALLBACK_SERVICES = [
     shortDescription: 'Professional Bill of Quantities preparation for tendering and procurement.',
     description: 'Detailed BOQ preparation.',
     features: ['Tender BOQ', 'Rate analysis'],
-    price: 'From $450',
+    price: 'Starting from $149',
     timeline: '3-6 business days',
     image: '/images/services/boq-preparation.svg',
   },
@@ -87,7 +89,7 @@ const FALLBACK_SERVICES = [
     shortDescription: 'Detailed fabrication and installation shop drawings for construction.',
     description: 'Comprehensive shop drawings.',
     features: ['Fabrication drawings', 'Assembly details'],
-    price: 'From $550',
+    price: 'Starting from $179',
     timeline: '4-6 business days',
     image: '/images/services/shop-drawings.svg',
   },
@@ -132,6 +134,11 @@ export default function Home() {
 
   return (
     <Layout>
+      <SEO
+        title="Construction Estimating Services"
+        description="Professional construction estimating services for contractors worldwide — quantity takeoff, cost estimation, BOQ preparation, steel detailing & shop drawings. Fast, accurate, affordable."
+        keywords="construction estimating services, construction cost estimation, quantity takeoff services, steel detailing services, rebar detailing services, BOQ preparation services, shop drawing services"
+      />
       {/* 1. HERO */}
       <Hero />
 
@@ -167,10 +174,13 @@ export default function Home() {
       {/* 10. FREE TOOLS */}
       <FreeTools />
 
-      {/* 11. FAQ */}
+      {/* 11. PRICING */}
+      <Pricing />
+
+      {/* 12. FAQ */}
       <FAQ />
 
-      {/* 12. FINAL CTA */}
+      {/* 13. FINAL CTA */}
       <FinalCTA />
     </Layout>
   );

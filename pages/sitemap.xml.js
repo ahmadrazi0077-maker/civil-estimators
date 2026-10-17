@@ -1,6 +1,6 @@
 import { servicesAPI, blogAPI, projectsAPI } from '../lib/api';
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://your-domain.com';
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://civil-estimators.vercel.app';
 
 function generateSiteMap(services, blogPosts, projects) {
   return `<?xml version="1.0" encoding="UTF-8"?>

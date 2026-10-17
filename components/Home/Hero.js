@@ -15,9 +15,9 @@ export default function Hero() {
 
   const slides = [
     {
-      title: 'Professional Civil Engineering Services',
-      subtitle: 'Expert steel detailing, quantity takeoff, and cost estimation services for your construction projects.',
-      image: 'https://media.istockphoto.com/id/2267714775/photo/silhouette-metal-structure-of-industry-warehouse-factory-building-with-steel-framework-in.jpg?s=1024x1024&w=is&k=20&c=LnklXm-e-fHrxvNMcq0X672K1gyAmANCIVaf92FZhDw=',
+      title: 'Construction Estimating Services',
+      subtitle: 'Accurate construction estimating services — quantity takeoff, cost estimation, BOQ preparation, and steel detailing for contractors worldwide.',
+      image: 'https://images.pexels.com/photos/31197870/pexels-photo-31197870/free-photo-of-structural-steel-frame-against-clear-sky.jpeg?auto=compress&w=1600',
       badge: 'Trusted by 500+ Clients',
     },
     {

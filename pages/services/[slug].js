@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Layout from '../../components/Layout/Layout';
 import { servicesAPI } from '../../lib/api';
+import SEO from '../../components/SEO';
 
 export default function ServiceDetail() {
   const router = useRouter();
@@ -87,6 +88,12 @@ export default function ServiceDetail() {
 
   return (
     <Layout>
+      <SEO
+        title={service.title}
+        description={service.shortDescription || `Professional ${service.title.toLowerCase()} for contractors worldwide — accurate, fast and affordable.`}
+        keywords={`${service.title.toLowerCase()}, construction estimating services, quantity takeoff, cost estimation, civil engineering services`}
+        ogImage={imageUrl}
+      />
       {/* Hero Section with Image */}
       <div className="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
         {/* Background Image */}

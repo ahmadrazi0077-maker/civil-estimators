@@ -259,6 +259,8 @@ export default function AdminInquiries() {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Attachments</th>
+
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
@@ -268,16 +270,7 @@ export default function AdminInquiries() {
                     <td className="px-6 py-4 font-medium">{inquiry.name}</td>
                     <td className="px-6 py-4">{inquiry.email}</td>
                     <td className="px-6 py-4">{inquiry.service}</td>
-                    <td className="px-6 py-4">
-  <div className="flex items-center gap-2">
-    <span>{inquiry.service}</span>
-    {inquiry.attachments && inquiry.attachments.length > 0 && (
-      <span className="bg-blue-100 text-blue-700 text-xs px-2 py-0.5 rounded-full">
-        📎 {inquiry.attachments.length}
-      </span>
-    )}
-  </div>
-</td>
+              
                     <td className="px-6 py-4">
                       <span className={`px-2 py-1 text-xs rounded-full ${getStatusColor(inquiry.status)}`}>
                         {inquiry.status}
@@ -310,11 +303,21 @@ export default function AdminInquiries() {
                         </button>
                       </div>
                     </td>
+                    <td className="px-6 py-4">
+  <div className="flex items-center gap-2">
+    <span>{inquiry.service}</span>
+    {inquiry.attachments && inquiry.attachments.length > 0 && (
+      <span className="bg-blue-100 text-blue-700 text-xs px-2 py-0.5 rounded-full">
+        📎 {inquiry.attachments.length}
+      </span>
+    )}
+  </div>
+</td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="6" className="px-6 py-8 text-center text-gray-600">
+                  <td colSpan="7" className="px-6 py-8 text-center text-gray-600">
                     No inquiries found
                   </td>
                 </tr>

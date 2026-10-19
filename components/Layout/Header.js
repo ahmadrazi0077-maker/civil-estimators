@@ -6,6 +6,7 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [expandedMobile, setExpandedMobile] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -17,7 +18,21 @@ export default function Header() {
   useEffect(() => {
     setIsOpen(false);
     setActiveDropdown(null);
+    setExpandedMobile(null);
   }, [router.pathname]);
+
+  // Lock body scroll + close on Escape while drawer is open
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    const onKey = (e) => {
+      if (e.key === 'Escape') setIsOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [isOpen]);
 
   const navigation = [
     { name: 'Home', href: '/' },
@@ -156,6 +171,8 @@ export default function Header() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={isOpen}
               className="lg:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100"
             >
               <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -168,51 +185,110 @@ export default function Header() {
             </button>
           </div>
 
-          {/* Mobile Navigation */}
-          <div className={`lg:hidden transition-all duration-300 overflow-hidden ${
-            isOpen ? 'max-h-screen opacity-100 pb-4' : 'max-h-0 opacity-0'
-          }`}>
-            <div className="space-y-1 border-t border-gray-100 pt-4">
-              {navigation.map((item) => (
-                <div key={item.name}>
-                  <Link
-                    href={item.href}
-                    className={`block px-4 py-3 rounded-lg text-base font-medium ${
-                      router.pathname === item.href
-                        ? 'bg-blue-50 text-blue-600'
-                        : 'text-gray-700 hover:bg-gray-50'
-                    }`}
-                  >
-                    {item.name}
-                  </Link>
-                  {item.dropdown && (
-                    <div className="ml-4 space-y-1 border-l-2 border-blue-100 pl-4 mt-1">
-                      {item.dropdown.map((subItem) => (
-                        <Link
-                          key={subItem.name}
-                          href={subItem.href}
-                          className="block px-3 py-2 text-sm text-gray-600 hover:text-blue-600"
-                        >
-                          {subItem.name}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-              
-              <div className="pt-4 space-y-3">
-                <Link
-                  href="/quote"
-                  className="block text-center bg-gradient-to-r from-blue-600 to-blue-800 text-white py-3 rounded-lg font-semibold"
-                >
-                  Get a Free Quote
-                </Link>
-              </div>
-            </div>
-          </div>
         </nav>
       </header>
+
+      {/* Mobile Drawer Backdrop */}
+      <div
+        onClick={() => setIsOpen(false)}
+        aria-hidden="true"
+        className={`lg:hidden fixed inset-0 bg-black/50 z-[60] transition-opacity duration-300 ${
+          isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
+      />
+
+      {/* Mobile Slide-in Drawer */}
+      <aside
+        aria-hidden={!isOpen}
+        className={`lg:hidden fixed top-0 right-0 h-full w-[85%] max-w-sm bg-white z-[70] shadow-2xl flex flex-col transform transition-transform duration-300 ease-in-out ${
+          isOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
+      >
+        {/* Drawer header */}
+        <div className="flex items-center justify-between p-4 border-b border-gray-100 shrink-0">
+          <div className="flex items-center">
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl flex items-center justify-center text-white font-bold text-lg">
+              C
+            </div>
+            <span className="ml-2 text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+              CivilPro
+            </span>
+          </div>
+          <button
+            onClick={() => setIsOpen(false)}
+            aria-label="Close menu"
+            className="p-2 rounded-lg text-gray-600 hover:bg-gray-100"
+          >
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Drawer links (scrollable) */}
+        <nav className="flex-1 overflow-y-auto p-4 space-y-1">
+          {navigation.map((item) => (
+            <div key={item.name}>
+              <div className="flex items-center gap-1">
+                <Link
+                  href={item.href}
+                  className={`flex-1 block px-4 py-3 rounded-lg text-base font-medium ${
+                    router.pathname === item.href
+                      ? 'bg-blue-50 text-blue-600'
+                      : 'text-gray-700 hover:bg-gray-50'
+                  }`}
+                >
+                  {item.name}
+                </Link>
+                {item.dropdown && (
+                  <button
+                    onClick={() =>
+                      setExpandedMobile(expandedMobile === item.name ? null : item.name)
+                    }
+                    aria-label={`Toggle ${item.name} submenu`}
+                    aria-expanded={expandedMobile === item.name}
+                    className="p-3 rounded-lg text-gray-500 hover:bg-gray-100 shrink-0"
+                  >
+                    <svg
+                      className={`w-5 h-5 transition-transform duration-200 ${
+                        expandedMobile === item.name ? 'rotate-180' : ''
+                      }`}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                )}
+              </div>
+              {item.dropdown && expandedMobile === item.name && (
+                <div className="ml-4 mt-1 space-y-1 border-l-2 border-blue-100 pl-4">
+                  {item.dropdown.map((subItem) => (
+                    <Link
+                      key={subItem.name}
+                      href={subItem.href}
+                      className="block px-3 py-2.5 text-sm text-gray-600 hover:text-blue-600 rounded-lg hover:bg-blue-50"
+                    >
+                      {subItem.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </nav>
+
+        {/* Drawer CTA */}
+        <div className="p-4 border-t border-gray-100 shrink-0">
+          <Link
+            href="/quote"
+            className="block text-center bg-gradient-to-r from-blue-600 to-blue-800 text-white py-3.5 rounded-xl font-semibold shadow-lg shadow-blue-600/30"
+          >
+            Get a Free Quote
+          </Link>
+        </div>
+      </aside>
     </>
   );
 }

@@ -13,6 +13,8 @@ import HowItWorks from '../components/Home/HowItWorks';
 import SoftwareExpertise from '../components/Home/SoftwareExpertise';
 import Testimonials from '../components/Home/Testimonials';
 import FreeTools from '../components/Home/FreeTools';
+import SampleWork from '../components/Home/SampleWork';
+import Guarantees from '../components/Home/Guarantees';
 import Pricing from '../components/Pricing';
 import FAQ from '../components/FAQ';
 import FinalCTA from '../components/Home/FinalCTA';
@@ -159,6 +161,9 @@ export default function Home() {
       {/* 5. PROJECTS / CASE STUDIES */}
       <Portfolio />
 
+      {/* 5b. SAMPLE WORK / DELIVERABLES */}
+      <SampleWork />
+
       {/* 6. WHAT YOU RECEIVE */}
       <WhatYouReceive />
 
@@ -173,6 +178,9 @@ export default function Home() {
 
       {/* 10. FREE TOOLS */}
       <FreeTools />
+
+      {/* 10b. GUARANTEES */}
+      <Guarantees />
 
       {/* 11. PRICING */}
       <Pricing />

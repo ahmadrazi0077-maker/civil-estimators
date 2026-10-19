@@ -284,7 +284,7 @@ export default function Quote() {
                 <ul className="space-y-3 text-sm text-gray-700">
                   <li className="flex items-start"><span className="mr-2">✓</span> Accuracy guaranteed — double-checked by senior engineers</li>
                   <li className="flex items-start"><span className="mr-2">⚡</span> Fast turnaround — most projects in 1-5 business days</li>
-                  <li className="flex items-start"><span className="mr-2">💰</span> Competitive pricing — starting from $300, no hidden fees</li>
+                  <li className="flex items-start"><span className="mr-2">💰</span> Competitive pricing — starting from $99, no hidden fees</li>
                   <li className="flex items-start"><span className="mr-2">🔒</span> 100% confidential — strict NDA on every project</li>
                 </ul>
               </div>

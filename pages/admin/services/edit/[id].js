@@ -204,7 +204,7 @@ export default function EditService() {
                 value={service.price || ''}
                 onChange={(e) => setService({ ...service, price: e.target.value })}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-                placeholder="Starting from $500"
+                placeholder="Starting from $99"
               />
             </div>
             <div>

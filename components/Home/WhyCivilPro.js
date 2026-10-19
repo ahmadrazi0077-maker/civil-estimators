@@ -13,7 +13,7 @@ export default function WhyCivilPro() {
     {
       icon: '💰',
       title: 'Competitive Pricing',
-      desc: 'Starting from $300. No hidden fees. Free initial consultation.',
+      desc: 'Starting from $99. No hidden fees. Free initial consultation.',
     },
     {
       icon: '🔒',

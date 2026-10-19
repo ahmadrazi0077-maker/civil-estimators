@@ -3,6 +3,8 @@ import Layout from '../../components/Layout/Layout';
 import SEO from '../../components/SEO';
 import ServiceCard from '../../components/ServiceCard';
 import { servicesAPI } from '../../lib/api';
+import PageHero from '../../components/PageHero';
+import HERO_IMAGES from '../../lib/heroImages';
 
 export default function ServicesPage() {
   const [services, setServices] = useState([]);
@@ -47,14 +49,12 @@ export default function ServicesPage() {
         description="Explore our construction estimating services: steel detailing, rebar detailing, quantity takeoff, cost estimation, BOQ preparation & shop drawings — starting from $99."
         keywords="construction estimating services, steel detailing services, quantity takeoff services, cost estimation services, BOQ preparation, shop drawings"
       />
-      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Our Services</h1>
-          <p className="text-xl text-blue-100 max-w-3xl mx-auto">
-            Professional civil engineering services tailored to meet your project requirements
-          </p>
-        </div>
-      </div>
+      <PageHero
+        image={HERO_IMAGES.services}
+        title="Our Services"
+        subtitle="Professional civil engineering services tailored to meet your project requirements"
+        crumb="Services"
+      />
 
       <div className="bg-gray-50 py-16">
         <div className="container mx-auto px-4">

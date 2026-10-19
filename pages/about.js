@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Layout from '../components/Layout/Layout';
+import PageHero from '../components/PageHero';
+import HERO_IMAGES from '../lib/heroImages';
 
 export default function About() {
   const [isVisible, setIsVisible] = useState(false);
@@ -129,38 +131,13 @@ export default function About() {
   return (
     <Layout>
       {/* Hero Section */}
-      <div className="relative h-[400px] md:h-[500px] overflow-hidden">
-        <img
-          src="https://images.unsplash.com/photo-1623489254637-a2dd8375243d?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          alt="About CivilPro Services"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-blue-900/70 to-black/80"></div>
-        
-        <div className="absolute inset-0 flex items-center">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl">
-              <nav className="flex items-center space-x-2 text-sm mb-6 animate-fadeIn">
-                <Link href="/" className="text-gray-300 hover:text-white transition-colors">Home</Link>
-                <span className="text-gray-400">/</span>
-                <span className="text-white font-medium">About Us</span>
-              </nav>
-
-              <span className="inline-block bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full text-sm font-semibold text-white mb-4">
-                About Our Company
-              </span>
-
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 animate-slideIn">
-                Building Trust Through <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">Excellence</span>
-              </h1>
-
-              <p className="text-xl text-gray-200 max-w-3xl animate-fadeIn">
-                Your trusted partner in civil engineering services for over a decade
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <PageHero
+        image={HERO_IMAGES.about}
+        badge="About Our Company"
+        title={<>Building Trust Through <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">Excellence</span></>}
+        subtitle="Your trusted partner in civil engineering services for over a decade"
+        crumb="About Us"
+      />
 
       {/* Company Overview */}
       <div className="bg-white py-20">

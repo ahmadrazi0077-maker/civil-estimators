@@ -2,6 +2,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Layout from '../components/Layout/Layout';
 import ContactForm from '../components/ContactForm';
+import PageHero from '../components/PageHero';
+import HERO_IMAGES from '../lib/heroImages';
 
 export default function Contact() {
   const [activeTab, setActiveTab] = useState('contact');
@@ -63,38 +65,13 @@ export default function Contact() {
   return (
     <Layout>
       {/* Hero Section */}
-      <div className="relative h-[400px] md:h-[500px] overflow-hidden">
-        <img
-          src="https://media.istockphoto.com/id/2267714775/photo/silhouette-metal-structure-of-industry-warehouse-factory-building-with-steel-framework-in.jpg?s=1024x1024&w=is&k=20&c=LnklXm-e-fHrxvNMcq0X672K1gyAmANCIVaf92FZhDw="
-          alt="Contact CivilPro Services"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-blue-900/70 to-black/80"></div>
-        
-        <div className="absolute inset-0 flex items-center">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl">
-              <nav className="flex items-center space-x-2 text-sm mb-6 animate-fadeIn">
-                <Link href="/" className="text-gray-300 hover:text-white transition-colors">Home</Link>
-                <span className="text-gray-400">/</span>
-                <span className="text-white font-medium">Contact Us</span>
-              </nav>
-
-              <span className="inline-block bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full text-sm font-semibold text-white mb-4">
-                Get In Touch
-              </span>
-
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 animate-slideIn">
-                Let's <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">Talk</span>
-              </h1>
-
-              <p className="text-xl text-gray-200 max-w-3xl animate-fadeIn">
-                We're here to help with your construction project needs
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <PageHero
+        image={HERO_IMAGES.contact}
+        badge="Get In Touch"
+        title={<>Let&apos;s <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">Talk</span></>}
+        subtitle="We're here to help with your construction project needs"
+        crumb="Contact Us"
+      />
 
       {/* Contact Info Cards */}
       <div className="bg-gray-50 py-16">

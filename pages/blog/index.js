@@ -56,7 +56,7 @@ export default function Blog() {
       <div className="relative h-[400px] md:h-[500px] lg:h-[550px] overflow-hidden">
         {/* Background Image */}
         <img
-          src="https://images.unsplash.com/photo-1621831337128-35676ca30868?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          src="https://res.cloudinary.com/tlu9rzes/image/upload/v1792405692/civil-services/heroes/hero-blog.jpg"
           alt="Engineering Blog"
           className="w-full h-full object-cover"
         />

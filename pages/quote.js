@@ -2,6 +2,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Layout from '../components/Layout/Layout';
 import { inquiryAPI, uploadAPI } from '../lib/api';
+import PageHero from '../components/PageHero';
+import HERO_IMAGES from '../lib/heroImages';
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
@@ -108,17 +110,13 @@ export default function Quote() {
   return (
     <Layout>
       {/* Hero */}
-      <div className="bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 text-white py-20">
-        <div className="container mx-auto px-4 text-center">
-          <span className="inline-block bg-white/10 border border-white/20 px-4 py-2 rounded-full text-sm font-semibold mb-4">
-            ✓ Free Consultation &nbsp; ✓ 24hr Response &nbsp; ✓ Confidential
-          </span>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Get a Free Quote</h1>
-          <p className="text-xl text-blue-100 max-w-2xl mx-auto">
-            Upload your drawings and get a free, no-obligation quote within 24 hours.
-          </p>
-        </div>
-      </div>
+      <PageHero
+        image={HERO_IMAGES.quote}
+        badge="✓ Free Consultation   ✓ 24hr Response   ✓ Confidential"
+        title="Get a Free Quote"
+        subtitle="Upload your drawings and get a free, no-obligation quote within 24 hours."
+        crumb="Get a Quote"
+      />
 
       <div className="bg-gray-50 py-16">
         <div className="container mx-auto px-4">

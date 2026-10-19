@@ -2,6 +2,8 @@ import { useState } from 'react';
 import Layout from '../components/Layout/Layout';
 import Link from 'next/link';
 import { reviewAPI } from '../lib/api';
+import PageHero from '../components/PageHero';
+import HERO_IMAGES from '../lib/heroImages';
 
 export default function Reviews() {
   const [formData, setFormData] = useState({
@@ -63,12 +65,12 @@ export default function Reviews() {
   return (
     <Layout>
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 text-white py-20">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Client Reviews</h1>
-          <p className="text-xl text-blue-100">Share your experience with our services</p>
-        </div>
-      </div>
+      <PageHero
+        image={HERO_IMAGES.reviews}
+        title="Client Reviews"
+        subtitle="Share your experience with our services"
+        crumb="Reviews"
+      />
 
       <div className="bg-gray-50 py-16 min-h-screen">
         <div className="container mx-auto px-4">

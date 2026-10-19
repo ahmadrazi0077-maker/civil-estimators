@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Layout from '../../components/Layout/Layout';
 import { projectsAPI } from '../../lib/api';
+import PageHero from '../../components/PageHero';
+import HERO_IMAGES from '../../lib/heroImages';
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
@@ -30,17 +32,13 @@ export default function Projects() {
   return (
     <Layout>
       {/* Hero */}
-      <div className="bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 text-white py-20">
-        <div className="container mx-auto px-4 text-center">
-          <span className="inline-block bg-white/10 border border-white/20 px-4 py-2 rounded-full text-sm font-semibold mb-4">
-            Our Portfolio
-          </span>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Recent Projects</h1>
-          <p className="text-xl text-blue-100 max-w-2xl mx-auto">
-            Explore successful projects delivered for clients around the world.
-          </p>
-        </div>
-      </div>
+      <PageHero
+        image={HERO_IMAGES.projects}
+        badge="Our Portfolio"
+        title="Recent Projects"
+        subtitle="Explore successful projects delivered for clients around the world."
+        crumb="Projects"
+      />
 
       <div className="bg-gray-50 py-16">
         <div className="container mx-auto px-4">

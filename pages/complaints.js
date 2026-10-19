@@ -2,6 +2,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Layout from '../components/Layout/Layout';
 import { inquiryAPI } from '../lib/api';
+import PageHero from '../components/PageHero';
+import HERO_IMAGES from '../lib/heroImages';
 
 export default function Complaints() {
   const [formData, setFormData] = useState({
@@ -44,12 +46,12 @@ export default function Complaints() {
 
   return (
     <Layout>
-      <div className="bg-gradient-to-r from-blue-900 to-blue-800 text-white py-20">
-        <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold">Complaints</h1>
-          <p className="text-blue-100 mt-2">We take every complaint seriously and aim to resolve issues within 48 hours.</p>
-        </div>
-      </div>
+      <PageHero
+        image={HERO_IMAGES.complaints}
+        title="Complaints"
+        subtitle="We take every complaint seriously and aim to resolve issues within 48 hours."
+        crumb="Complaints"
+      />
 
       <div className="container mx-auto px-4 py-16 max-w-4xl">
         {/* How it works */}

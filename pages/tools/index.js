@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import Layout from '../../components/Layout/Layout';
+import PageHero from '../../components/PageHero';
+import HERO_IMAGES from '../../lib/heroImages';
 
 const calculators = [
   { icon: '⚖️', title: 'Steel Weight Calculator', href: '/tools/steel-weight', desc: 'Calculate steel weight for bars, plates & pipes' },
@@ -16,17 +18,13 @@ const viewers = [
 export default function Tools() {
   return (
     <Layout>
-      <div className="bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 text-white py-20">
-        <div className="container mx-auto px-4 text-center">
-          <span className="inline-block bg-green-500/20 border border-green-400/30 text-green-300 px-4 py-2 rounded-full text-sm font-semibold mb-4">
-            100% Free — No Signup Required
-          </span>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Free Engineering Tools</h1>
-          <p className="text-xl text-blue-100 max-w-2xl mx-auto">
-            Powerful calculators and viewers for your construction projects.
-          </p>
-        </div>
-      </div>
+      <PageHero
+        image={HERO_IMAGES.tools}
+        badge="100% Free — No Signup Required"
+        title="Free Engineering Tools"
+        subtitle="Powerful calculators and viewers for your construction projects."
+        crumb="Free Tools"
+      />
 
       <div className="bg-gray-50 py-16">
         <div className="container mx-auto px-4 max-w-6xl">

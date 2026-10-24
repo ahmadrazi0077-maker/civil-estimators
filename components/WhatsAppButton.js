@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useT } from '../lib/i18n';
 
 export default function WhatsAppButton() {
-  const t = useT();
+  const { t } = useT();
   const [isVisible, setIsVisible] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [isHovered, setIsHovered] = useState(false);

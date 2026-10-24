@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { reviewAPI } from '../lib/api';
+import { useT } from '../lib/i18n';
 
 export default function ReviewsDisplay() {
   const [reviews, setReviews] = useState([]);
   const [stats, setStats] = useState({ total: 0, averageRating: 0 });
   const [loading, setLoading] = useState(true);
+  const { t } = useT();
 
   useEffect(() => {
     fetchReviews();
@@ -32,7 +34,7 @@ export default function ReviewsDisplay() {
   };
 
   if (loading) {
-    return <div className="text-center py-8">Loading reviews...</div>;
+    return <div className="text-center py-8">{t('pages.reviewsDisplay.loading')}</div>;
   }
 
   return (
@@ -41,7 +43,7 @@ export default function ReviewsDisplay() {
       <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-2xl p-6 text-center">
         <p className="text-5xl font-bold mb-2">{stats.averageRating.toFixed(1)}</p>
         <div className="text-yellow-400 text-2xl mb-2">★★★★★</div>
-        <p className="text-blue-100">Based on {stats.total} reviews</p>
+        <p className="text-blue-100">{t('pages.reviewsDisplay.basedOn').replace('{total}', stats.total)}</p>
       </div>
 
       {/* Reviews Grid */}
@@ -66,14 +68,14 @@ export default function ReviewsDisplay() {
             <p className="text-gray-700 mb-4">{review.review}</p>
 
             <div className="text-sm text-gray-500">
-              <p><strong>Service:</strong> {review.service}</p>
-              <p><strong>Project:</strong> {review.projectTitle}</p>
-              {review.location && <p><strong>Location:</strong> {review.location}</p>}
+              <p><strong>{t('pages.reviewsDisplay.service')}</strong> {review.service}</p>
+              <p><strong>{t('pages.reviewsDisplay.project')}</strong> {review.projectTitle}</p>
+              {review.location && <p><strong>{t('pages.reviewsDisplay.location')}</strong> {review.location}</p>}
             </div>
 
             <div className="mt-4 pt-4 border-t flex items-center justify-between">
               <button className="text-sm text-blue-600 hover:text-blue-800">
-                👍 Helpful ({review.helpfulCount})
+                👍 {t('pages.reviewsDisplay.helpful')} ({review.helpfulCount})
               </button>
               <span className="text-sm text-gray-500">
                 {new Date(review.createdAt).toLocaleDateString()}

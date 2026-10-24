@@ -3,10 +3,12 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Layout from '../../components/Layout/Layout';
 import { blogAPI } from '../../lib/api';
+import { useT } from '../../lib/i18n';
 
 export default function BlogPost() {
   const router = useRouter();
   const { slug } = router.query;
+  const { t } = useT();
   const [post, setPost] = useState(null);
   const [relatedPosts, setRelatedPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -60,7 +62,7 @@ export default function BlogPost() {
         <div className="min-h-screen flex items-center justify-center bg-gray-50">
           <div className="text-center">
             <div className="inline-block animate-spin rounded-full h-16 w-16 border-4 border-blue-600 border-t-transparent"></div>
-            <p className="mt-4 text-gray-600 font-medium">Loading article...</p>
+            <p className="mt-4 text-gray-600 font-medium">{t('pages.blogPost.loading')}</p>
           </div>
         </div>
       </Layout>
@@ -73,10 +75,10 @@ export default function BlogPost() {
         <div className="min-h-screen flex items-center justify-center bg-gray-50">
           <div className="text-center">
             <div className="text-6xl mb-4">📝</div>
-            <h1 className="text-4xl font-bold mb-4">Article Not Found</h1>
-            <p className="text-gray-600 mb-6">The article you're looking for doesn't exist.</p>
+            <h1 className="text-4xl font-bold mb-4">{t('pages.blogPost.notFoundTitle')}</h1>
+            <p className="text-gray-600 mb-6">{t('pages.blogPost.notFoundText')}</p>
             <Link href="/blog" className="inline-block bg-blue-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors">
-              Back to Blog
+              {t('pages.blogPost.backToBlog')}
             </Link>
           </div>
         </div>
@@ -107,11 +109,11 @@ export default function BlogPost() {
               {/* Breadcrumb */}
               <nav className="flex items-center space-x-2 text-sm mb-4 animate-fadeIn">
                 <Link href="/" className="text-gray-300 hover:text-white transition-colors">
-                  Home
+                  {t('common.home')}
                 </Link>
                 <span className="text-gray-400">/</span>
                 <Link href="/blog" className="text-gray-300 hover:text-white transition-colors">
-                  Blog
+                  {t('pages.blog.crumb')}
                 </Link>
                 <span className="text-gray-400">/</span>
                 <span className="text-white font-medium line-clamp-1">{post.title}</span>
@@ -152,7 +154,7 @@ export default function BlogPost() {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                           </svg>
-                          {post.views} views
+                          {post.views} {t('pages.blogPost.views')}
                         </span>
                       </>
                     )}
@@ -184,7 +186,7 @@ export default function BlogPost() {
             {/* Tags */}
             {post.tags && post.tags.length > 0 && (
               <div className="mb-12">
-                <h3 className="text-lg font-semibold mb-4">Tags:</h3>
+                <h3 className="text-lg font-semibold mb-4">{t('pages.blogPost.tags')}</h3>
                 <div className="flex flex-wrap gap-2">
                   {post.tags.map((tag, index) => (
                     <span
@@ -201,7 +203,7 @@ export default function BlogPost() {
             {/* Share Section */}
             <div className="border-t border-b py-6 mb-12">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                <h3 className="text-lg font-semibold">Share this article:</h3>
+                <h3 className="text-lg font-semibold">{t('pages.blogPost.share')}</h3>
                 <div className="flex space-x-3">
                   <button className="w-10 h-10 bg-blue-600 text-white rounded-lg flex items-center justify-center hover:bg-blue-700 transition-colors">
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -235,10 +237,9 @@ export default function BlogPost() {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold mb-1">{post.author}</h3>
-                  <p className="text-gray-600 text-sm mb-2">Civil Engineering Expert</p>
+                  <p className="text-gray-600 text-sm mb-2">{t('pages.blogPost.authorRole')}</p>
                   <p className="text-gray-700">
-                    Experienced professional with expertise in {post.category.toLowerCase()}. 
-                    Passionate about sharing knowledge and best practices in the construction industry.
+                    {t('pages.blogPost.bioPrefix')} {post.category.toLowerCase()}. {t('pages.blogPost.bioSuffix')}
                   </p>
                 </div>
               </div>
@@ -253,7 +254,7 @@ export default function BlogPost() {
                 <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
-                Back to Blog
+                {t('pages.blogPost.backToBlog')}
               </Link>
             </div>
           </div>
@@ -265,7 +266,7 @@ export default function BlogPost() {
         <div className="bg-gray-50 py-16">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-12">
-              Related <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800">Articles</span>
+              {t('pages.blogPost.relatedA')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800">{t('pages.blogPost.relatedB')}</span>
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {relatedPosts.map((relatedPost) => {
@@ -313,16 +314,16 @@ export default function BlogPost() {
       <div className="bg-gradient-to-r from-blue-600 to-blue-800 py-16">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Need Professional Engineering Services?
+            {t('pages.blogPost.ctaTitle')}
           </h2>
           <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Our team of experts is ready to help you with your next project.
+            {t('pages.blogPost.ctaText')}
           </p>
           <Link
             href="/contact"
             className="inline-block bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold hover:bg-blue-50 transition-colors shadow-xl hover:shadow-2xl transform hover:scale-105"
           >
-            Get a Free Quote
+            {t('pages.blogPost.ctaBtn')}
           </Link>
         </div>
       </div>

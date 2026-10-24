@@ -2,33 +2,37 @@ import Link from 'next/link';
 import Layout from '../../components/Layout/Layout';
 import PageHero from '../../components/PageHero';
 import HERO_IMAGES from '../../lib/heroImages';
+import { useT } from '../../lib/i18n';
 
-const calculators = [
-  { icon: '⚖️', title: 'Steel Weight Calculator', href: '/tools/steel-weight', desc: 'Calculate steel weight for bars, plates & pipes' },
-  { icon: '🏗️', title: 'Concrete Calculator', href: '/tools/concrete', desc: 'Volume & material quantities (cement, sand, aggregate)' },
-  { icon: '📏', title: 'Rebar Calculator', href: '/tools/rebar', desc: 'Bar weights & bending schedule totals' },
+const CALC_META = [
+  { icon: '⚖️', href: '/tools/steel-weight' },
+  { icon: '🏗️', href: '/tools/concrete' },
+  { icon: '📏', href: '/tools/rebar' },
 ];
-
-const viewers = [
-  { icon: '📄', title: 'PDF Viewer', href: '/viewers/pdf-viewer', desc: 'View drawings online' },
-  { icon: '📐', title: 'DWG Viewer', href: '/viewers/dwg-viewer', desc: 'View AutoCAD files' },
-  { icon: '🏢', title: 'IFC Viewer', href: '/viewers/ifc-viewer', desc: 'View BIM models' },
+const VIEWER_META = [
+  { icon: '📄', href: '/viewers/pdf-viewer' },
+  { icon: '📐', href: '/viewers/dwg-viewer' },
+  { icon: '🏢', href: '/viewers/ifc-viewer' },
 ];
 
 export default function Tools() {
+  const { t } = useT();
+  const calculators = t('pages.tools.calculators').map((c, i) => ({ ...c, ...CALC_META[i] }));
+  const viewers = t('pages.tools.viewers').map((v, i) => ({ ...v, ...VIEWER_META[i] }));
+
   return (
     <Layout>
       <PageHero
         image={HERO_IMAGES.tools}
-        badge="100% Free — No Signup Required"
-        title="Free Engineering Tools"
-        subtitle="Powerful calculators and viewers for your construction projects."
-        crumb="Free Tools"
+        badge={t('pages.tools.badge')}
+        title={t('pages.tools.heroTitle')}
+        subtitle={t('pages.tools.heroSubtitle')}
+        crumb={t('pages.tools.crumb')}
       />
 
       <div className="bg-gray-50 py-16">
         <div className="container mx-auto px-4 max-w-6xl">
-          <h2 className="text-2xl font-bold mb-6">Calculators</h2>
+          <h2 className="text-2xl font-bold mb-6">{t('pages.tools.calculatorsTitle')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             {calculators.map((tool) => (
               <Link key={tool.href} href={tool.href}>
@@ -41,7 +45,7 @@ export default function Tools() {
             ))}
           </div>
 
-          <h2 className="text-2xl font-bold mb-6">Drawing Viewers</h2>
+          <h2 className="text-2xl font-bold mb-6">{t('pages.tools.viewersTitle')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {viewers.map((tool) => (
               <Link key={tool.href} href={tool.href}>
@@ -55,10 +59,10 @@ export default function Tools() {
           </div>
 
           <div className="mt-12 bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl p-8 text-center text-white">
-            <h3 className="text-2xl font-bold mb-2">Need a Professional Estimate?</h3>
-            <p className="text-blue-100 mb-6">Our engineers deliver accurate takeoffs within 1-5 business days.</p>
+            <h3 className="text-2xl font-bold mb-2">{t('pages.tools.ctaTitle')}</h3>
+            <p className="text-blue-100 mb-6">{t('pages.tools.ctaText')}</p>
             <Link href="/quote" className="inline-block bg-white text-blue-700 px-8 py-3 rounded-xl font-semibold hover:bg-blue-50 transition-colors">
-              Get a Free Quote
+              {t('pages.tools.ctaBtn')}
             </Link>
           </div>
         </div>

@@ -1,31 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
+import { useT } from '../lib/i18n';
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(0);
-
-  const faqs = [
-    {
-      question: 'What services do you offer?',
-      answer: 'We offer a comprehensive range of civil engineering services including steel detailing, rebar detailing, quantity takeoff, cost estimation, BOQ preparation, and shop drawings — all delivered with fast turnaround and engineer-checked accuracy.',
-    },
-    {
-      question: 'How quickly can you deliver projects?',
-      answer: 'Most standard services are delivered within 2–5 business days depending on complexity. Need it faster? Rush delivery (24–48 hours) is available on request — just mention it in your quote.',
-    },
-    {
-      question: 'What software do you use?',
-      answer: 'We work in industry-standard tools including AutoCAD, Tekla Structures, Revit, PlanSwift, and Bluebeam Revu, so our files drop straight into your workflow with zero compatibility issues.',
-    },
-    {
-      question: 'Do you provide revisions?',
-      answer: 'Yes. Every plan includes free revisions — 2 on Starter, 5 on Professional, and unlimited on Premium — so the final deliverables match your exact requirements before you pay the balance.',
-    },
-    {
-      question: 'How do you ensure quality?',
-      answer: 'Every deliverable passes a multi-level quality check: the detailer self-reviews, then a senior engineer verifies dimensions, codes, and compliance before anything reaches you.',
-    },
-  ];
+  const { t } = useT();
+  const faqs = t('home.faq.items');
 
   return (
     <section className="py-20 bg-white">
@@ -34,16 +14,16 @@ export default function FAQ() {
           {/* Header */}
           <div className="text-center mb-12">
             <span className="inline-block px-4 py-1.5 mb-4 text-sm font-semibold text-indigo-700 bg-indigo-100 rounded-full">
-              Got Questions?
+              {t('home.faq.badge')}
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">
-              Frequently Asked{' '}
+              {t('home.faq.titleFreq')}{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
-                Questions
+                {t('home.faq.titleQuestions')}
               </span>
             </h2>
             <p className="text-lg text-gray-600">
-              Everything you need to know about working with CivilPro.
+              {t('home.faq.subtitle')}
             </p>
           </div>
 
@@ -62,12 +42,12 @@ export default function FAQ() {
 
           {/* Bottom CTA */}
           <div className="mt-10 text-center">
-            <p className="text-gray-600 mb-4">Still have questions? We reply within a few hours.</p>
+            <p className="text-gray-600 mb-4">{t('home.faq.stillQuestions')}</p>
             <Link
               href="/contact"
               className="inline-flex items-center px-7 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl shadow-lg shadow-blue-600/25 hover:shadow-xl hover:scale-[1.02] transition-all duration-300"
             >
-              Contact Our Team
+              {t('home.faq.contactTeam')}
               <svg className="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>

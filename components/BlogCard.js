@@ -1,6 +1,8 @@
 import Link from 'next/link';
+import { useT } from '../lib/i18n';
 
 export default function BlogCard({ post }) {
+  const { t } = useT();
   const placeholderImages = {
     'steel-detailing': '/images/blog/blog-1.svg',
     'cost-estimation': '/images/blog/blog-2.svg',
@@ -73,7 +75,7 @@ export default function BlogCard({ post }) {
           {/* Bottom Section */}
           <div className="flex items-center justify-between mt-auto pt-4 border-t">
             <span className="text-blue-600 inline-flex items-center font-semibold group-hover:translate-x-1 transition-transform">
-              Read More
+              {t('pages.blog.readMore')}
               <svg className="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>

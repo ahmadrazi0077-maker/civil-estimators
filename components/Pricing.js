@@ -1,66 +1,29 @@
 import Link from 'next/link';
+import { useT } from '../lib/i18n';
+
+const PRICES = ['$99', '$149', '$199'];
+const HIGHLIGHTED = [false, true, false];
 
 export default function Pricing() {
-  const plans = [
-    {
-      name: 'Starter',
-      price: '$99',
-      unit: 'starting price',
-      description: 'Perfect for small takeoffs and single-trade estimates.',
-      features: [
-        'Single service (takeoff or estimate)',
-        'Up to 2 revisions',
-        '3-day standard delivery',
-        'PDF + Excel deliverables',
-        'Email support',
-      ],
-      highlighted: false,
-    },
-    {
-      name: 'Professional',
-      price: '$149',
-      unit: 'starting price',
-      description: 'Best for contractors bidding mid-size projects.',
-      features: [
-        'Takeoff + cost estimate bundle',
-        'Up to 5 revisions',
-        '48-hour priority delivery',
-        'PDF + Excel deliverables',
-        'Markup drawings included',
-        'Priority email support',
-      ],
-      highlighted: true,
-    },
-    {
-      name: 'Premium',
-      price: '$199',
-      unit: 'starting price',
-      description: 'Full documentation for complex or fast-track jobs.',
-      features: [
-        'Detailing + BOQ + shop drawings',
-        'Unlimited revisions',
-        '24-hour rush delivery',
-        'All file formats (DWG, PDF, Excel)',
-        'Dedicated project manager',
-        'Phone + email support',
-      ],
-      highlighted: false,
-    },
-  ];
+  const { t } = useT();
+  const plans = t('home.pricing.plans').map((plan, i) => ({
+    ...plan,
+    price: PRICES[i],
+    highlighted: HIGHLIGHTED[i],
+  }));
 
   return (
     <section className="py-20 bg-gradient-to-b from-white to-blue-50/60">
       <div className="container mx-auto px-4">
         <div className="text-center mb-14">
           <span className="inline-block px-4 py-1.5 mb-4 text-sm font-semibold text-blue-700 bg-blue-100 rounded-full">
-            Simple, Transparent Pricing
+            {t('home.pricing.badge')}
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">
-            Pricing Plans
+            {t('home.pricing.title')}
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Professional estimation services starting at just $99. No hidden fees —
-            you approve the quote before we start.
+            {t('home.pricing.subtitle')}
           </p>
         </div>
 
@@ -76,7 +39,7 @@ export default function Pricing() {
             >
               {plan.highlighted && (
                 <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide shadow-lg whitespace-nowrap">
-                  Most Popular
+                  {t('home.pricing.mostPopular')}
                 </span>
               )}
 
@@ -85,7 +48,7 @@ export default function Pricing() {
 
               <div className="mb-6">
                 <span className="text-5xl font-extrabold text-gray-900 tracking-tight">{plan.price}</span>
-                <span className="block text-sm text-gray-500 mt-1">{plan.unit}</span>
+                <span className="block text-sm text-gray-500 mt-1">{t('home.pricing.startingPrice')}</span>
               </div>
 
               <ul className="space-y-3 mb-8 flex-1">
@@ -111,18 +74,18 @@ export default function Pricing() {
                     : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
                 }`}
               >
-                Get a Quote
+                {t('home.pricing.getQuote')}
               </Link>
             </div>
           ))}
         </div>
 
         <p className="text-center text-sm text-gray-500 mt-10">
-          Need something custom?{' '}
+          {t('home.pricing.customPrefix')}{' '}
           <Link href="/contact" className="text-blue-600 font-semibold hover:underline">
-            Contact us
+            {t('home.pricing.customLink')}
           </Link>{' '}
-          for a tailored estimate.
+          {t('home.pricing.customSuffix')}
         </p>
       </div>
     </section>

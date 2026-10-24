@@ -4,11 +4,13 @@ import Layout from '../../components/Layout/Layout';
 import { projectsAPI } from '../../lib/api';
 import PageHero from '../../components/PageHero';
 import HERO_IMAGES from '../../lib/heroImages';
+import { useT } from '../../lib/i18n';
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState('All');
+  const { t } = useT();
 
   useEffect(() => {
     fetchProjects();
@@ -34,10 +36,10 @@ export default function Projects() {
       {/* Hero */}
       <PageHero
         image={HERO_IMAGES.projects}
-        badge="Our Portfolio"
-        title="Recent Projects"
-        subtitle="Explore successful projects delivered for clients around the world."
-        crumb="Projects"
+        badge={t('pages.projects.badge')}
+        title={t('pages.projects.heroTitle')}
+        subtitle={t('pages.projects.heroSubtitle')}
+        crumb={t('pages.projects.crumb')}
       />
 
       <div className="bg-gray-50 py-16">
@@ -57,10 +59,10 @@ export default function Projects() {
           ) : projects.length === 0 ? (
             <div className="text-center py-20">
               <div className="text-6xl mb-4">🏗️</div>
-              <h2 className="text-2xl font-bold mb-2">Projects coming soon</h2>
-              <p className="text-gray-600 mb-6">We're preparing our portfolio. Check back shortly.</p>
+              <h2 className="text-2xl font-bold mb-2">{t('pages.projects.emptyTitle')}</h2>
+              <p className="text-gray-600 mb-6">{t('pages.projects.emptyText')}</p>
               <Link href="/contact" className="inline-block bg-blue-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors">
-                Start Your Project
+                {t('pages.projects.startProject')}
               </Link>
             </div>
           ) : (
@@ -78,7 +80,7 @@ export default function Projects() {
                           : 'bg-white text-gray-700 hover:bg-gray-100 shadow'
                       }`}
                     >
-                      {category}
+                      {category === 'All' ? t('pages.projects.all') : category}
                     </button>
                   ))}
                 </div>
@@ -110,7 +112,7 @@ export default function Projects() {
                       )}
                       {project.isFeatured && (
                         <div className="absolute top-4 left-4 bg-yellow-400 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                          ⭐ Featured
+                          ⭐ {t('pages.projects.featured')}
                         </div>
                       )}
                     </div>
@@ -131,15 +133,15 @@ export default function Projects() {
                       {(project.size || project.duration || project.value) && (
                         <div className="grid grid-cols-3 gap-2 pt-4 border-t">
                           <div className="text-center">
-                            <p className="text-xs text-gray-500">Size</p>
+                            <p className="text-xs text-gray-500">{t('pages.projects.size')}</p>
                             <p className="font-semibold text-sm">{project.size || '-'}</p>
                           </div>
                           <div className="text-center">
-                            <p className="text-xs text-gray-500">Duration</p>
+                            <p className="text-xs text-gray-500">{t('pages.projects.duration')}</p>
                             <p className="font-semibold text-sm">{project.duration || '-'}</p>
                           </div>
                           <div className="text-center">
-                            <p className="text-xs text-gray-500">Value</p>
+                            <p className="text-xs text-gray-500">{t('pages.projects.value')}</p>
                             <p className="font-semibold text-sm text-blue-600">{project.value || '-'}</p>
                           </div>
                         </div>
@@ -153,10 +155,10 @@ export default function Projects() {
 
           {/* CTA */}
           <div className="mt-16 bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl p-8 text-center text-white max-w-4xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">Have a Project in Mind?</h2>
-            <p className="text-blue-100 mb-6">Get a free quote within 24 hours.</p>
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">{t('pages.projects.ctaTitle')}</h2>
+            <p className="text-blue-100 mb-6">{t('pages.projects.ctaText')}</p>
             <Link href="/quote" className="inline-block bg-white text-blue-700 px-8 py-3 rounded-xl font-semibold hover:bg-blue-50 transition-colors">
-              Get a Free Quote
+              {t('pages.projects.ctaBtn')}
             </Link>
           </div>
         </div>

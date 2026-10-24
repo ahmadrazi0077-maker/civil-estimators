@@ -1,10 +1,8 @@
+import { useT } from '../../lib/i18n';
+
 export default function Stats() {
-  const stats = [
-    { label: 'Projects Completed', value: '500+' },
-    { label: 'Years Experience', value: '10+' },
-    { label: 'Happy Clients', value: '200+' },
-    { label: 'Team Members', value: '25+' },
-  ];
+  const { t } = useT();
+  const stats = t('home.hero.stats').map((s) => ({ label: s.label, value: s.value }));
 
   return (
     <section className="py-16 bg-white">

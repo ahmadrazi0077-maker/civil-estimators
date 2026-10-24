@@ -1,10 +1,12 @@
 import Link from 'next/link';
+import { useT } from '../lib/i18n';
 
 /**
  * Shared hero banner for inner pages.
  * Props: image (bg url), badge, title, subtitle, crumb (current page label)
  */
 export default function PageHero({ image, badge, title, subtitle, crumb }) {
+  const { t } = useT();
   return (
     <div className="relative h-[380px] md:h-[460px] overflow-hidden">
       <img
@@ -20,7 +22,7 @@ export default function PageHero({ image, badge, title, subtitle, crumb }) {
           <div className="max-w-4xl">
             <nav className="flex items-center space-x-2 text-sm mb-6">
               <Link href="/" className="text-gray-300 hover:text-white transition-colors">
-                Home
+                {t('common.home')}
               </Link>
               <span className="text-gray-400">/</span>
               <span className="text-white font-medium">{crumb}</span>

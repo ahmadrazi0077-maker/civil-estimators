@@ -1,7 +1,12 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useT, localizeService } from '../lib/i18n';
 
-export default function ServiceCard({ service }) {
-  if (!service) return null;
+export default function ServiceCard({ service: rawService }) {
+  const router = useRouter();
+  const { t } = useT();
+  if (!rawService) return null;
+  const service = localizeService(rawService, router.locale);
 
   // Placeholder images mapping
   const placeholderImages = {
@@ -18,7 +23,7 @@ export default function ServiceCard({ service }) {
   return (
     <Link href={`/services/${service.slug}`} className="block group h-full">
       <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden h-full flex flex-col hover:-translate-y-2">
-        
+
         {/* Image Section */}
         <div className="relative h-52 overflow-hidden bg-gradient-to-br from-blue-500 to-blue-700">
           <img
@@ -31,12 +36,12 @@ export default function ServiceCard({ service }) {
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-          
+
           {/* Icon Badge */}
           <div className="absolute bottom-4 left-4 flex items-center">
             <span className="text-3xl">{service.icon || '🛠️'}</span>
           </div>
-          
+
           {/* Price Badge */}
           {service.price && (
             <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold text-blue-600">
@@ -50,7 +55,7 @@ export default function ServiceCard({ service }) {
           <h3 className="text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors">
             {service.title}
           </h3>
-          
+
           <p className="text-gray-600 mb-4 flex-grow line-clamp-3">
             {service.shortDescription || service.description}
           </p>
@@ -74,12 +79,12 @@ export default function ServiceCard({ service }) {
           {/* Bottom Section */}
           <div className="flex items-center justify-between mt-auto pt-4 border-t">
             <span className="text-blue-600 inline-flex items-center font-semibold group-hover:translate-x-1 transition-transform">
-              Learn More
+              {t('common.learnMore')}
               <svg className="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </span>
-            
+
             {service.timeline && (
               <span className="text-xs text-gray-500 flex items-center">
                 <svg className="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">

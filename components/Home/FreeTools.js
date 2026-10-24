@@ -1,27 +1,30 @@
 import Link from 'next/link';
+import { useT } from '../../lib/i18n';
 
 export default function FreeTools() {
-  const tools = [
-    { icon: '⚖️', title: 'Steel Weight Calculator', href: '/tools/steel-weight', desc: 'Calculate steel weight for any shape' },
-    { icon: '🏗️', title: 'Concrete Calculator', href: '/tools/concrete', desc: 'Volume & material quantities' },
-    { icon: '📏', title: 'Rebar Calculator', href: '/tools/rebar', desc: 'Bar bending schedules' },
-    { icon: '💰', title: 'Cost Estimator', href: '/quote', desc: 'Instant project estimate' },
-    { icon: '📄', title: 'PDF Viewer', href: '/viewers/pdf-viewer', desc: 'View drawings online' },
-    { icon: '📐', title: 'DWG Viewer', href: '/viewers/dwg-viewer', desc: 'View AutoCAD files' },
+  const { t } = useT();
+  const meta = [
+    { icon: '⚖️', href: '/tools/steel-weight' },
+    { icon: '🏗️', href: '/tools/concrete' },
+    { icon: '📏', href: '/tools/rebar' },
+    { icon: '💰', href: '/quote' },
+    { icon: '📄', href: '/viewers/pdf-viewer' },
+    { icon: '📐', href: '/viewers/dwg-viewer' },
   ];
+  const tools = t('home.freeTools.items').map((item, i) => ({ ...item, ...meta[i] }));
 
   return (
     <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <span className="inline-block bg-green-100 text-green-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">
-            100% Free
+            {t('home.freeTools.badge')}
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            Free <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800">Engineering Tools</span>
+            {t('home.freeTools.titleFree')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800">{t('home.freeTools.titleTools')}</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Powerful calculators and viewers - no signup required
+            {t('home.freeTools.subtitle')}
           </p>
         </div>
 

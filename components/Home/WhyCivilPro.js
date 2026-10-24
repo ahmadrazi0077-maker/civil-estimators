@@ -1,49 +1,22 @@
+import { useT } from '../../lib/i18n';
+
 export default function WhyCivilPro() {
-  const points = [
-    {
-      icon: '✓',
-      title: 'Accuracy Guaranteed',
-      desc: 'Every drawing and estimate is double-checked by senior engineers before delivery.',
-    },
-    {
-      icon: '⚡',
-      title: 'Fast Turnaround',
-      desc: 'Most projects delivered within 1–5 business days. Rush services available.',
-    },
-    {
-      icon: '💰',
-      title: 'Competitive Pricing',
-      desc: 'Starting from $99. No hidden fees. Free initial consultation.',
-    },
-    {
-      icon: '🔒',
-      title: 'Confidential & Secure',
-      desc: 'Your drawings and project data are always protected with strict NDA.',
-    },
-    {
-      icon: '🌍',
-      title: 'Global Experience',
-      desc: 'Served 50+ countries with clients from USA, UK, UAE, Australia & more.',
-    },
-    {
-      icon: '🎯',
-      title: 'Engineering Excellence',
-      desc: '10+ years experience. 500+ projects. 4.9/5 client rating.',
-    },
-  ];
+  const { t } = useT();
+  const icons = ['✓', '⚡', '💰', '🔒', '🌍', '🎯'];
+  const points = t('home.why.points').map((p, i) => ({ ...p, icon: icons[i] }));
 
   return (
     <section className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <span className="inline-block bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">
-            Why Choose Us
+            {t('home.why.badge')}
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            Why <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800">CivilPro Services</span>
+            {t('home.why.titleWhy')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800">{t('home.why.titleBrand')}</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Trusted by contractors, fabricators, and architects worldwide
+            {t('home.why.subtitle')}
           </p>
         </div>
 

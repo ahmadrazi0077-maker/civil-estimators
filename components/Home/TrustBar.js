@@ -1,10 +1,10 @@
+import { useT } from '../../lib/i18n';
+
 export default function TrustBar() {
-  const items = [
-    { icon: '🎯', label: 'Engineering-Focused' },
-    { icon: '⚡', label: 'Fast Turnaround' },
-    { icon: '🔒', label: '100% Confidential' },
-    { icon: '🌍', label: 'International Clients' },
-  ];
+  const { t } = useT();
+  const icons = ['🎯', '⚡', '🔒', '🌍'];
+  const labels = t('home.trustBar');
+  const items = labels.map((label, i) => ({ icon: icons[i], label }));
 
   return (
     <div className="bg-white border-b border-gray-100 py-6">

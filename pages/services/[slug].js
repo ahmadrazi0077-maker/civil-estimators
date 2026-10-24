@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Layout from '../../components/Layout/Layout';
 import { servicesAPI } from '../../lib/api';
 import SEO from '../../components/SEO';
+import { useT, localizeService } from '../../lib/i18n';
 
 export default function ServiceDetail() {
   const router = useRouter();
@@ -12,6 +13,7 @@ export default function ServiceDetail() {
   const [otherServices, setOtherServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { t } = useT();
 
   useEffect(() => {
     if (slug) {
@@ -60,7 +62,7 @@ export default function ServiceDetail() {
         <div className="min-h-screen flex items-center justify-center bg-gray-50">
           <div className="text-center">
             <div className="inline-block animate-spin rounded-full h-16 w-16 border-4 border-blue-600 border-t-transparent"></div>
-            <p className="mt-4 text-gray-600 font-medium">Loading service...</p>
+            <p className="mt-4 text-gray-600 font-medium">{t('servicesData.detail.loading')}</p>
           </div>
         </div>
       </Layout>
@@ -73,10 +75,10 @@ export default function ServiceDetail() {
         <div className="min-h-screen flex items-center justify-center bg-gray-50">
           <div className="text-center">
             <div className="text-6xl mb-4">🔍</div>
-            <h1 className="text-4xl font-bold mb-4">Service Not Found</h1>
-            <p className="text-gray-600 mb-6">The service you're looking for doesn't exist.</p>
+            <h1 className="text-4xl font-bold mb-4">{t('servicesData.detail.notFoundTitle')}</h1>
+            <p className="text-gray-600 mb-6">{t('servicesData.detail.notFoundText')}</p>
             <Link href="/services" className="inline-block bg-blue-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors">
-              Back to Services
+              {t('servicesData.detail.backToServices')}
             </Link>
           </div>
         </div>
@@ -84,14 +86,18 @@ export default function ServiceDetail() {
     );
   }
 
-  const imageUrl = service.image || placeholderImages[service.slug] || '/images/services/placeholder.svg';
+  const localized = localizeService(service, router.locale);
+  const imageUrl = localized.image || placeholderImages[localized.slug] || '/images/services/placeholder.svg';
+  const processSteps = t('servicesData.detail.processSteps');
+  const seoDescription = localized.shortDescription ||
+    t('servicesData.detail.descFallback').replace('{title}', localized.title);
 
   return (
     <Layout>
       <SEO
-        title={service.title}
-        description={service.shortDescription || `Professional ${service.title.toLowerCase()} for contractors worldwide — accurate, fast and affordable.`}
-        keywords={`${service.title.toLowerCase()}, construction estimating services, quantity takeoff, cost estimation, civil engineering services`}
+        title={localized.title}
+        description={seoDescription}
+        keywords={`${localized.title}, ${t('servicesData.detail.keywordsSuffix')}`}
         ogImage={imageUrl}
       />
       {/* Hero Section with Image */}
@@ -99,13 +105,13 @@ export default function ServiceDetail() {
         {/* Background Image */}
         <img
           src={imageUrl}
-          alt={service.title}
+          alt={localized.title}
           className="w-full h-full object-cover"
         />
-        
+
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70"></div>
-        
+
         {/* Content */}
         <div className="absolute inset-0 flex items-center">
           <div className="container mx-auto px-4">
@@ -113,48 +119,48 @@ export default function ServiceDetail() {
               {/* Breadcrumb */}
               <nav className="flex items-center space-x-2 text-sm mb-4 animate-fadeIn">
                 <Link href="/" className="text-gray-300 hover:text-white transition-colors">
-                  Home
+                  {t('common.home')}
                 </Link>
                 <span className="text-gray-400">/</span>
                 <Link href="/services" className="text-gray-300 hover:text-white transition-colors">
-                  Services
+                  {t('common.services')}
                 </Link>
                 <span className="text-gray-400">/</span>
-                <span className="text-white font-medium">{service.title}</span>
+                <span className="text-white font-medium">{localized.title}</span>
               </nav>
 
               {/* Icon and Title */}
               <div className="flex items-center mb-4 animate-slideIn">
                 <div className="w-16 h-16 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl flex items-center justify-center text-4xl mr-4">
-                  {service.icon}
+                  {localized.icon}
                 </div>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white">
-                  {service.title}
+                  {localized.title}
                 </h1>
               </div>
 
               {/* Short Description */}
               <p className="text-xl md:text-2xl text-gray-200 max-w-3xl mb-6 animate-fadeIn">
-                {service.shortDescription}
+                {localized.shortDescription}
               </p>
 
               {/* Quick Info Badges */}
               <div className="flex flex-wrap gap-4 animate-fadeIn" style={{ animationDelay: '0.3s' }}>
-                {service.price && (
+                {localized.price && (
                   <div className="flex items-center bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-4 py-2">
                     <span className="text-yellow-400 mr-2">💰</span>
-                    <span className="text-white font-medium">{service.price}</span>
+                    <span className="text-white font-medium">{localized.price}</span>
                   </div>
                 )}
-                {service.timeline && (
+                {localized.timeline && (
                   <div className="flex items-center bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-4 py-2">
                     <span className="text-green-400 mr-2">⏰</span>
-                    <span className="text-white font-medium">{service.timeline}</span>
+                    <span className="text-white font-medium">{localized.timeline}</span>
                   </div>
                 )}
                 <div className="flex items-center bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-4 py-2">
                   <span className="text-blue-400 mr-2">✅</span>
-                  <span className="text-white font-medium">24/7 Support</span>
+                  <span className="text-white font-medium">{t('servicesData.detail.support')}</span>
                 </div>
               </div>
             </div>
@@ -177,17 +183,17 @@ export default function ServiceDetail() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
               <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-2xl text-center">
                 <div className="text-3xl mb-2">💰</div>
-                <p className="text-sm text-gray-600 mb-1">Starting Price</p>
-                <p className="text-2xl font-bold text-blue-600">{service.price || 'Custom Quote'}</p>
+                <p className="text-sm text-gray-600 mb-1">{t('servicesData.detail.startingPrice')}</p>
+                <p className="text-2xl font-bold text-blue-600">{localized.price || t('servicesData.detail.customQuote')}</p>
               </div>
               <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-2xl text-center">
                 <div className="text-3xl mb-2">⏰</div>
-                <p className="text-sm text-gray-600 mb-1">Delivery Time</p>
-                <p className="text-2xl font-bold text-green-600">{service.timeline || 'Varies'}</p>
+                <p className="text-sm text-gray-600 mb-1">{t('servicesData.detail.deliveryTime')}</p>
+                <p className="text-2xl font-bold text-green-600">{localized.timeline || t('servicesData.detail.varies')}</p>
               </div>
               <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-2xl text-center">
                 <div className="text-3xl mb-2">🎯</div>
-                <p className="text-sm text-gray-600 mb-1">Success Rate</p>
+                <p className="text-sm text-gray-600 mb-1">{t('servicesData.detail.successRate')}</p>
                 <p className="text-2xl font-bold text-purple-600">98%</p>
               </div>
             </div>
@@ -196,22 +202,22 @@ export default function ServiceDetail() {
             <div className="mb-12">
               <h2 className="text-3xl font-bold mb-6 flex items-center">
                 <span className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center mr-3">📋</span>
-                Service Overview
+                {t('servicesData.detail.overview')}
               </h2>
               <p className="text-lg text-gray-700 leading-relaxed">
-                {service.description}
+                {localized.description}
               </p>
             </div>
 
             {/* Features */}
-            {service.features && service.features.length > 0 && (
+            {localized.features && localized.features.length > 0 && (
               <div className="mb-12">
                 <h2 className="text-3xl font-bold mb-6 flex items-center">
                   <span className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center mr-3">✅</span>
-                  What We Offer
+                  {t('servicesData.detail.whatWeOffer')}
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {service.features.map((feature, index) => (
+                  {localized.features.map((feature, index) => (
                     <div
                       key={index}
                       className="flex items-start bg-gray-50 p-4 rounded-xl hover:bg-blue-50 transition-colors group"
@@ -232,18 +238,13 @@ export default function ServiceDetail() {
             <div className="mb-12">
               <h2 className="text-3xl font-bold mb-8 flex items-center">
                 <span className="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center mr-3">🔄</span>
-                Our Process
+                {t('servicesData.detail.process')}
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                {[
-                  { step: '1', title: 'Submit Request', desc: 'Share your project details' },
-                  { step: '2', title: 'Get Quote', desc: 'Receive detailed pricing' },
-                  { step: '3', title: 'We Work', desc: 'Our experts start working' },
-                  { step: '4', title: 'Delivery', desc: 'Receive final deliverables' },
-                ].map((process) => (
-                  <div key={process.step} className="text-center">
+                {processSteps.map((process, index) => (
+                  <div key={index} className="text-center">
                     <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-3 shadow-lg shadow-blue-600/30">
-                      {process.step}
+                      {index + 1}
                     </div>
                     <h3 className="font-semibold mb-1">{process.title}</h3>
                     <p className="text-sm text-gray-600">{process.desc}</p>
@@ -255,23 +256,23 @@ export default function ServiceDetail() {
             {/* CTA Section */}
             <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl p-8 text-center text-white">
               <h3 className="text-2xl md:text-3xl font-bold mb-4">
-                Ready to Get Started?
+                {t('servicesData.detail.ctaTitle')}
               </h3>
               <p className="text-blue-100 mb-6">
-                Contact us today for a free consultation and quote
+                {t('servicesData.detail.ctaText')}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
                   href="/contact"
                   className="inline-block bg-white text-blue-600 px-8 py-3 rounded-xl font-semibold hover:bg-blue-50 transition-colors"
                 >
-                  Get a Free Quote
+                  {t('servicesData.detail.getFreeQuote')}
                 </Link>
                 <Link
                   href="/services"
                   className="inline-block border-2 border-white text-white px-8 py-3 rounded-xl font-semibold hover:bg-white hover:text-blue-600 transition-colors"
                 >
-                  View Other Services
+                  {t('servicesData.detail.viewOther')}
                 </Link>
               </div>
             </div>
@@ -284,31 +285,32 @@ export default function ServiceDetail() {
         <div className="bg-gray-50 py-16">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-12">
-              Other <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800">Services</span>
+              {t('servicesData.detail.otherTitleA')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800">{t('servicesData.detail.otherTitleB')}</span>
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {otherServices.map((otherService) => {
-                const otherImage = otherService.image || placeholderImages[otherService.slug] || '/images/services/placeholder.svg';
+                const other = localizeService(otherService, router.locale);
+                const otherImage = other.image || placeholderImages[other.slug] || '/images/services/placeholder.svg';
                 return (
-                  <Link href={`/services/${otherService.slug}`} key={otherService._id || otherService.id} className="block group">
+                  <Link href={`/services/${other.slug}`} key={other._id || other.id} className="block group">
                     <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden hover:-translate-y-2">
                       <div className="relative h-40 overflow-hidden">
                         <img
                           src={otherImage}
-                          alt={otherService.title}
+                          alt={other.title}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                         <div className="absolute bottom-3 left-3 text-2xl">
-                          {otherService.icon}
+                          {other.icon}
                         </div>
                       </div>
                       <div className="p-4 text-center">
                         <h3 className="font-semibold mb-1 group-hover:text-blue-600 transition-colors">
-                          {otherService.title}
+                          {other.title}
                         </h3>
                         <p className="text-sm text-gray-600 line-clamp-2">
-                          {otherService.shortDescription}
+                          {other.shortDescription}
                         </p>
                       </div>
                     </div>

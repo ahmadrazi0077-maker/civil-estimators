@@ -1,6 +1,26 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useT } from '../../lib/i18n';
+import LanguageSwitcher from '../LanguageSwitcher';
+
+const SERVICE_SLUGS = [
+  'steel-detailing',
+  'rebar-detailing',
+  'quantity-takeoff',
+  'cost-estimation',
+  'boq-preparation',
+  'shop-drawings',
+];
+
+const TOOL_HREFS = [
+  '/tools/steel-weight',
+  '/tools/concrete',
+  '/tools/rebar',
+  '/viewers/pdf-viewer',
+  '/viewers/dwg-viewer',
+  '/viewers/ifc-viewer',
+];
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -8,6 +28,7 @@ export default function Header() {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [expandedMobile, setExpandedMobile] = useState(null);
   const router = useRouter();
+  const { t } = useT();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -34,35 +55,25 @@ export default function Header() {
     };
   }, [isOpen]);
 
+  const toolNames = t('header.toolNames');
   const navigation = [
-    { name: 'Home', href: '/' },
-    { 
-      name: 'Services', 
+    { name: t('header.nav.home'), href: '/' },
+    {
+      name: t('header.nav.services'),
       href: '/services',
-      dropdown: [
-        { name: 'Steel Detailing', href: '/services/steel-detailing' },
-        { name: 'Rebar Detailing', href: '/services/rebar-detailing' },
-        { name: 'Quantity Takeoff', href: '/services/quantity-takeoff' },
-        { name: 'Cost Estimation', href: '/services/cost-estimation' },
-        { name: 'BOQ Preparation', href: '/services/boq-preparation' },
-        { name: 'Shop Drawings', href: '/services/shop-drawings' },
-      ]
+      dropdown: SERVICE_SLUGS.map((slug) => ({
+        name: t(`servicesData.${slug}.title`),
+        href: `/services/${slug}`,
+      })),
     },
-    { name: 'Projects', href: '/projects' },
-    { 
-      name: 'Tools', 
+    { name: t('header.nav.projects'), href: '/projects' },
+    {
+      name: t('header.nav.tools'),
       href: '/tools',
-      dropdown: [
-        { name: 'Steel Weight Calculator', href: '/tools/steel-weight' },
-        { name: 'Concrete Calculator', href: '/tools/concrete' },
-        { name: 'Rebar Calculator', href: '/tools/rebar' },
-        { name: 'PDF Viewer', href: '/viewers/pdf-viewer' },
-        { name: 'DWG Viewer', href: '/viewers/dwg-viewer' },
-        { name: 'IFC Viewer', href: '/viewers/ifc-viewer' },
-      ]
+      dropdown: TOOL_HREFS.map((href, i) => ({ name: toolNames[i], href })),
     },
-    { name: 'About', href: '/about' },
-    { name: 'Contact', href: '/contact' },
+    { name: t('header.nav.about'), href: '/about' },
+    { name: t('header.nav.contact'), href: '/contact' },
   ];
 
   return (
@@ -86,7 +97,7 @@ export default function Header() {
               </span>
             </div>
             <div className="flex items-center space-x-4">
-              <span>Mon - Sat: 9:00 AM - 6:00 PM</span>
+              <span>{t('header.workingHours')}</span>
             </div>
           </div>
         </div>
@@ -108,7 +119,7 @@ export default function Header() {
                   CivilPro
                 </span>
                 <span className="block text-xs text-gray-500 font-medium tracking-wider">
-                  Engineering Services
+                  {t('header.logoSubtitle')}
                 </span>
               </div>
             </Link>
@@ -117,9 +128,9 @@ export default function Header() {
             <div className="hidden lg:flex items-center space-x-1">
               {navigation.map((item) => (
                 <div
-                  key={item.name}
+                  key={item.href}
                   className="relative"
-                  onMouseEnter={() => setActiveDropdown(item.name)}
+                  onMouseEnter={() => setActiveDropdown(item.href)}
                   onMouseLeave={() => setActiveDropdown(null)}
                 >
                   <Link
@@ -138,11 +149,11 @@ export default function Header() {
                     )}
                   </Link>
 
-                  {item.dropdown && activeDropdown === item.name && (
+                  {item.dropdown && activeDropdown === item.href && (
                     <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-2xl border border-gray-100 py-2 animate-fadeIn">
                       {item.dropdown.map((subItem) => (
                         <Link
-                          key={subItem.name}
+                          key={subItem.href}
                           href={subItem.href}
                           className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
                         >
@@ -155,13 +166,14 @@ export default function Header() {
               ))}
             </div>
 
-            {/* CTA */}
+            {/* CTA + Language */}
             <div className="hidden lg:flex items-center space-x-3">
+              <LanguageSwitcher />
               <Link
                 href="/quote"
                 className="relative group px-6 py-2.5 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-lg font-semibold text-sm hover:from-blue-700 hover:to-blue-900 transition-all shadow-lg shadow-blue-600/30"
               >
-                Get a Quote
+                {t('header.getQuote')}
                 <svg className="w-4 h-4 ml-2 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
@@ -228,7 +240,7 @@ export default function Header() {
         {/* Drawer links (scrollable) */}
         <nav className="flex-1 overflow-y-auto p-4 space-y-1">
           {navigation.map((item) => (
-            <div key={item.name}>
+            <div key={item.href}>
               <div className="flex items-center gap-1">
                 <Link
                   href={item.href}
@@ -243,15 +255,15 @@ export default function Header() {
                 {item.dropdown && (
                   <button
                     onClick={() =>
-                      setExpandedMobile(expandedMobile === item.name ? null : item.name)
+                      setExpandedMobile(expandedMobile === item.href ? null : item.href)
                     }
                     aria-label={`Toggle ${item.name} submenu`}
-                    aria-expanded={expandedMobile === item.name}
+                    aria-expanded={expandedMobile === item.href}
                     className="p-3 rounded-lg text-gray-500 hover:bg-gray-100 shrink-0"
                   >
                     <svg
                       className={`w-5 h-5 transition-transform duration-200 ${
-                        expandedMobile === item.name ? 'rotate-180' : ''
+                        expandedMobile === item.href ? 'rotate-180' : ''
                       }`}
                       fill="none"
                       viewBox="0 0 24 24"
@@ -262,11 +274,11 @@ export default function Header() {
                   </button>
                 )}
               </div>
-              {item.dropdown && expandedMobile === item.name && (
+              {item.dropdown && expandedMobile === item.href && (
                 <div className="ml-4 mt-1 space-y-1 border-l-2 border-blue-100 pl-4">
                   {item.dropdown.map((subItem) => (
                     <Link
-                      key={subItem.name}
+                      key={subItem.href}
                       href={subItem.href}
                       className="block px-3 py-2.5 text-sm text-gray-600 hover:text-blue-600 rounded-lg hover:bg-blue-50"
                     >
@@ -279,13 +291,16 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* Drawer CTA */}
-        <div className="p-4 border-t border-gray-100 shrink-0">
+        {/* Drawer Language + CTA */}
+        <div className="p-4 border-t border-gray-100 shrink-0 space-y-3">
+          <div className="flex justify-center">
+            <LanguageSwitcher />
+          </div>
           <Link
             href="/quote"
             className="block text-center bg-gradient-to-r from-blue-600 to-blue-800 text-white py-3.5 rounded-xl font-semibold shadow-lg shadow-blue-600/30"
           >
-            Get a Free Quote
+            {t('header.getFreeQuote')}
           </Link>
         </div>
       </aside>

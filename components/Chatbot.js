@@ -1,11 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
+import { useT } from '../lib/i18n';
 
 export default function Chatbot() {
+  const { t } = useT();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     {
       type: 'bot',
-      text: '👋 Welcome to CivilPro Services!\n\nI can help you with our engineering services, pricing, and project information.',
+      text: t('chatbot.greeting'),
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       usedAI: false,
     },
@@ -74,7 +76,7 @@ export default function Chatbot() {
     } catch (error) {
       setMessages(prev => [...prev, {
         type: 'bot',
-        text: 'Sorry, I encountered an error. Please try again.',
+        text: t('chatbot.errorText'),
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         usedAI: false,
       }]);
@@ -82,11 +84,12 @@ export default function Chatbot() {
     }
   };
 
+  const quickLabels = t('chatbot.quickLabels');
   const quickReplies = [
-    { icon: '🛠️', text: 'Services', query: 'What services do you offer?' },
-    { icon: '💰', text: 'Pricing', query: 'How much does steel detailing cost?' },
-    { icon: '⏰', text: 'Timeline', query: 'What is the delivery time?' },
-    { icon: '📞', text: 'Contact', query: 'How can I contact you?' },
+    { icon: '🛠️', text: quickLabels[0], query: 'What services do you offer?' },
+    { icon: '💰', text: quickLabels[1], query: 'How much does steel detailing cost?' },
+    { icon: '⏰', text: quickLabels[2], query: 'What is the delivery time?' },
+    { icon: '📞', text: quickLabels[3], query: 'How can I contact you?' },
   ];
 
   return (
@@ -95,7 +98,7 @@ export default function Chatbot() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="fixed bottom-6 left-6 z-40 group"
-        aria-label="Chat with AI Assistant"
+        aria-label={t('chatbot.ariaLabel')}
       >
         <span className="absolute inset-0 bg-blue-600 rounded-full animate-ping opacity-20"></span>
         <span className="relative flex items-center justify-center w-14 h-14 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full shadow-xl transition-all duration-300 group-hover:scale-110">
@@ -132,10 +135,10 @@ export default function Chatbot() {
                 🤖
               </div>
               <div className="flex-1">
-                <h3 className="font-semibold text-sm">CivilPro Assistant</h3>
+                <h3 className="font-semibold text-sm">{t('chatbot.assistantName')}</h3>
                 <p className="text-xs text-blue-100 flex items-center">
                   <span className="w-1.5 h-1.5 bg-green-400 rounded-full mr-1 animate-pulse"></span>
-                  Online
+                  {t('chatbot.online')}
                 </p>
               </div>
               <button onClick={() => setIsOpen(false)} className="p-1 hover:bg-white/10 rounded">
@@ -221,7 +224,7 @@ export default function Chatbot() {
                 type="text"
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
-                placeholder="Type message..."
+                placeholder={t('chatbot.placeholder')}
                 className="flex-1 px-3 py-2 bg-gray-100 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none"
               />
               <button

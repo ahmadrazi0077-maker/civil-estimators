@@ -4,8 +4,18 @@ import Layout from '../components/Layout/Layout';
 import { inquiryAPI, uploadAPI } from '../lib/api';
 import PageHero from '../components/PageHero';
 import HERO_IMAGES from '../lib/heroImages';
+import { useT } from '../lib/i18n';
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+const SERVICE_SLUGS = [
+  'steel-detailing',
+  'rebar-detailing',
+  'quantity-takeoff',
+  'cost-estimation',
+  'boq-preparation',
+  'shop-drawings',
+];
+const STEP_ICONS = ['📤', '💬', '✅', '📦'];
 
 export default function Quote() {
   const [formData, setFormData] = useState({
@@ -21,6 +31,7 @@ export default function Quote() {
   const [uploading, setUploading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
+  const { t } = useT();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -31,7 +42,7 @@ export default function Quote() {
     const valid = [];
     for (const file of selected) {
       if (file.size > MAX_FILE_SIZE) {
-        setError(`"${file.name}" is larger than 10MB and was skipped.`);
+        setError(t('pages.quote.fileTooBig').replace('{name}', file.name));
         continue;
       }
       valid.push(file);
@@ -70,12 +81,14 @@ export default function Quote() {
             fileLinks.push(url ? `${file.name}: ${url}` : file.name);
           } catch (uploadErr) {
             console.error('Upload failed for', file.name, uploadErr);
+            // Backend/admin message stays English
             fileLinks.push(`${file.name} (upload failed - will be requested by email)`);
           }
         }
         setUploading(false);
       }
 
+      // Backend/admin message stays English
       const timelineLabel = formData.timeline === 'rush' ? 'Rush (24-48 hours)' : 'Standard (1-5 business days)';
 
       await inquiryAPI.create({
@@ -94,28 +107,25 @@ export default function Quote() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
       setUploading(false);
-      setError(err.message || 'Failed to submit your quote request. Please try again.');
+      setError(err.message || t('pages.quote.submitError'));
     } finally {
       setLoading(false);
     }
   };
 
-  const steps = [
-    { icon: '📤', title: 'Send Drawings', desc: 'Upload your project files (PDF, DWG, IFC)' },
-    { icon: '💬', title: 'Get Free Quote', desc: 'Detailed pricing within 24 hours' },
-    { icon: '✅', title: 'Confirm & Pay', desc: 'Approve quote, secure payment' },
-    { icon: '📦', title: 'We Deliver', desc: 'Files within agreed timeline' },
-  ];
+  const steps = t('pages.quote.steps').map((s, i) => ({ ...s, icon: STEP_ICONS[i] }));
+  const sidebarPoints = t('pages.quote.sidebarPoints');
+  const sidebarIcons = t('pages.quote.sidebarIcons');
 
   return (
     <Layout>
       {/* Hero */}
       <PageHero
         image={HERO_IMAGES.quote}
-        badge="✓ Free Consultation   ✓ 24hr Response   ✓ Confidential"
-        title="Get a Free Quote"
-        subtitle="Upload your drawings and get a free, no-obligation quote within 24 hours."
-        crumb="Get a Quote"
+        badge={t('pages.quote.badge')}
+        title={t('pages.quote.heroTitle')}
+        subtitle={t('pages.quote.heroSubtitle')}
+        crumb={t('pages.quote.crumb')}
       />
 
       <div className="bg-gray-50 py-16">
@@ -134,14 +144,14 @@ export default function Quote() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {/* Form */}
             <div className="lg:col-span-2 bg-white rounded-2xl shadow-xl p-6 md:p-8">
-              <h2 className="text-2xl font-bold mb-6">Request Your Quote</h2>
+              <h2 className="text-2xl font-bold mb-6">{t('pages.quote.formTitle')}</h2>
 
               {success && (
                 <div className="bg-green-50 border border-green-200 rounded-xl p-4 mb-6 flex items-start">
                   <span className="text-2xl mr-3">✅</span>
                   <div>
-                    <p className="font-semibold text-green-800">Quote Request Sent!</p>
-                    <p className="text-green-700 text-sm">Thank you! We'll review your drawings and get back to you within 24 hours.</p>
+                    <p className="font-semibold text-green-800">{t('pages.quote.successTitle')}</p>
+                    <p className="text-green-700 text-sm">{t('pages.quote.successText')}</p>
                   </div>
                 </div>
               )}
@@ -156,58 +166,55 @@ export default function Quote() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Full Name <span className="text-red-500">*</span>
+                      {t('forms.fullName')} <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text" name="name" required value={formData.name} onChange={handleChange}
-                      placeholder="John Doe"
+                      placeholder={t('pages.quote.namePlaceholder')}
                       className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Email Address <span className="text-red-500">*</span>
+                      {t('forms.email')} <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="email" name="email" required value={formData.email} onChange={handleChange}
-                      placeholder="john@example.com"
+                      placeholder={t('pages.quote.emailPlaceholder')}
                       className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">{t('forms.phone')}</label>
                     <input
                       type="tel" name="phone" value={formData.phone} onChange={handleChange}
-                      placeholder="+1 (555) 000-0000"
+                      placeholder={t('pages.quote.phonePlaceholder')}
                       className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Service Required <span className="text-red-500">*</span>
+                      {t('forms.serviceRequired')} <span className="text-red-500">*</span>
                     </label>
                     <select
                       name="service" required value={formData.service} onChange={handleChange}
                       className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white"
                     >
-                      <option value="">Select a service</option>
-                      <option value="steel-detailing">Steel Detailing</option>
-                      <option value="rebar-detailing">Rebar Detailing</option>
-                      <option value="quantity-takeoff">Quantity Takeoff</option>
-                      <option value="cost-estimation">Cost Estimation</option>
-                      <option value="boq-preparation">BOQ Preparation</option>
-                      <option value="shop-drawings">Shop Drawings</option>
-                      <option value="other">Other</option>
+                      <option value="">{t('forms.selectService')}</option>
+                      {SERVICE_SLUGS.map((slug) => (
+                        <option key={slug} value={slug}>{t(`servicesData.${slug}.title`)}</option>
+                      ))}
+                      <option value="other">{t('common.other')}</option>
                     </select>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Timeline</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('pages.quote.timeline')}</label>
                   <div className="grid grid-cols-2 gap-3">
                     {[
-                      { value: 'standard', label: 'Standard', desc: '1-5 business days' },
-                      { value: 'rush', label: 'Rush', desc: '24-48 hours' },
+                      { value: 'standard', label: t('pages.quote.standard'), desc: t('pages.quote.standardDesc') },
+                      { value: 'rush', label: t('pages.quote.rush'), desc: t('pages.quote.rushDesc') },
                     ].map((opt) => (
                       <label
                         key={opt.value}
@@ -231,12 +238,12 @@ export default function Quote() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Upload Drawings <span className="text-gray-400 font-normal">(PDF, DWG, DXF, IFC, images — max 5 files, 10MB each)</span>
+                    {t('pages.quote.uploadLabel')} <span className="text-gray-400 font-normal">{t('pages.quote.uploadHint')}</span>
                   </label>
                   <label className="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-xl p-8 cursor-pointer hover:border-blue-500 hover:bg-blue-50/50 transition-all">
                     <span className="text-4xl mb-2">📤</span>
-                    <span className="font-medium text-gray-700">Click to upload or drag & drop</span>
-                    <span className="text-xs text-gray-500 mt-1">Your files are kept 100% confidential</span>
+                    <span className="font-medium text-gray-700">{t('pages.quote.uploadClick')}</span>
+                    <span className="text-xs text-gray-500 mt-1">{t('pages.quote.uploadConfidential')}</span>
                     <input
                       type="file" multiple accept=".pdf,.dwg,.dxf,.ifc,.png,.jpg,.jpeg,.zip"
                       onChange={handleFiles} className="hidden"
@@ -256,11 +263,11 @@ export default function Quote() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Project Details <span className="text-red-500">*</span>
+                    {t('pages.quote.projectDetails')} <span className="text-red-500">*</span>
                   </label>
                   <textarea
                     name="message" required rows="5" value={formData.message} onChange={handleChange}
-                    placeholder="Tell us about your project: building type, size, scope of work, deadline..."
+                    placeholder={t('pages.quote.projectDetailsPlaceholder')}
                     className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
                   ></textarea>
                 </div>
@@ -269,28 +276,27 @@ export default function Quote() {
                   type="submit" disabled={loading}
                   className="w-full py-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-bold rounded-xl hover:from-blue-700 hover:to-blue-900 transition-all shadow-lg shadow-blue-600/30 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {uploading ? 'Uploading drawings...' : loading ? 'Sending...' : 'Upload Drawings & Get a Quote →'}
+                  {uploading ? t('pages.quote.uploading') : loading ? t('pages.quote.sending') : t('pages.quote.submitBtn')}
                 </button>
-                <p className="text-xs text-gray-500 text-center">🔒 Your drawings and project data are always protected.</p>
+                <p className="text-xs text-gray-500 text-center">{t('pages.quote.privacyNote')}</p>
               </form>
             </div>
 
             {/* Sidebar */}
             <div className="space-y-6">
               <div className="bg-white rounded-2xl shadow-xl p-6">
-                <h3 className="font-bold text-lg mb-4">Why CivilPro?</h3>
+                <h3 className="font-bold text-lg mb-4">{t('pages.quote.sidebarTitle')}</h3>
                 <ul className="space-y-3 text-sm text-gray-700">
-                  <li className="flex items-start"><span className="mr-2">✓</span> Accuracy guaranteed — double-checked by senior engineers</li>
-                  <li className="flex items-start"><span className="mr-2">⚡</span> Fast turnaround — most projects in 1-5 business days</li>
-                  <li className="flex items-start"><span className="mr-2">💰</span> Competitive pricing — starting from $99, no hidden fees</li>
-                  <li className="flex items-start"><span className="mr-2">🔒</span> 100% confidential — strict NDA on every project</li>
+                  {sidebarPoints.map((point, i) => (
+                    <li key={i} className="flex items-start"><span className="mr-2">{sidebarIcons[i]}</span> {point}</li>
+                  ))}
                 </ul>
               </div>
               <div className="bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl shadow-xl p-6 text-white">
-                <h3 className="font-bold text-lg mb-2">Prefer to talk?</h3>
-                <p className="text-blue-100 text-sm mb-4">Reach out directly and we'll help you get started.</p>
+                <h3 className="font-bold text-lg mb-2">{t('pages.quote.talkTitle')}</h3>
+                <p className="text-blue-100 text-sm mb-4">{t('pages.quote.talkText')}</p>
                 <Link href="/contact" className="inline-block bg-white text-blue-700 font-semibold px-6 py-2.5 rounded-xl hover:bg-blue-50 transition-colors">
-                  Contact Us
+                  {t('pages.quote.talkBtn')}
                 </Link>
               </div>
             </div>

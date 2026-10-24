@@ -1,37 +1,31 @@
 import { useState } from 'react';
+import { useT } from '../../lib/i18n';
+
+const PEOPLE = [
+  {
+    name: 'John Smith',
+    company: 'ABC Construction',
+    rating: 5,
+    image: 'https://ui-avatars.com/api/?name=John+Smith&background=2563eb&color=fff',
+  },
+  {
+    name: 'Sarah Johnson',
+    company: 'Design Studio Inc.',
+    rating: 5,
+    image: 'https://ui-avatars.com/api/?name=Sarah+Johnson&background=dc2626&color=fff',
+  },
+  {
+    name: 'Mike Wilson',
+    company: 'Wilson Builders',
+    rating: 5,
+    image: 'https://ui-avatars.com/api/?name=Mike+Wilson&background=059669&color=fff',
+  },
+];
 
 export default function Testimonials() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
-
-  const testimonials = [
-    {
-      name: 'John Smith',
-      role: 'Project Manager',
-      company: 'ABC Construction',
-      content: 'Excellent service! Their steel detailing work is accurate and delivered on time. The team is professional and responsive.',
-      rating: 5,
-      image: 'https://ui-avatars.com/api/?name=John+Smith&background=2563eb&color=fff',
-      project: 'Commercial Tower Project',
-    },
-    {
-      name: 'Sarah Johnson',
-      role: 'Architect',
-      company: 'Design Studio Inc.',
-      content: 'Very professional team. Their cost estimation helped us save significantly on our project. The reports were detailed and easy to understand.',
-      rating: 5,
-      image: 'https://ui-avatars.com/api/?name=Sarah+Johnson&background=dc2626&color=fff',
-      project: 'Residential Complex',
-    },
-    {
-      name: 'Mike Wilson',
-      role: 'Contractor',
-      company: 'Wilson Builders',
-      content: 'The quality of shop drawings is outstanding. They understand complex requirements and deliver exceptional results every time.',
-      rating: 5,
-      image: 'https://ui-avatars.com/api/?name=Mike+Wilson&background=059669&color=fff',
-      project: 'Industrial Warehouse',
-    },
-  ];
+  const { t } = useT();
+  const testimonials = t('home.testimonials.items').map((item, i) => ({ ...item, ...PEOPLE[i] }));
 
   return (
     <section className="py-20 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
@@ -42,13 +36,13 @@ export default function Testimonials() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <span className="inline-block bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">
-            Testimonials
+            {t('home.testimonials.badge')}
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            What Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800">Clients Say</span>
+            {t('home.testimonials.titleWhatOur')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800">{t('home.testimonials.titleClientsSay')}</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Don't just take our word for it - hear from our satisfied clients
+            {t('home.testimonials.subtitle')}
           </p>
         </div>
 
@@ -65,7 +59,7 @@ export default function Testimonials() {
               <div className="flex justify-center mb-4">
                 {[...Array(activeTestimonial)].map(() => null)}
               </div>
-              
+
               <p className="text-lg md:text-xl text-gray-700 mb-8 italic leading-relaxed">
                 "{testimonials[activeTestimonial].content}"
               </p>
@@ -97,7 +91,7 @@ export default function Testimonials() {
               </div>
 
               <p className="text-sm text-gray-500">
-                Project: {testimonials[activeTestimonial].project}
+                {t('home.testimonials.projectLabel')} {testimonials[activeTestimonial].project}
               </p>
             </div>
           </div>

@@ -1,5 +1,16 @@
 import { useState } from 'react';
 import { reviewAPI } from '../lib/api';
+import { useT } from '../lib/i18n';
+
+// Option values stay English (submitted to the backend); labels are localized.
+const SERVICE_VALUES = [
+  'Steel Detailing',
+  'Rebar Detailing',
+  'Quantity Takeoff',
+  'Cost Estimation',
+  'BOQ Preparation',
+  'Shop Drawings',
+];
 
 export default function ReviewForm() {
   const [formData, setFormData] = useState({
@@ -15,6 +26,8 @@ export default function ReviewForm() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
+  const { t } = useT();
+  const serviceLabels = t('pages.reviews.serviceNames');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,27 +49,18 @@ export default function ReviewForm() {
         location: '',
       });
     } catch (err) {
-      setError(err.message || 'Failed to submit review');
+      setError(err.message || t('pages.reviewForm.submitError'));
     } finally {
       setLoading(false);
     }
   };
-
-  const services = [
-    'Steel Detailing',
-    'Rebar Detailing',
-    'Quantity Takeoff',
-    'Cost Estimation',
-    'BOQ Preparation',
-    'Shop Drawings',
-  ];
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {success && (
         <div className="bg-green-50 border border-green-200 rounded-xl p-4">
           <p className="text-green-800">
-            ✅ Thank you for your review! It will appear after approval.
+            {t('pages.reviewForm.successMsg')}
           </p>
         </div>
       )}
@@ -69,7 +73,7 @@ export default function ReviewForm() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label className="block text-sm font-medium mb-2">Name *</label>
+          <label className="block text-sm font-medium mb-2">{t('pages.reviewForm.nameLabel')}</label>
           <input
             type="text"
             required
@@ -79,7 +83,7 @@ export default function ReviewForm() {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-2">Email *</label>
+          <label className="block text-sm font-medium mb-2">{t('pages.reviewForm.emailLabel')}</label>
           <input
             type="email"
             required
@@ -89,32 +93,32 @@ export default function ReviewForm() {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-2">Service Used *</label>
+          <label className="block text-sm font-medium mb-2">{t('pages.reviewForm.serviceLabel')}</label>
           <select
             required
             value={formData.service}
             onChange={(e) => setFormData({ ...formData, service: e.target.value })}
             className="w-full px-4 py-3 border rounded-lg"
           >
-            <option value="">Select service</option>
-            {services.map(s => (
-              <option key={s} value={s}>{s}</option>
+            <option value="">{t('pages.reviewForm.selectService')}</option>
+            {SERVICE_VALUES.map((s, i) => (
+              <option key={s} value={s}>{serviceLabels[i]}</option>
             ))}
           </select>
         </div>
         <div>
-          <label className="block text-sm font-medium mb-2">Project Title *</label>
+          <label className="block text-sm font-medium mb-2">{t('pages.reviewForm.projectLabel')}</label>
           <input
             type="text"
             required
             value={formData.projectTitle}
             onChange={(e) => setFormData({ ...formData, projectTitle: e.target.value })}
             className="w-full px-4 py-3 border rounded-lg"
-            placeholder="e.g., Commercial Building Project"
+            placeholder={t('pages.reviewForm.projectPlaceholder')}
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-2">Company (Optional)</label>
+          <label className="block text-sm font-medium mb-2">{t('pages.reviewForm.companyLabel')}</label>
           <input
             type="text"
             value={formData.company}
@@ -123,20 +127,20 @@ export default function ReviewForm() {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-2">Location (Optional)</label>
+          <label className="block text-sm font-medium mb-2">{t('pages.reviewForm.locationLabel')}</label>
           <input
             type="text"
             value={formData.location}
             onChange={(e) => setFormData({ ...formData, location: e.target.value })}
             className="w-full px-4 py-3 border rounded-lg"
-            placeholder="City, Country"
+            placeholder={t('pages.reviewForm.locationPlaceholder')}
           />
         </div>
       </div>
 
       {/* Star Rating */}
       <div>
-        <label className="block text-sm font-medium mb-2">Rating *</label>
+        <label className="block text-sm font-medium mb-2">{t('pages.reviewForm.ratingLabel')}</label>
         <div className="flex gap-2">
           {[1, 2, 3, 4, 5].map((star) => (
             <button
@@ -154,7 +158,7 @@ export default function ReviewForm() {
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-2">Your Review *</label>
+        <label className="block text-sm font-medium mb-2">{t('pages.reviewForm.reviewLabel')}</label>
         <textarea
           required
           rows="5"
@@ -163,9 +167,9 @@ export default function ReviewForm() {
           value={formData.review}
           onChange={(e) => setFormData({ ...formData, review: e.target.value })}
           className="w-full px-4 py-3 border rounded-lg"
-          placeholder="Share your experience with our services..."
+          placeholder={t('pages.reviewForm.reviewPlaceholder')}
         />
-        <p className="text-xs text-gray-500 mt-1">{formData.review.length}/1000 characters</p>
+        <p className="text-xs text-gray-500 mt-1">{formData.review.length}/1000 {t('pages.reviewForm.charsSuffix')}</p>
       </div>
 
       <button
@@ -173,7 +177,7 @@ export default function ReviewForm() {
         disabled={loading}
         className="w-full bg-blue-600 text-white py-4 rounded-xl font-semibold hover:bg-blue-700 disabled:opacity-50"
       >
-        {loading ? 'Submitting...' : 'Submit Review'}
+        {loading ? t('pages.reviewForm.submitting') : t('pages.reviewForm.submit')}
       </button>
     </form>
   );

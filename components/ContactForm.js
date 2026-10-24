@@ -1,5 +1,15 @@
 import { useState } from 'react';
 import { inquiryAPI } from '../lib/api';
+import { useT } from '../lib/i18n';
+
+const SERVICE_SLUGS = [
+  'steel-detailing',
+  'rebar-detailing',
+  'quantity-takeoff',
+  'cost-estimation',
+  'boq-preparation',
+  'shop-drawings',
+];
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -12,6 +22,7 @@ export default function ContactForm() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
+  const { t } = useT();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,7 +43,7 @@ export default function ContactForm() {
       // Scroll to top of form
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
-      setError(err.message || 'Failed to submit inquiry. Please try again.');
+      setError(err.message || t('forms.submitError'));
     } finally {
       setLoading(false);
     }
@@ -53,8 +64,8 @@ export default function ContactForm() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <div>
-            <p className="font-semibold text-green-800">Message Sent Successfully!</p>
-            <p className="text-green-700 text-sm">Thank you for your inquiry. We'll get back to you within 24 hours.</p>
+            <p className="font-semibold text-green-800">{t('forms.successTitle')}</p>
+            <p className="text-green-700 text-sm">{t('forms.successText')}</p>
           </div>
         </div>
       )}
@@ -71,7 +82,7 @@ export default function ContactForm() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Full Name <span className="text-red-500">*</span>
+            {t('forms.fullName')} <span className="text-red-500">*</span>
           </label>
           <div className="relative">
             <span className="absolute left-3 top-3 text-gray-400">👤</span>
@@ -89,7 +100,7 @@ export default function ContactForm() {
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Email Address <span className="text-red-500">*</span>
+            {t('forms.email')} <span className="text-red-500">*</span>
           </label>
           <div className="relative">
             <span className="absolute left-3 top-3 text-gray-400">📧</span>
@@ -107,7 +118,7 @@ export default function ContactForm() {
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Phone Number
+            {t('forms.phone')}
           </label>
           <div className="relative">
             <span className="absolute left-3 top-3 text-gray-400">📞</span>
@@ -124,7 +135,7 @@ export default function ContactForm() {
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Service Required <span className="text-red-500">*</span>
+            {t('forms.serviceRequired')} <span className="text-red-500">*</span>
           </label>
           <div className="relative">
             <span className="absolute left-3 top-3 text-gray-400">🛠️</span>
@@ -135,21 +146,18 @@ export default function ContactForm() {
               onChange={handleChange}
               className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all appearance-none"
             >
-              <option value="">Select a service</option>
-              <option value="steel-detailing">Steel Detailing</option>
-              <option value="rebar-detailing">Rebar Detailing</option>
-              <option value="quantity-takeoff">Quantity Takeoff</option>
-              <option value="cost-estimation">Cost Estimation</option>
-              <option value="boq-preparation">BOQ Preparation</option>
-              <option value="shop-drawings">Shop Drawings</option>
-              <option value="other">Other</option>
+              <option value="">{t('forms.selectService')}</option>
+              {SERVICE_SLUGS.map((slug) => (
+                <option key={slug} value={slug}>{t(`servicesData.${slug}.title`)}</option>
+              ))}
+              <option value="other">{t('common.other')}</option>
             </select>
           </div>
         </div>
 
         <div className="md:col-span-2">
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Message <span className="text-red-500">*</span>
+            {t('forms.message')} <span className="text-red-500">*</span>
           </label>
           <div className="relative">
             <span className="absolute left-3 top-3 text-gray-400">💬</span>
@@ -168,7 +176,7 @@ export default function ContactForm() {
 
       <div className="flex items-center justify-between">
         <p className="text-sm text-gray-500">
-          <span className="text-red-500">*</span> Required fields
+          <span className="text-red-500">*</span> {t('forms.requiredFields')}
         </p>
         <button
           type="submit"
@@ -181,11 +189,11 @@ export default function ContactForm() {
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
-              Sending...
+              {t('forms.sending')}
             </>
           ) : (
             <>
-              Send Message
+              {t('forms.sendMessage')}
               <svg className="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
               </svg>

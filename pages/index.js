@@ -20,6 +20,7 @@ import FAQ from '../components/FAQ';
 import FinalCTA from '../components/Home/FinalCTA';
 
 import { servicesAPI } from '../lib/api';
+import { useT } from '../lib/i18n';
 
 // Fallback Services - API fail hone par bhi show hongi
 const FALLBACK_SERVICES = [
@@ -101,6 +102,7 @@ export default function Home() {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { t } = useT();
 
   useEffect(() => {
     fetchServices();
@@ -137,9 +139,9 @@ export default function Home() {
   return (
     <Layout>
       <SEO
-        title="Construction Estimating Services"
-        description="Professional construction estimating services for contractors worldwide — quantity takeoff, cost estimation, BOQ preparation, steel detailing & shop drawings. Fast, accurate, affordable."
-        keywords="construction estimating services, construction cost estimation, quantity takeoff services, steel detailing services, rebar detailing services, BOQ preparation services, shop drawing services"
+        title={t('home.seoTitle')}
+        description={t('home.seoDescription')}
+        keywords={t('home.seoKeywords')}
       />
       {/* 1. HERO */}
       <Hero />

@@ -1,42 +1,25 @@
+import { useT } from '../../lib/i18n';
+
 export default function Guarantees() {
-  const guarantees = [
-    {
-      icon: '🎯',
-      title: 'Accuracy You Can Bid On',
-      desc: 'Every takeoff and estimate is double-checked by a senior estimator. Spot an error? We fix it free.',
-    },
-    {
-      icon: '🔄',
-      title: 'Free Revisions Until Approval',
-      desc: 'We revise your drawings and estimates until you are fully satisfied — no extra charges, no arguments.',
-    },
-    {
-      icon: '🔒',
-      title: '100% Confidential',
-      desc: 'Your drawings and project details stay private, always. NDA available on request before we start.',
-    },
-    {
-      icon: '⚡',
-      title: 'On-Time Delivery Promise',
-      desc: 'We commit to your deadline upfront and keep you updated at every stage. Rush delivery available.',
-    },
-  ];
+  const { t } = useT();
+  const icons = ['🎯', '🔄', '🔒', '⚡'];
+  const guarantees = t('home.guarantees.items').map((g, i) => ({ ...g, icon: icons[i] }));
 
   return (
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <span className="inline-block bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">
-            Our Promise
+            {t('home.guarantees.badge')}
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            Ordering With Us Is{' '}
+            {t('home.guarantees.titleOrdering')}{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-700">
-              Risk-Free
+              {t('home.guarantees.titleRiskFree')}
             </span>
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            We remove every reason to hesitate — so you can order with complete confidence.
+            {t('home.guarantees.subtitle')}
           </p>
         </div>
 

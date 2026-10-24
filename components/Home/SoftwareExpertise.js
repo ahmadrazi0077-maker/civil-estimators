@@ -1,4 +1,7 @@
+import { useT } from '../../lib/i18n';
+
 export default function SoftwareExpertise() {
+  const { t } = useT();
   const softwares = [
     { name: 'Tekla Structures', icon: '🏗️' },
     { name: 'AutoCAD', icon: '📐' },
@@ -15,13 +18,13 @@ export default function SoftwareExpertise() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <span className="inline-block bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">
-            Our Expertise
+            {t('home.software.badge')}
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            Software & <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800">Tools We Use</span>
+            {t('home.software.titleSoftware')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800">{t('home.software.titleTools')}</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Industry-standard software for accurate, professional results
+            {t('home.software.subtitle')}
           </p>
         </div>
 

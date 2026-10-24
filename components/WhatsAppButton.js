@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { useT } from '../lib/i18n';
 
 export default function WhatsAppButton() {
+  const t = useT();
   const [isVisible, setIsVisible] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -61,8 +63,8 @@ export default function WhatsAppButton() {
             <div className="flex items-start">
               <div className="text-3xl mr-3">💬</div>
               <div>
-                <p className="font-semibold text-gray-800">Need Help?</p>
-                <p className="text-sm text-gray-600">Chat with us on WhatsApp!</p>
+                <p className="font-semibold text-gray-800">{t('common.whatsappHelp')}</p>
+                <p className="text-sm text-gray-600">{t('common.whatsappChat')}</p>
               </div>
               <button
                 onClick={() => setShowTooltip(false)}

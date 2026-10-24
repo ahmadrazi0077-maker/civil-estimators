@@ -5,6 +5,7 @@ import ServiceCard from '../../components/ServiceCard';
 import { servicesAPI } from '../../lib/api';
 import PageHero from '../../components/PageHero';
 import HERO_IMAGES from '../../lib/heroImages';
+import { useT } from '../../lib/i18n';
 
 export default function ServicesPage() {
   const [services, setServices] = useState([]);
@@ -12,6 +13,7 @@ export default function ServicesPage() {
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState('default');
+  const { t } = useT();
 
   useEffect(() => {
     fetchServices();
@@ -25,7 +27,7 @@ export default function ServicesPage() {
       setError(null);
     } catch (err) {
       console.error('Error fetching services:', err);
-      setError('Failed to load services. Please try again later.');
+      setError(t('pages.servicesList.loadError'));
     } finally {
       setLoading(false);
     }
@@ -45,15 +47,15 @@ export default function ServicesPage() {
   return (
     <Layout>
       <SEO
-        title="Our Services"
-        description="Explore our construction estimating services: steel detailing, rebar detailing, quantity takeoff, cost estimation, BOQ preparation & shop drawings — starting from $99."
-        keywords="construction estimating services, steel detailing services, quantity takeoff services, cost estimation services, BOQ preparation, shop drawings"
+        title={t('pages.servicesList.seoTitle')}
+        description={t('pages.servicesList.seoDescription')}
+        keywords={t('pages.servicesList.seoKeywords')}
       />
       <PageHero
         image={HERO_IMAGES.services}
-        title="Our Services"
-        subtitle="Professional civil engineering services tailored to meet your project requirements"
-        crumb="Services"
+        title={t('pages.servicesList.heroTitle')}
+        subtitle={t('pages.servicesList.heroSubtitle')}
+        crumb={t('pages.servicesList.crumb')}
       />
 
       <div className="bg-gray-50 py-16">
@@ -62,7 +64,7 @@ export default function ServicesPage() {
             <div className="w-full md:w-96">
               <input
                 type="text"
-                placeholder="Search services..."
+                placeholder={t('pages.servicesList.searchPlaceholder')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
@@ -73,9 +75,9 @@ export default function ServicesPage() {
               onChange={(e) => setSortBy(e.target.value)}
               className="px-4 py-2 border border-gray-300 rounded-lg"
             >
-              <option value="default">Sort by: Default</option>
-              <option value="title">Sort by: Title</option>
-              <option value="price">Sort by: Price</option>
+              <option value="default">{t('pages.servicesList.sortDefault')}</option>
+              <option value="title">{t('pages.servicesList.sortTitle')}</option>
+              <option value="price">{t('pages.servicesList.sortPrice')}</option>
             </select>
           </div>
 
@@ -99,7 +101,7 @@ export default function ServicesPage() {
             </div>
           ) : (
             <div className="text-center py-12">
-              <p className="text-gray-600 text-lg">No services found.</p>
+              <p className="text-gray-600 text-lg">{t('pages.servicesList.noResults')}</p>
             </div>
           )}
         </div>

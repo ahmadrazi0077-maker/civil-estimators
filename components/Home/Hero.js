@@ -1,9 +1,18 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useT } from '../../lib/i18n';
+
+const SLIDE_IMAGES = [
+  'https://images.pexels.com/photos/31197870/pexels-photo-31197870/free-photo-of-structural-steel-frame-against-clear-sky.jpeg?auto=compress&w=1600',
+  'https://images.unsplash.com/photo-1623489254637-a2dd8375243d?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  'https://images.unsplash.com/photo-1621831337128-35676ca30868?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+];
+const EXPERTISE_ICONS = ['📐', '🔩', '💰', '📋'];
 
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
+  const { t } = useT();
 
   useEffect(() => {
     setIsLoaded(true);
@@ -13,33 +22,12 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, []);
 
-  const slides = [
-    {
-      title: 'Construction Estimating Services',
-      subtitle: 'Accurate construction estimating services — quantity takeoff, cost estimation, BOQ preparation, and steel detailing for contractors worldwide.',
-      image: 'https://images.pexels.com/photos/31197870/pexels-photo-31197870/free-photo-of-structural-steel-frame-against-clear-sky.jpeg?auto=compress&w=1600',
-      badge: 'Trusted by 500+ Clients',
-    },
-    {
-      title: 'Precision Steel & Rebar Detailing',
-      subtitle: 'Accurate structural drawings and reinforcement details delivered on time, every time.',
-      image: 'https://images.unsplash.com/photo-1623489254637-a2dd8375243d?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      badge: '10+ Years Experience',
-    },
-    {
-      title: 'Cost Estimation & BOQ Preparation',
-      subtitle: 'Detailed cost analysis and bills of quantities for successful project planning.',
-      image: 'https://images.unsplash.com/photo-1621831337128-35676ca30868?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      badge: '98% Client Satisfaction',
-    },
-  ];
-
-  const stats = [
-    { value: '500+', label: 'Projects Done' },
-    { value: '10+', label: 'Years Experience' },
-    { value: '200+', label: 'Happy Clients' },
-    { value: '25+', label: 'Team Members' },
-  ];
+  const slides = t('home.hero.slides').map((s, i) => ({ ...s, image: SLIDE_IMAGES[i] }));
+  const stats = t('home.hero.stats');
+  const expertiseItems = t('home.hero.expertiseItems').map((item, i) => ({
+    ...item,
+    icon: EXPERTISE_ICONS[i],
+  }));
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-gray-900">
@@ -57,10 +45,10 @@ export default function Hero() {
             alt={slide.title}
             className="w-full h-full object-cover"
           />
-          
+
           {/* Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-br from-blue-950/90 via-blue-900/80 to-blue-800/90"></div>
-          
+
           {/* Additional Dark Overlay for text readability */}
           <div className="absolute inset-0 bg-black/30"></div>
         </div>
@@ -82,12 +70,12 @@ export default function Hero() {
       {/* Content */}
       <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-32 lg:pt-32 lg:pb-40">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          
+
           {/* Left Content */}
           <div className={`text-center lg:text-left transition-all duration-1000 ${
             isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}>
-            
+
             {/* Badge */}
             <div className="inline-flex items-center bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 mb-6 animate-fadeIn">
               <span className="relative flex h-3 w-3 mr-2">
@@ -119,7 +107,7 @@ export default function Hero() {
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity"></span>
                 <span className="relative flex items-center">
-                  Explore Services
+                  {t('home.hero.exploreServices')}
                   <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
@@ -133,7 +121,7 @@ export default function Hero() {
                 <svg className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                 </svg>
-                Get Free Quote
+                {t('home.hero.getFreeQuote')}
               </Link>
             </div>
 
@@ -163,17 +151,12 @@ export default function Hero() {
               <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 shadow-2xl">
                 <div className="text-center mb-8">
                   <div className="text-6xl mb-4">🏗️</div>
-                  <h3 className="text-2xl font-bold text-white mb-2">Our Expertise</h3>
-                  <p className="text-gray-300">Comprehensive Engineering Solutions</p>
+                  <h3 className="text-2xl font-bold text-white mb-2">{t('home.hero.expertiseTitle')}</h3>
+                  <p className="text-gray-300">{t('home.hero.expertiseSubtitle')}</p>
                 </div>
-                
+
                 <div className="space-y-4">
-                  {[
-                    { icon: '📐', name: 'Steel Detailing', desc: 'Precise structural drawings' },
-                    { icon: '🔩', name: 'Rebar Detailing', desc: 'Reinforcement schedules' },
-                    { icon: '💰', name: 'Cost Estimation', desc: 'Accurate budget planning' },
-                    { icon: '📋', name: 'BOQ Preparation', desc: 'Detailed quantity bills' },
-                  ].map((service, index) => (
+                  {expertiseItems.map((service, index) => (
                     <div
                       key={index}
                       className="flex items-center bg-white/5 rounded-xl p-4 hover:bg-white/10 transition-all duration-300 hover:translate-x-2 cursor-pointer"
@@ -193,7 +176,7 @@ export default function Hero() {
 
               <div className="absolute -top-6 -right-6 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl p-4 shadow-2xl animate-bounce">
                 <p className="text-2xl font-bold text-white">24/7</p>
-                <p className="text-xs text-white">Support</p>
+                <p className="text-xs text-white">{t('home.hero.supportLabel')}</p>
               </div>
 
               <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl p-4 shadow-2xl">
@@ -201,7 +184,7 @@ export default function Hero() {
                   <div className="text-yellow-400 text-2xl mr-2">★★★★★</div>
                   <div>
                     <p className="font-bold text-gray-800">4.9/5</p>
-                    <p className="text-xs text-gray-500">Client Rating</p>
+                    <p className="text-xs text-gray-500">{t('home.hero.ratingLabel')}</p>
                   </div>
                 </div>
               </div>

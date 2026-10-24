@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { projectsAPI } from '../lib/api';
+import { useT } from '../lib/i18n';
 
 export default function Portfolio() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState('All');
+  const { t } = useT();
 
   useEffect(() => {
     fetchProjects();
@@ -22,8 +24,8 @@ export default function Portfolio() {
   };
 
   const categories = ['All', ...new Set(projects.map(p => p.category))];
-  const filteredProjects = activeFilter === 'All' 
-    ? projects 
+  const filteredProjects = activeFilter === 'All'
+    ? projects
     : projects.filter(p => p.category === activeFilter);
 
   if (loading) {
@@ -52,13 +54,13 @@ export default function Portfolio() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <span className="inline-block bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">
-            Our Portfolio
+            {t('home.portfolio.badge')}
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            Recent <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800">Projects</span>
+            {t('home.portfolio.titleRecent')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800">{t('home.portfolio.titleProjects')}</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Explore our successful projects
+            {t('home.portfolio.subtitle')}
           </p>
         </div>
 
@@ -74,7 +76,7 @@ export default function Portfolio() {
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
-              {category}
+              {category === 'All' ? t('home.portfolio.all') : category}
             </button>
           ))}
         </div>
@@ -103,7 +105,7 @@ export default function Portfolio() {
                 </div>
                 {project.isFeatured && (
                   <div className="absolute top-4 left-4 bg-yellow-400 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                    ⭐ Featured
+                    ⭐ {t('home.portfolio.featured')}
                   </div>
                 )}
               </div>
@@ -111,7 +113,7 @@ export default function Portfolio() {
               <div className="p-6">
                 <h3 className="text-xl font-bold mb-2">{project.title}</h3>
                 <p className="text-gray-600 mb-4">{project.description}</p>
-                
+
                 <div className="flex items-center text-sm text-gray-500 mb-4">
                   <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -121,15 +123,15 @@ export default function Portfolio() {
 
                 <div className="grid grid-cols-3 gap-2 pt-4 border-t">
                   <div className="text-center">
-                    <p className="text-xs text-gray-500">Size</p>
+                    <p className="text-xs text-gray-500">{t('home.portfolio.size')}</p>
                     <p className="font-semibold text-sm">{project.size}</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-xs text-gray-500">Duration</p>
+                    <p className="text-xs text-gray-500">{t('home.portfolio.duration')}</p>
                     <p className="font-semibold text-sm">{project.duration}</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-xs text-gray-500">Value</p>
+                    <p className="text-xs text-gray-500">{t('home.portfolio.value')}</p>
                     <p className="font-semibold text-sm text-blue-600">{project.value}</p>
                   </div>
                 </div>

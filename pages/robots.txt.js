@@ -1,8 +1,7 @@
 export async function getServerSideProps({ res }) {
   const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://precondetailing.com';
   
-  const robotsTxt = `# *
-User-agent: *
+  const robotsTxt = `User-agent: *
 Allow: /
 
 # Disallow admin pages
@@ -13,9 +12,6 @@ Disallow: /api/*
 
 # Sitemap
 Sitemap: ${BASE_URL}/sitemap.xml
-
-# Crawl-delay
-Crawl-delay: 10
 `;
 
   res.setHeader('Content-Type', 'text/plain');

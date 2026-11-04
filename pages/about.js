@@ -12,12 +12,21 @@ const STAT_META = [
   { value: '3', suffix: '', icon: '🌐' },
 ];
 const VALUE_ICONS = ['✅', '🤝', '⚡', '🎯', '⏰', '💪'];
-// Team cards present ROLES and responsibilities, not named individuals.
-const TEAM_META = [
-  { icon: '⭐' },
-  { icon: '🏗️' },
-  { icon: '📊' },
-  { icon: '🧱' },
+const SERVICE_ICONS = {
+  'steel-detailing': '🏗️',
+  'rebar-detailing': '🧱',
+  'shop-drawings': '📐',
+  'quantity-takeoff': '📊',
+  'cost-estimation': '💰',
+  'boq-preparation': '📋',
+};
+const SERVICE_SLUGS = [
+  'steel-detailing',
+  'rebar-detailing',
+  'shop-drawings',
+  'quantity-takeoff',
+  'cost-estimation',
+  'boq-preparation',
 ];
 
 export default function About() {
@@ -48,7 +57,6 @@ export default function About() {
 
   const stats = t('pages.about.statsLabels').map((label, i) => ({ ...STAT_META[i], label }));
   const values = t('pages.about.values').map((v, i) => ({ ...v, icon: VALUE_ICONS[i] }));
-  const team = t('pages.about.team').map((m, i) => ({ ...m, ...TEAM_META[i] }));
   const process = t('pages.about.process').map((s, i) => ({
     ...s,
     step: String(i + 1).padStart(2, '0'),
@@ -118,6 +126,43 @@ export default function About() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* What We Do — services in detail */}
+      <div className="bg-white pb-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <span className="inline-block bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+              {t('pages.about.servicesBlock.badge')}
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              {t('pages.about.servicesBlock.title')}
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              {t('pages.about.servicesBlock.subtitle')}
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {SERVICE_SLUGS.map((slug) => (
+              <Link
+                key={slug}
+                href={`/services/${slug}`}
+                className="bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:bg-white hover:shadow-xl hover:-translate-y-1 transition-all group"
+              >
+                <div className="text-4xl mb-3">{SERVICE_ICONS[slug]}</div>
+                <h3 className="text-lg font-bold mb-2 group-hover:text-blue-700">
+                  {t(`servicesData.${slug}.title`)}
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed mb-3">
+                  {t(`servicesData.${slug}.shortDescription`)}
+                </p>
+                <span className="text-blue-600 font-semibold text-sm">
+                  {t('pages.about.servicesBlock.linkLabel')} →
+                </span>
+              </Link>
+            ))}
           </div>
         </div>
       </div>
@@ -212,45 +257,65 @@ export default function About() {
         </div>
       </div>
 
-      {/* Team Section */}
+      {/* Founder-Led Delivery (replaces the old Team section) */}
       <div className="bg-white py-20">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <span className="inline-block bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">
-              {t('pages.about.teamBadge')}
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              {t('pages.about.teamTitleA')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800">{t('pages.about.teamTitleB')}</span>
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              {t('pages.about.teamSubtitle')}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {team.map((member, index) => (
-              <div
-                key={index}
-                className="bg-gray-50 rounded-2xl p-6 text-center hover:bg-white hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group"
-              >
-                <div className="w-24 h-24 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-4xl group-hover:scale-110 transition-transform shadow-lg">
-                  {member.icon}
-                </div>
-                <h3 className="text-xl font-bold mb-3">{member.role}</h3>
-                <p className="text-gray-600 text-sm mb-4">{member.bio}</p>
-
-                <div className="flex flex-wrap justify-center gap-2">
-                  {member.expertise.map((skill, idx) => (
-                    <span
-                      key={idx}
-                      className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full"
-                    >
-                      {skill}
-                    </span>
-                  ))}
+          <div className="max-w-5xl mx-auto bg-gradient-to-br from-blue-900 to-blue-800 rounded-3xl p-8 md:p-12 text-white shadow-xl">
+            <div className="flex flex-col md:flex-row gap-8 items-start">
+              <div className="shrink-0 mx-auto md:mx-0">
+                <div className="w-24 h-24 bg-white/10 border-2 border-white/20 rounded-full flex items-center justify-center text-5xl">
+                  ⭐
                 </div>
               </div>
-            ))}
+              <div>
+                <span className="inline-block bg-white/10 text-blue-100 px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
+                  {t('pages.about.founder.badge')}
+                </span>
+                <h2 className="text-2xl md:text-3xl font-bold mb-1">
+                  {t('pages.about.founder.title')}
+                </h2>
+                <p className="text-yellow-300 font-semibold mb-4">
+                  {t('pages.about.founder.role')}
+                </p>
+                <p className="text-blue-100 leading-relaxed mb-6">
+                  {t('pages.about.founder.text')}
+                </p>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {t('pages.about.founder.points').map((point, index) => (
+                    <li key={index} className="flex items-start gap-2 text-blue-50">
+                      <span className="text-green-400 mt-0.5">✓</span>
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Markets We Serve */}
+          <div className="text-center mt-20">
+            <span className="inline-block bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+              {t('pages.about.markets.badge')}
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              {t('pages.about.markets.title')}
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-8">
+              {t('pages.about.markets.subtitle')}
+            </p>
+            <div className="flex flex-wrap justify-center gap-3 mb-6">
+              {t('pages.about.markets.items').map((market, index) => (
+                <span
+                  key={index}
+                  className="bg-blue-50 border border-blue-100 text-blue-800 font-semibold px-5 py-2.5 rounded-full"
+                >
+                  🌍 {market}
+                </span>
+              ))}
+            </div>
+            <p className="text-gray-500 max-w-2xl mx-auto">
+              {t('pages.about.markets.note')}
+            </p>
           </div>
         </div>
       </div>

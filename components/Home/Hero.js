@@ -181,9 +181,8 @@ export default function Hero() {
 
               <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl p-4 shadow-2xl">
                 <div className="flex items-center">
-                  <div className="text-yellow-400 text-2xl mr-2">★★★★★</div>
                   <div>
-                    <p className="font-bold text-gray-800">4.9/5</p>
+                    <p className="font-bold text-gray-800">24 Hrs</p>
                     <p className="text-xs text-gray-500">{t('home.hero.ratingLabel')}</p>
                   </div>
                 </div>

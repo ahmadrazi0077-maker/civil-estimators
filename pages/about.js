@@ -6,17 +6,18 @@ import HERO_IMAGES from '../lib/heroImages';
 import { useT } from '../lib/i18n';
 
 const STAT_META = [
-  { value: 500, suffix: '+', icon: '🎯' },
-  { value: 10, suffix: '+', icon: '⏰' },
-  { value: 200, suffix: '+', icon: '😊' },
-  { value: 25, suffix: '+', icon: '👥' },
+  { value: '6', suffix: '', icon: '🛠️' },
+  { value: '24', suffix: ' Hrs', icon: '⚡' },
+  { value: '100', suffix: '%', icon: '🔒' },
+  { value: '3', suffix: '', icon: '🌐' },
 ];
 const VALUE_ICONS = ['✅', '🤝', '⚡', '🎯', '⏰', '💪'];
+// Team cards present ROLES and responsibilities, not named individuals.
 const TEAM_META = [
-  { name: 'John Engineer', initials: 'JE' },
-  { name: 'Sarah Designer', initials: 'SD' },
-  { name: 'Mike Estimator', initials: 'ME' },
-  { name: 'David Structural', initials: 'DS' },
+  { icon: '⭐' },
+  { icon: '🏗️' },
+  { icon: '📊' },
+  { icon: '🧱' },
 ];
 
 export default function About() {
@@ -232,11 +233,10 @@ export default function About() {
                 key={index}
                 className="bg-gray-50 rounded-2xl p-6 text-center hover:bg-white hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group"
               >
-                <div className="w-24 h-24 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-3xl font-bold group-hover:scale-110 transition-transform shadow-lg">
-                  {member.initials}
+                <div className="w-24 h-24 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-4xl group-hover:scale-110 transition-transform shadow-lg">
+                  {member.icon}
                 </div>
-                <h3 className="text-xl font-bold mb-1">{member.name}</h3>
-                <p className="text-blue-600 font-medium mb-3">{member.role}</p>
+                <h3 className="text-xl font-bold mb-3">{member.role}</h3>
                 <p className="text-gray-600 text-sm mb-4">{member.bio}</p>
 
                 <div className="flex flex-wrap justify-center gap-2">

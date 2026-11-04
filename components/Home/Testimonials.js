@@ -1,31 +1,37 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useT } from '../../lib/i18n';
+import { reviewAPI } from '../../lib/api';
 
-const PEOPLE = [
-  {
-    name: 'John Smith',
-    company: 'ABC Construction',
-    rating: 5,
-    image: 'https://ui-avatars.com/api/?name=John+Smith&background=2563eb&color=fff',
-  },
-  {
-    name: 'Sarah Johnson',
-    company: 'Design Studio Inc.',
-    rating: 5,
-    image: 'https://ui-avatars.com/api/?name=Sarah+Johnson&background=dc2626&color=fff',
-  },
-  {
-    name: 'Mike Wilson',
-    company: 'Wilson Builders',
-    rating: 5,
-    image: 'https://ui-avatars.com/api/?name=Mike+Wilson&background=059669&color=fff',
-  },
-];
-
+// Homepage testimonials show ONLY real, admin-approved client reviews
+// served by the backend (GET /api/reviews returns approved reviews only).
+// While there are no approved reviews, the section stays hidden —
+// no sample or placeholder reviews are ever displayed.
 export default function Testimonials() {
+  const [reviews, setReviews] = useState([]);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const { t } = useT();
-  const testimonials = t('home.testimonials.items').map((item, i) => ({ ...item, ...PEOPLE[i] }));
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const data = await reviewAPI.getAll({ limit: 9 });
+      if (!cancelled && data && Array.isArray(data.reviews)) {
+        setReviews(data.reviews);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  if (reviews.length === 0) {
+    return null;
+  }
+
+  const active = reviews[Math.min(activeTestimonial, reviews.length - 1)];
+  const avatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(
+    active.name
+  )}&background=2563eb&color=fff`;
 
   return (
     <section className="py-20 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
@@ -39,7 +45,10 @@ export default function Testimonials() {
             {t('home.testimonials.badge')}
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            {t('home.testimonials.titleWhatOur')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800">{t('home.testimonials.titleClientsSay')}</span>
+            {t('home.testimonials.titleWhatOur')}{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800">
+              {t('home.testimonials.titleClientsSay')}
+            </span>
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             {t('home.testimonials.subtitle')}
@@ -56,24 +65,24 @@ export default function Testimonials() {
 
             {/* Content */}
             <div className="text-center">
-              <div className="flex justify-center mb-4">
-                {[...Array(activeTestimonial)].map(() => null)}
-              </div>
-
               <p className="text-lg md:text-xl text-gray-700 mb-8 italic leading-relaxed">
-                "{testimonials[activeTestimonial].content}"
+                "{active.review}"
               </p>
 
               <div className="flex items-center justify-center mb-6">
                 <img
-                  src={testimonials[activeTestimonial].image}
-                  alt={testimonials[activeTestimonial].name}
+                  src={avatar}
+                  alt={active.name}
                   className="w-16 h-16 rounded-full mr-4"
                 />
                 <div className="text-left">
-                  <p className="font-bold text-lg">{testimonials[activeTestimonial].name}</p>
-                  <p className="text-gray-600">{testimonials[activeTestimonial].role}</p>
-                  <p className="text-blue-600 text-sm">{testimonials[activeTestimonial].company}</p>
+                  <p className="font-bold text-lg">{active.name}</p>
+                  {active.company && (
+                    <p className="text-blue-600 text-sm">{active.company}</p>
+                  )}
+                  {active.location && (
+                    <p className="text-gray-600 text-sm">{active.location}</p>
+                  )}
                 </div>
               </div>
 
@@ -81,7 +90,11 @@ export default function Testimonials() {
                 {[...Array(5)].map((_, i) => (
                   <svg
                     key={i}
-                    className={`w-6 h-6 ${i < testimonials[activeTestimonial].rating ? 'text-yellow-400' : 'text-gray-300'}`}
+                    className={`w-6 h-6 ${
+                      i < (active.rating || 5)
+                        ? 'text-yellow-400'
+                        : 'text-gray-300'
+                    }`}
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -90,26 +103,30 @@ export default function Testimonials() {
                 ))}
               </div>
 
-              <p className="text-sm text-gray-500">
-                {t('home.testimonials.projectLabel')} {testimonials[activeTestimonial].project}
-              </p>
+              {active.projectTitle && (
+                <p className="text-sm text-gray-500">
+                  {t('home.testimonials.projectLabel')} {active.projectTitle}
+                </p>
+              )}
             </div>
           </div>
 
           {/* Navigation Dots */}
-          <div className="flex justify-center mt-8 space-x-3">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setActiveTestimonial(index)}
-                className={`h-3 rounded-full transition-all duration-300 ${
-                  activeTestimonial === index
-                    ? 'w-8 bg-blue-600'
-                    : 'w-3 bg-gray-300 hover:bg-gray-400'
-                }`}
-              />
-            ))}
-          </div>
+          {reviews.length > 1 && (
+            <div className="flex justify-center mt-8 space-x-3">
+              {reviews.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setActiveTestimonial(index)}
+                  className={`h-3 rounded-full transition-all duration-300 ${
+                    index === Math.min(activeTestimonial, reviews.length - 1)
+                      ? 'w-8 bg-blue-600'
+                      : 'w-3 bg-gray-300 hover:bg-gray-400'
+                  }`}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>

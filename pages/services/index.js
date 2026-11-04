@@ -7,9 +7,9 @@ import PageHero from '../../components/PageHero';
 import HERO_IMAGES from '../../lib/heroImages';
 import { useT } from '../../lib/i18n';
 
-export default function ServicesPage() {
-  const [services, setServices] = useState([]);
-  const [loading, setLoading] = useState(true);
+export default function ServicesPage({ initialServices = [] }) {
+  const [services, setServices] = useState(initialServices);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState('default');
@@ -21,7 +21,6 @@ export default function ServicesPage() {
 
   const fetchServices = async () => {
     try {
-      setLoading(true);
       const data = await servicesAPI.getAll();
       setServices(Array.isArray(data) ? data : []);
       setError(null);
@@ -108,4 +107,14 @@ export default function ServicesPage() {
       </div>
     </Layout>
   );
+}
+
+// Pre-render the service cards into the static HTML (SEO + first paint).
+// servicesAPI never throws — it falls back to local data if the API is down.
+export async function getStaticProps() {
+  const initialServices = await servicesAPI.getAll();
+  return {
+    props: { initialServices: Array.isArray(initialServices) ? initialServices : [] },
+    revalidate: 300,
+  };
 }

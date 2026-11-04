@@ -65,7 +65,7 @@ const en = {
     workingHoursValue: 'Mon - Sat: 9:00 AM - 6:00 PM',
     sundayClosed: 'Sunday: Closed',
     rights: 'All rights reserved.',
-    securePayments: '🔒 Secure Payments powered by',
+    securePayments: '🔒 Secure, invoice-based payments on every project',
     links: {
       privacy: 'Privacy Policy',
       terms: 'Terms of Service',
@@ -91,36 +91,37 @@ const en = {
   home: {
     seoTitle: 'Steel & Rebar Detailing Services',
     seoDescription:
-      'Professional steel & rebar detailing and shop drawing services for fabricators worldwide — plus quantity takeoff, cost estimation and BOQ preparation. Fast, accurate, affordable.',
+      'Precon Detailing provides professional steel detailing, rebar detailing, construction quantity takeoffs, cost estimation, BOQ preparation, and shop drawing services worldwide.',
     seoKeywords:
       'steel detailing services, rebar detailing services, shop drawing services, construction estimating services, quantity takeoff services, construction cost estimation, BOQ preparation services',
     hero: {
       slides: [
         {
-          title: 'Precision Steel & Rebar Detailing',
-          subtitle: 'Accurate steel & rebar detailing and fabrication-ready shop drawings, delivered on time, every time.',
-          badge: 'Trusted by 500+ Clients',
+          title: 'Preconstruction Detailing & Estimating Services',
+          subtitle: 'Professional steel detailing, rebar detailing, quantity takeoffs, cost estimation, BOQ preparation, and shop drawings for construction professionals worldwide.',
+          badge: 'Detailing · Estimating · Shop Drawings',
         },
         {
           title: 'Construction Estimating Services',
           subtitle:
             'Accurate construction estimating services — quantity takeoff, cost estimation, BOQ preparation, and steel detailing for contractors worldwide.',
-          badge: '10+ Years Experience',
+          badge: 'Free Quotes Within 24 Hours',
         },
         {
           title: 'Cost Estimation & BOQ Preparation',
           subtitle: 'Detailed cost analysis and bills of quantities for successful project planning.',
-          badge: '98% Client Satisfaction',
+          badge: 'Transparent, Itemized Pricing',
         },
       ],
       exploreServices: 'Explore Services',
       getFreeQuote: 'Get Free Quote',
       stats: [
-        { value: '500+', label: 'Projects Done' },
-        { value: '10+', label: 'Years Experience' },
-        { value: '200+', label: 'Happy Clients' },
-        { value: '25+', label: 'Team Members' },
+        { value: '6', label: 'Core Services' },
+        { value: '24 Hrs', label: 'Free Quote Response' },
+        { value: '100%', label: 'Confidential & Secure' },
+        { value: 'Worldwide', label: 'Remote Delivery' },
       ],
+
       expertiseTitle: 'Our Expertise',
       expertiseSubtitle: 'Comprehensive Engineering Solutions',
       expertiseItems: [
@@ -130,7 +131,7 @@ const en = {
         { name: 'BOQ Preparation', desc: 'Detailed quantity bills' },
       ],
       supportLabel: 'Support',
-      ratingLabel: 'Client Rating',
+      ratingLabel: 'Free Quote Turnaround',
     },
     trustBar: ['Engineering-Focused', 'Fast Turnaround', '100% Confidential', 'International Clients'],
     servicesSection: {
@@ -150,30 +151,31 @@ const en = {
       subtitle: 'Trusted by contractors, fabricators, and architects worldwide',
       points: [
         {
-          title: 'Accuracy Guaranteed',
-          desc: 'Every drawing and estimate is double-checked by senior engineers before delivery.',
+          title: 'Drawing-Focused Documentation',
+          desc: 'Shop drawings, connection details and bar bending schedules prepared for fabrication and site use — not generic paperwork.',
         },
         {
-          title: 'Fast Turnaround',
-          desc: 'Most projects delivered within 1–5 business days. Rush services available.',
+          title: 'Project-Specific Quotations',
+          desc: 'Every price is quoted from your actual drawings and scope. No generic packages, no surprises later.',
         },
         {
-          title: 'Competitive Pricing',
-          desc: 'Starting from $99. No hidden fees. Free initial consultation.',
+          title: 'Organized Deliverables',
+          desc: 'Numbered, revision-tracked drawing sets, takeoffs and BOQs that your team can use immediately.',
         },
         {
-          title: 'Confidential & Secure',
-          desc: 'Your drawings and project data are always protected with strict NDA.',
+          title: 'Clear Communication',
+          desc: 'One point of contact, with direct WhatsApp and email updates at every stage of your project.',
         },
         {
-          title: 'Global Experience',
-          desc: 'Served 50+ countries with clients from USA, UK, UAE, Australia & more.',
+          title: 'Confidential Project Handling',
+          desc: 'Your drawings and data stay private and are never shared. NDAs available on request.',
         },
         {
-          title: 'Engineering Excellence',
-          desc: '10+ years experience. 500+ projects. 4.9/5 client rating.',
+          title: 'Agreed Delivery Schedules',
+          desc: 'The delivery date is agreed before we start, with free revisions until you approve the work.',
         },
       ],
+
     },
     portfolio: {
       badge: 'Our Portfolio',
@@ -248,26 +250,6 @@ const en = {
       titleClientsSay: 'Clients Say',
       subtitle: "Don't just take our word for it - hear from our satisfied clients",
       projectLabel: 'Project:',
-      items: [
-        {
-          role: 'Project Manager',
-          content:
-            'Excellent service! Their steel detailing work is accurate and delivered on time. The team is professional and responsive.',
-          project: 'Commercial Tower Project',
-        },
-        {
-          role: 'Architect',
-          content:
-            'Very professional team. Their cost estimation helped us save significantly on our project. The reports were detailed and easy to understand.',
-          project: 'Residential Complex',
-        },
-        {
-          role: 'Contractor',
-          content:
-            'The quality of shop drawings is outstanding. They understand complex requirements and deliver exceptional results every time.',
-          project: 'Industrial Warehouse',
-        },
-      ],
     },
     freeTools: {
       badge: '100% Free',
@@ -507,7 +489,9 @@ const en = {
       support: '24/7 Support',
       startingPrice: 'Starting Price',
       deliveryTime: 'Delivery Time',
-      successRate: 'Success Rate',
+      successRate: 'Revisions',
+      successValue: 'Free',
+      faqTitle: 'Frequently Asked Questions',
       customQuote: 'Custom Quote',
       varies: 'Varies',
       overview: 'Service Overview',
@@ -521,6 +505,11 @@ const en = {
       ],
       ctaTitle: 'Ready to Get Started?',
       ctaText: 'Contact us today for a free consultation and quote',
+      faqs: [
+        { q: 'How long will {title} take?', a: 'Most {title} projects are delivered within {timeline}. The exact schedule is confirmed in your free quote before we start.' },
+        { q: 'What do you need from me to start?', a: 'Just your project drawings (PDF, DWG or IFC) and any specifications you have. Upload them on the quote page — we reply with a fixed price within 24 hours.' },
+        { q: 'What exactly will I receive?', a: 'A complete, ready-to-use set of deliverables for this service, checked before delivery. Revisions are free until you approve the work.' }
+      ],
       getFreeQuote: 'Get a Free Quote',
       viewOther: 'View Other Services',
       otherTitleA: 'Other',
@@ -559,7 +548,7 @@ const en = {
       p2: 'With over 10 years of experience, we specialize in steel detailing, rebar detailing, quantity takeoff, cost estimation, BOQ preparation, and shop drawings.',
       p3: 'Our commitment to accuracy, quality, and timely delivery has made us a trusted partner for contractors, architects, and developers worldwide.',
       ourServices: 'Our Services',
-      statsLabels: ['Projects Completed', 'Years Experience', 'Happy Clients', 'Team Members'],
+      statsLabels: ['Core Services', 'Quote Turnaround', 'Confidential Projects', 'Website Languages'],
       missionTitle: 'Our Mission',
       missionText:
         'To provide accurate, reliable, and timely engineering services that help our clients complete their projects successfully and efficiently.',
@@ -596,22 +585,22 @@ const en = {
       team: [
         {
           role: 'Founder & CEO',
-          bio: '15+ years experience in civil engineering and project management.',
+          bio: 'Licensed engineer and founder — personally reviews deliverables and stays your single point of contact.',
           expertise: ['Structural Engineering', 'Project Management', 'Steel Detailing'],
         },
         {
           role: 'Head of Detailing',
-          bio: 'Expert in steel detailing and rebar detailing with 10 years of experience.',
+          bio: 'Leads steel and rebar detailing production, drawing standards and quality checks.',
           expertise: ['Steel Detailing', 'Rebar Detailing', 'Shop Drawings'],
         },
         {
           role: 'Cost Estimation Lead',
-          bio: 'Specialist in construction cost analysis and BOQ preparation.',
+          bio: 'Leads quantity takeoff, cost estimation and BOQ preparation for every project.',
           expertise: ['Cost Estimation', 'BOQ Preparation', 'Quantity Takeoff'],
         },
         {
           role: 'Senior Structural Engineer',
-          bio: 'Experienced in complex structural design and analysis.',
+          bio: 'Reviews structural details and calculations before anything is delivered.',
           expertise: ['Structural Design', 'Analysis', 'Consulting'],
         },
       ],
@@ -623,6 +612,7 @@ const en = {
     projects: {
       badge: 'Our Portfolio',
       heroTitle: 'Recent Projects',
+      sampleNote: 'Project visuals are illustrative samples of our deliverables. Detailed case studies and references are available on request — many client projects remain confidential under NDA.',
       heroSubtitle: 'Explore successful projects delivered for clients around the world.',
       crumb: 'Projects',
       emptyTitle: 'Projects coming soon',
@@ -705,7 +695,7 @@ const en = {
       saturday: 'Saturday',
       sunday: 'Sunday',
       weekdayHours: '9:00 AM - 6:00 PM',
-      satHours: '10:00 AM - 4:00 PM',
+      satHours: '9:00 AM - 6:00 PM',
       closed: 'Closed',
       quickTitle: 'Quick Contact',
       quickText: 'Prefer to reach out directly? Use any of these methods:',
@@ -850,7 +840,7 @@ const en = {
       projectLabel: 'Project Title *',
       projectPlaceholder: 'e.g., Commercial Building Project',
       companyLabel: 'Company (Optional)',
-      companyPlaceholder: 'ABC Construction',
+      companyPlaceholder: 'Your company name',
       locationLabel: 'Location (Optional)',
       locationPlaceholder: 'New York, USA',
       reviewLabel: 'Your Review *',

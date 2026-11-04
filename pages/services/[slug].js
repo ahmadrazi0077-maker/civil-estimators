@@ -3,15 +3,16 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Layout from '../../components/Layout/Layout';
 import { servicesAPI } from '../../lib/api';
+import { services as fallbackServices } from '../../lib/data';
 import SEO from '../../components/SEO';
 import { useT, localizeService } from '../../lib/i18n';
 
-export default function ServiceDetail() {
+export default function ServiceDetail({ initialService = null, initialOthers = [] }) {
   const router = useRouter();
   const { slug } = router.query;
-  const [service, setService] = useState(null);
-  const [otherServices, setOtherServices] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [service, setService] = useState(initialService);
+  const [otherServices, setOtherServices] = useState(initialOthers);
+  const [loading, setLoading] = useState(!initialService);
   const [error, setError] = useState(null);
   const { t } = useT();
 
@@ -24,13 +25,15 @@ export default function ServiceDetail() {
 
   const fetchService = async () => {
     try {
-      setLoading(true);
       const data = await servicesAPI.getBySlug(slug);
       setService(data);
       setError(null);
     } catch (err) {
       console.error('Error fetching service:', err);
-      setError('Service not found');
+      // Keep showing the pre-rendered service if we already have one.
+      if (!initialService) {
+        setError('Service not found');
+      }
     } finally {
       setLoading(false);
     }
@@ -194,7 +197,7 @@ export default function ServiceDetail() {
               <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-2xl text-center">
                 <div className="text-3xl mb-2">🎯</div>
                 <p className="text-sm text-gray-600 mb-1">{t('servicesData.detail.successRate')}</p>
-                <p className="text-2xl font-bold text-purple-600">98%</p>
+                <p className="text-2xl font-bold text-purple-600">{t('servicesData.detail.successValue')}</p>
               </div>
             </div>
 
@@ -250,6 +253,28 @@ export default function ServiceDetail() {
                     <p className="text-sm text-gray-600">{process.desc}</p>
                   </div>
                 ))}
+              </div>
+            </div>
+
+            {/* FAQ Section */}
+            <div className="mb-12">
+              <h2 className="text-3xl font-bold mb-6 flex items-center">
+                <span className="w-10 h-10 bg-yellow-100 rounded-xl flex items-center justify-center mr-3">❓</span>
+                {t('servicesData.detail.faqTitle')}
+              </h2>
+              <div className="space-y-4">
+                {t('servicesData.detail.faqs').map((faq, index) => {
+                  const fill = (text) =>
+                    (text || '')
+                      .replaceAll('{title}', localized.title)
+                      .replaceAll('{timeline}', localized.timeline || '');
+                  return (
+                    <div key={index} className="bg-gray-50 rounded-xl p-5">
+                      <h3 className="font-semibold text-gray-800 mb-2">{fill(faq.q)}</h3>
+                      <p className="text-gray-600">{fill(faq.a)}</p>
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
@@ -323,4 +348,33 @@ export default function ServiceDetail() {
       )}
     </Layout>
   );
+}
+
+// Pre-render each service page with its real content (unique title, H1,
+// description, deliverables) instead of a client-side "Loading..." state.
+// servicesAPI never throws for known slugs — it falls back to local data
+// when the backend is unreachable, so the build cannot fail on a cold API.
+export async function getStaticPaths() {
+  const paths = fallbackServices.map((s) => ({ params: { slug: s.slug } }));
+  return { paths, fallback: 'blocking' };
+}
+
+export async function getStaticProps({ params }) {
+  let service = null;
+  try {
+    service = await servicesAPI.getBySlug(params.slug);
+  } catch (err) {
+    service = null;
+  }
+  if (!service) {
+    return { notFound: true };
+  }
+  const all = await servicesAPI.getAll();
+  const initialOthers = (Array.isArray(all) ? all : [])
+    .filter((s) => s.slug !== params.slug)
+    .slice(0, 3);
+  return {
+    props: { initialService: service, initialOthers },
+    revalidate: 300,
+  };
 }

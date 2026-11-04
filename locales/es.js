@@ -64,7 +64,7 @@ const es = {
     workingHoursValue: 'Lun - Sáb: 9:00 AM - 6:00 PM',
     sundayClosed: 'Domingo: Cerrado',
     rights: 'Todos los derechos reservados.',
-    securePayments: '🔒 Pagos seguros con tecnología de',
+    securePayments: '🔒 Pagos seguros con factura en cada proyecto',
     links: {
       privacy: 'Política de privacidad',
       terms: 'Términos del servicio',
@@ -90,36 +90,37 @@ const es = {
   home: {
     seoTitle: 'Servicios de detallado de acero y refuerzo',
     seoDescription:
-      'Servicios profesionales de detallado de acero, detallado de refuerzo y planos de taller para fabricantes de todo el mundo — además de cómputo de cantidades, estimación de costos y preparación de BOQ. Rápido, preciso y accesible.',
+      'Precon Detailing ofrece servicios profesionales de detallado de acero, detallado de varilla, cómputo de cantidades, estimación de costos de construcción, preparación de BOQ y planos de taller en todo el mundo.',
     seoKeywords:
       'servicios de detallado de acero, detallado de acero de refuerzo, planos de taller, servicios de estimación de construcción, servicios de cómputo de cantidades, estimación de costos de construcción, preparación de BOQ',
     hero: {
       slides: [
         {
-          title: 'Detallado Preciso de Acero y Refuerzo',
-          subtitle: 'Detallado preciso de acero y refuerzo y planos de taller listos para fabricación, entregados a tiempo, siempre.',
-          badge: 'La confianza de más de 500 clientes',
+          title: 'Servicios de Detallado y Estimación de Preconstrucción',
+          subtitle: 'Detallado profesional de acero, detallado de varilla, cómputos de cantidades, estimación de costos, preparación de BOQ y planos de taller para profesionales de la construcción en todo el mundo.',
+          badge: 'Detallado · Estimación · Planos de taller',
         },
         {
           title: 'Servicios de Estimación de Construcción',
           subtitle:
             'Servicios precisos de estimación de costos de construcción: cómputo de cantidades, estimación de costos, preparación de BOQ y detallado de acero para contratistas de todo el mundo.',
-          badge: 'Más de 10 años de experiencia',
+          badge: 'Cotizaciones gratuitas en 24 horas',
         },
         {
           title: 'Estimación de Costos y Preparación de BOQ',
           subtitle: 'Análisis detallado de costos y listas de cantidades para una planificación exitosa de su proyecto.',
-          badge: '98% de satisfacción del cliente',
+          badge: 'Precios transparentes y desglosados',
         },
       ],
       exploreServices: 'Explorar servicios',
       getFreeQuote: 'Cotización gratuita',
       stats: [
-        { value: '500+', label: 'Proyectos realizados' },
-        { value: '10+', label: 'Años de experiencia' },
-        { value: '200+', label: 'Clientes satisfechos' },
-        { value: '25+', label: 'Miembros del equipo' },
+        { value: '6', label: 'Servicios principales' },
+        { value: '24 h', label: 'Cotización gratuita' },
+        { value: '100%', label: 'Confidencial y seguro' },
+        { value: 'Global', label: 'Entrega remota' },
       ],
+
       expertiseTitle: 'Nuestra experiencia',
       expertiseSubtitle: 'Soluciones integrales de ingeniería',
       expertiseItems: [
@@ -129,7 +130,7 @@ const es = {
         { name: 'Preparación de BOQ', desc: 'Listas de cantidades detalladas' },
       ],
       supportLabel: 'Soporte',
-      ratingLabel: 'Valoración de clientes',
+      ratingLabel: 'Cotización gratuita en 24 h',
     },
     trustBar: ['Enfoque en ingeniería', 'Entrega rápida', '100% confidencial', 'Clientes internacionales'],
     servicesSection: {
@@ -149,30 +150,31 @@ const es = {
       subtitle: 'La confianza de contratistas, fabricantes y arquitectos de todo el mundo',
       points: [
         {
-          title: 'Precisión garantizada',
-          desc: 'Cada plano y estimación es revisado dos veces por ingenieros senior antes de la entrega.',
+          title: 'Documentación centrada en planos',
+          desc: 'Planos de taller, detalles de conexión y despieces de armadura preparados para fabricación y obra, no papeleo genérico.',
         },
         {
-          title: 'Entrega rápida',
-          desc: 'La mayoría de los proyectos se entrega en 1–5 días laborables. Servicio urgente disponible.',
+          title: 'Cotizaciones por proyecto',
+          desc: 'Cada precio se calcula desde sus planos y alcance reales. Sin paquetes genéricos ni sorpresas después.',
         },
         {
-          title: 'Precios competitivos',
-          desc: 'Desde $99. Sin cargos ocultos. Consulta inicial gratuita.',
+          title: 'Entregables organizados',
+          desc: 'Conjuntos de planos numerados y con control de revisiones, cómputos y BOQ listos para usar de inmediato.',
         },
         {
-          title: 'Confidencial y seguro',
-          desc: 'Sus planos y datos del proyecto están siempre protegidos con un estricto acuerdo de confidencialidad.',
+          title: 'Comunicación clara',
+          desc: 'Un solo punto de contacto con actualizaciones directas por WhatsApp y correo en cada etapa de su proyecto.',
         },
         {
-          title: 'Experiencia global',
-          desc: 'Hemos atendido a más de 50 países con clientes de EE. UU., Reino Unido, EAU, Australia y más.',
+          title: 'Manejo confidencial',
+          desc: 'Sus planos y datos permanecen privados y nunca se comparten. Acuerdos de confidencialidad a solicitud.',
         },
         {
-          title: 'Excelencia en ingeniería',
-          desc: 'Más de 10 años de experiencia. Más de 500 proyectos. Valoración de clientes de 4.9/5.',
+          title: 'Plazos acordados',
+          desc: 'La fecha de entrega se acuerda antes de empezar, con revisiones gratuitas hasta su aprobación.',
         },
       ],
+
     },
     portfolio: {
       badge: 'Nuestro portafolio',
@@ -247,26 +249,6 @@ const es = {
       titleClientsSay: 'Nuestros Clientes',
       subtitle: 'No se fíe solo de nuestra palabra: escuche a nuestros clientes satisfechos',
       projectLabel: 'Proyecto:',
-      items: [
-        {
-          role: 'Gerente de proyectos',
-          content:
-            '¡Excelente servicio! Su trabajo de detallado de acero es preciso y se entrega a tiempo. El equipo es profesional y atento.',
-          project: 'Proyecto de torre comercial',
-        },
-        {
-          role: 'Arquitecta',
-          content:
-            'Equipo muy profesional. Su estimación de costos nos ayudó a ahorrar significativamente en nuestro proyecto. Los informes fueron detallados y fáciles de entender.',
-          project: 'Complejo residencial',
-        },
-        {
-          role: 'Contratista',
-          content:
-            'La calidad de los planos de taller es sobresaliente. Entienden los requisitos complejos y entregan resultados excepcionales en todo momento.',
-          project: 'Almacén industrial',
-        },
-      ],
     },
     freeTools: {
       badge: '100% gratis',
@@ -506,7 +488,9 @@ const es = {
       support: 'Soporte 24/7',
       startingPrice: 'Precio inicial',
       deliveryTime: 'Tiempo de entrega',
-      successRate: 'Tasa de éxito',
+      successRate: 'Revisiones',
+      successValue: 'Gratis',
+      faqTitle: 'Preguntas frecuentes',
       customQuote: 'Cotización personalizada',
       varies: 'Variable',
       overview: 'Descripción del servicio',
@@ -520,6 +504,11 @@ const es = {
       ],
       ctaTitle: '¿Listo para empezar?',
       ctaText: 'Contáctenos hoy para una consulta y cotización gratuitas',
+      faqs: [
+        { q: '¿Cuánto tarda el servicio de {title}?', a: 'La mayoría de los proyectos de {title} se entregan en {timeline}. El plazo exacto se confirma en su cotización gratuita antes de empezar.' },
+        { q: '¿Qué necesitan de mí para empezar?', a: 'Solo los planos de su proyecto (PDF, DWG o IFC) y las especificaciones que tenga. Súbalos en la página de cotización: respondemos con un precio fijo en 24 horas.' },
+        { q: '¿Qué recibiré exactamente?', a: 'Un conjunto completo de entregables listos para usar de este servicio, revisado antes de la entrega. Las revisiones son gratuitas hasta su aprobación.' }
+      ],
       getFreeQuote: 'Cotización gratuita',
       viewOther: 'Ver otros servicios',
       otherTitleA: 'Otros',
@@ -558,7 +547,7 @@ const es = {
       p2: 'Con más de 10 años de experiencia, nos especializamos en detallado de estructuras de acero, detallado de acero de refuerzo, cómputo de cantidades, estimación de costos, preparación de BOQ y planos de taller.',
       p3: 'Nuestro compromiso con la precisión, la calidad y la entrega puntual nos ha convertido en un socio de confianza para contratistas, arquitectos y promotores de todo el mundo.',
       ourServices: 'Nuestros servicios',
-      statsLabels: ['Proyectos completados', 'Años de experiencia', 'Clientes satisfechos', 'Miembros del equipo'],
+      statsLabels: ['Servicios principales', 'Tiempo de cotización', 'Proyectos confidenciales', 'Idiomas del sitio'],
       missionTitle: 'Nuestra misión',
       missionText:
         'Ofrecer servicios de ingeniería precisos, fiables y puntuales que ayuden a nuestros clientes a completar sus proyectos con éxito y eficiencia.',
@@ -595,22 +584,22 @@ const es = {
       team: [
         {
           role: 'Fundador y CEO',
-          bio: 'Más de 15 años de experiencia en ingeniería civil y gestión de proyectos.',
+          bio: 'Ingeniero con licencia y fundador: revisa personalmente los entregables y es su único punto de contacto.',
           expertise: ['Ingeniería estructural', 'Gestión de proyectos', 'Detallado de acero'],
         },
         {
           role: 'Jefa de detallado',
-          bio: 'Experta en detallado de acero y de refuerzo con 10 años de experiencia.',
+          bio: 'Lidera la producción de detallado de acero y varilla, los estándares de planos y el control de calidad.',
           expertise: ['Detallado de acero', 'Detallado de refuerzo', 'Planos de taller'],
         },
         {
           role: 'Responsable de estimación de costos',
-          bio: 'Especialista en análisis de costos de construcción y preparación de BOQ.',
+          bio: 'Lidera el cómputo de cantidades, la estimación de costos y la preparación de BOQ de cada proyecto.',
           expertise: ['Estimación de costos', 'Preparación de BOQ', 'Cómputo de cantidades'],
         },
         {
           role: 'Ingeniero estructural senior',
-          bio: 'Con experiencia en diseño y análisis estructural complejo.',
+          bio: 'Revisa los detalles estructurales y los cálculos antes de cualquier entrega.',
           expertise: ['Diseño estructural', 'Análisis', 'Consultoría'],
         },
       ],
@@ -622,6 +611,7 @@ const es = {
     projects: {
       badge: 'Nuestro portafolio',
       heroTitle: 'Proyectos recientes',
+      sampleNote: 'Las imágenes de proyectos son muestras ilustrativas de nuestros entregables. Casos de estudio detallados y referencias disponibles a solicitud: muchos proyectos de clientes son confidenciales bajo NDA.',
       heroSubtitle: 'Explore proyectos exitosos entregados a clientes de todo el mundo.',
       crumb: 'Proyectos',
       emptyTitle: 'Proyectos próximamente',
@@ -704,7 +694,7 @@ const es = {
       saturday: 'Sábado',
       sunday: 'Domingo',
       weekdayHours: '9:00 AM - 6:00 PM',
-      satHours: '10:00 AM - 4:00 PM',
+      satHours: '9:00 AM - 6:00 PM',
       closed: 'Cerrado',
       quickTitle: 'Contacto rápido',
       quickText: '¿Prefiere contactarnos directamente? Use cualquiera de estos métodos:',
@@ -849,7 +839,7 @@ const es = {
       projectLabel: 'Título del proyecto *',
       projectPlaceholder: 'ej., Proyecto de edificio comercial',
       companyLabel: 'Empresa (opcional)',
-      companyPlaceholder: 'ABC Construcción',
+      companyPlaceholder: 'Nombre de su empresa',
       locationLabel: 'Ubicación (opcional)',
       locationPlaceholder: 'Madrid, España',
       reviewLabel: 'Su opinión *',

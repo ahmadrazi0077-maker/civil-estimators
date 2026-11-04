@@ -84,13 +84,11 @@ CONTACT INFORMATION:
 - 📍 Address: Pakistan — Serving Clients Worldwide
 - 🕐 Working Hours: Mon-Sat 9AM-6PM, Sunday Closed
 
-COMPANY STATS:
-- 500+ Projects Completed
-- 10+ Years Experience
-- 200+ Happy Clients
-- 4.9/5 Client Rating
-- 25+ Team Members
-- 50+ Countries Served
+COMPANY FACTS:
+- 6 Core Services: Steel Detailing, Rebar Detailing, Quantity Takeoff, Cost Estimation, BOQ Preparation, Shop Drawings
+- Free Quote Within 24 Hours
+- Confidential Project Handling — NDA on Request
+- Serving Clients Worldwide (USA, UK, UAE, Australia & more)
 
 WEBSITE PAGES:
 - Home: /
@@ -200,11 +198,11 @@ function getFallbackResponse(input) {
   }
   
   if (text.includes('review') || text.includes('rating') || text.includes('quality')) {
-    return `⭐ We have 4.9/5 rating from 200+ happy clients!\n\nVisit our Reviews page for testimonials.`;
+    return `⭐ You can read real client reviews on our Reviews page.\n\nWorked with us already? We'd love your honest feedback there too!`;
   }
   
   if (text.includes('project') || text.includes('portfolio') || text.includes('work')) {
-    return `🏗️ We've completed 500+ projects worldwide!\n\nCheck our Portfolio section.`;
+    return `🏗️ You can browse example projects in the Projects section of our website.\n\nEach one shows the service, location and scope of work.`;
   }
   
   if (text.includes('hi') || text.includes('hello') || text.includes('hey')) {

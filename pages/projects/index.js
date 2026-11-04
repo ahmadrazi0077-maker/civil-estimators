@@ -6,9 +6,9 @@ import PageHero from '../../components/PageHero';
 import HERO_IMAGES from '../../lib/heroImages';
 import { useT } from '../../lib/i18n';
 
-export default function Projects() {
-  const [projects, setProjects] = useState([]);
-  const [loading, setLoading] = useState(true);
+export default function Projects({ initialProjects = [] }) {
+  const [projects, setProjects] = useState(initialProjects);
+  const [loading, setLoading] = useState(false);
   const [activeFilter, setActiveFilter] = useState('All');
   const { t } = useT();
 
@@ -44,6 +44,9 @@ export default function Projects() {
 
       <div className="bg-gray-50 py-16">
         <div className="container mx-auto px-4">
+          <p className="text-center text-sm text-gray-500 max-w-3xl mx-auto mb-10">
+            {t('pages.projects.sampleNote')}
+          </p>
           {loading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[1, 2, 3, 4, 5, 6].map((i) => (
@@ -165,4 +168,14 @@ export default function Projects() {
       </div>
     </Layout>
   );
+}
+
+// Pre-render project cards into the static HTML (SEO + first paint).
+// projectsAPI returns an empty array instead of throwing if the API is down.
+export async function getStaticProps() {
+  const initialProjects = await projectsAPI.getAll();
+  return {
+    props: { initialProjects: Array.isArray(initialProjects) ? initialProjects : [] },
+    revalidate: 300,
+  };
 }

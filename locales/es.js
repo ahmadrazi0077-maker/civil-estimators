@@ -88,22 +88,22 @@ const es = {
     submitError: 'No se pudo enviar la consulta. Inténtelo de nuevo.',
   },
   home: {
-    seoTitle: 'Servicios de estimación de costos de construcción',
+    seoTitle: 'Servicios de detallado de acero y refuerzo',
     seoDescription:
-      'Servicios profesionales de estimación de costos de construcción para contratistas de todo el mundo: cómputo de cantidades, estimación de costos, preparación de BOQ, detallado de acero y planos de taller. Rápido, preciso y accesible.',
+      'Servicios profesionales de detallado de acero, detallado de refuerzo y planos de taller para fabricantes de todo el mundo — además de cómputo de cantidades, estimación de costos y preparación de BOQ. Rápido, preciso y accesible.',
     seoKeywords:
-      'servicios de estimación de construcción, estimación de costos de construcción, servicios de cómputo de cantidades, servicios de detallado de acero, detallado de acero de refuerzo, preparación de BOQ, planos de taller',
+      'servicios de detallado de acero, detallado de acero de refuerzo, planos de taller, servicios de estimación de construcción, servicios de cómputo de cantidades, estimación de costos de construcción, preparación de BOQ',
     hero: {
       slides: [
+        {
+          title: 'Detallado Preciso de Acero y Refuerzo',
+          subtitle: 'Detallado preciso de acero y refuerzo y planos de taller listos para fabricación, entregados a tiempo, siempre.',
+          badge: 'La confianza de más de 500 clientes',
+        },
         {
           title: 'Servicios de Estimación de Construcción',
           subtitle:
             'Servicios precisos de estimación de costos de construcción: cómputo de cantidades, estimación de costos, preparación de BOQ y detallado de acero para contratistas de todo el mundo.',
-          badge: 'La confianza de más de 500 clientes',
-        },
-        {
-          title: 'Detallado Preciso de Acero y Refuerzo',
-          subtitle: 'Planos estructurales precisos y detalles de refuerzo entregados a tiempo, siempre.',
           badge: 'Más de 10 años de experiencia',
         },
         {

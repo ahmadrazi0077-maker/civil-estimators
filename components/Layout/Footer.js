@@ -7,10 +7,10 @@ import { useT } from '../../lib/i18n';
 const SERVICE_SLUGS = [
   'steel-detailing',
   'rebar-detailing',
+  'shop-drawings',
   'quantity-takeoff',
   'cost-estimation',
   'boq-preparation',
-  'shop-drawings',
 ];
 
 export default function Footer() {

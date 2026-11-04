@@ -7,10 +7,10 @@ import LanguageSwitcher from '../LanguageSwitcher';
 const SERVICE_SLUGS = [
   'steel-detailing',
   'rebar-detailing',
+  'shop-drawings',
   'quantity-takeoff',
   'cost-estimation',
   'boq-preparation',
-  'shop-drawings',
 ];
 
 const TOOL_HREFS = [

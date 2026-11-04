@@ -89,22 +89,22 @@ const en = {
     submitError: 'Failed to submit inquiry. Please try again.',
   },
   home: {
-    seoTitle: 'Construction Estimating Services',
+    seoTitle: 'Steel & Rebar Detailing Services',
     seoDescription:
-      'Professional construction estimating services for contractors worldwide — quantity takeoff, cost estimation, BOQ preparation, steel detailing & shop drawings. Fast, accurate, affordable.',
+      'Professional steel & rebar detailing and shop drawing services for fabricators worldwide — plus quantity takeoff, cost estimation and BOQ preparation. Fast, accurate, affordable.',
     seoKeywords:
-      'construction estimating services, construction cost estimation, quantity takeoff services, steel detailing services, rebar detailing services, BOQ preparation services, shop drawing services',
+      'steel detailing services, rebar detailing services, shop drawing services, construction estimating services, quantity takeoff services, construction cost estimation, BOQ preparation services',
     hero: {
       slides: [
+        {
+          title: 'Precision Steel & Rebar Detailing',
+          subtitle: 'Accurate steel & rebar detailing and fabrication-ready shop drawings, delivered on time, every time.',
+          badge: 'Trusted by 500+ Clients',
+        },
         {
           title: 'Construction Estimating Services',
           subtitle:
             'Accurate construction estimating services — quantity takeoff, cost estimation, BOQ preparation, and steel detailing for contractors worldwide.',
-          badge: 'Trusted by 500+ Clients',
-        },
-        {
-          title: 'Precision Steel & Rebar Detailing',
-          subtitle: 'Accurate structural drawings and reinforcement details delivered on time, every time.',
           badge: '10+ Years Experience',
         },
         {

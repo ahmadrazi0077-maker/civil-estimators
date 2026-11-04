@@ -49,6 +49,18 @@ const FALLBACK_SERVICES = [
     image: '/images/services/rebar-detailing.svg',
   },
   {
+    _id: '6',
+    title: 'Shop Drawings',
+    slug: 'shop-drawings',
+    icon: '📐',
+    shortDescription: 'Detailed fabrication and installation shop drawings for construction.',
+    description: 'Comprehensive shop drawings.',
+    features: ['Fabrication drawings', 'Assembly details'],
+    price: 'Starting from $179',
+    timeline: '4-6 business days',
+    image: '/images/services/shop-drawings.svg',
+  },
+  {
     _id: '3',
     title: 'Quantity Takeoff',
     slug: 'quantity-takeoff',
@@ -83,18 +95,6 @@ const FALLBACK_SERVICES = [
     price: 'Starting from $149',
     timeline: '3-6 business days',
     image: '/images/services/boq-preparation.svg',
-  },
-  {
-    _id: '6',
-    title: 'Shop Drawings',
-    slug: 'shop-drawings',
-    icon: '📐',
-    shortDescription: 'Detailed fabrication and installation shop drawings for construction.',
-    description: 'Comprehensive shop drawings.',
-    features: ['Fabrication drawings', 'Assembly details'],
-    price: 'Starting from $179',
-    timeline: '4-6 business days',
-    image: '/images/services/shop-drawings.svg',
   },
 ];
 

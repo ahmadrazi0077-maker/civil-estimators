@@ -6,7 +6,7 @@ const ar = {
   },
   common: {
     home: 'الرئيسية',
-    services: 'الخدمات', 
+    services: 'الخدمات',
     contactUs: 'اتصل بنا',
     getQuote: 'اطلب عرض سعر',
     getFreeQuote: 'احصل على عرض سعر مجاني',

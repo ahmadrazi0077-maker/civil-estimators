@@ -189,9 +189,7 @@ export default function Footer() {
           {/* Company Info */}
           <div>
             <div className="flex items-center mb-6">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-600/30">
-                P
-              </div>
+              <img src="/logo-mark.png" alt="Precon Detailing" className="h-12 w-auto" />
               <div className="ml-3">
                 <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
                   Precon Detailing

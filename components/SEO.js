@@ -26,6 +26,7 @@ export default function SEO({
   const siteTitle = title ? `${title} | Precon Detailing` : 'Precon Detailing';
   const siteDescription = description || 'Steel & Rebar Detailing & Estimation Services - Steel Detailing, Rebar Detailing, Quantity Takeoff, Cost Estimation, BOQ Preparation, and Shop Drawings';
   const siteKeywords = keywords || 'steel detailing, rebar detailing, precon detailing, quantity takeoff, cost estimation, BOQ, shop drawings';
+  const siteOgImage = ogImage || `${BASE_URL}/og-image.png`;
 
   // router.asPath excludes the locale prefix in Next i18n routing.
   const cleanPath = (router.asPath || '/').split('?')[0].split('#')[0] || '/';
@@ -45,13 +46,15 @@ export default function SEO({
       {LOCALE_CODES.filter((l) => l !== locale).map((l) => (
         <meta key={l} property="og:locale:alternate" content={OG_LOCALES[l]} />
       ))}
-      {ogImage && <meta property="og:image" content={ogImage} />}
+      <meta property="og:image" content={siteOgImage} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
 
       {/* Twitter Card */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={siteTitle} />
       <meta name="twitter:description" content={siteDescription} />
-      {ogImage && <meta name="twitter:image" content={ogImage} />}
+      <meta name="twitter:image" content={siteOgImage} />
 
       {/* Canonical + hreflang alternates */}
       <link rel="canonical" href={canonical} />

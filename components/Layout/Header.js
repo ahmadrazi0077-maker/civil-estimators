@@ -110,18 +110,12 @@ export default function Header() {
         <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
-            <Link href="/" className="flex items-center group">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:scale-110 transition-transform">
-                P
-              </div>
-              <div className="ml-3">
-                <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-                  Precon Detailing
-                </span>
-                <span className="block text-xs text-gray-500 font-medium tracking-wider">
-                  {t('header.logoSubtitle')}
-                </span>
-              </div>
+            <Link href="/" className="flex items-center group shrink-0">
+              <img
+                src="/logo-full.webp"
+                alt="Precon Detailing — Steel & Rebar Detailing & Estimation Services"
+                className="h-12 md:h-14 xl:h-16 w-auto group-hover:scale-[1.03] transition-transform"
+              />
             </Link>
 
             {/* Desktop Navigation */}
@@ -219,9 +213,7 @@ export default function Header() {
         {/* Drawer header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-100 shrink-0">
           <div className="flex items-center">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl flex items-center justify-center text-white font-bold text-lg">
-              C
-            </div>
+            <img src="/logo-mark.png" alt="Precon Detailing" className="h-10 w-auto" />
             <span className="ml-2 text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
               Precon Detailing
             </span>

@@ -3,8 +3,11 @@ import Layout from '../components/Layout/Layout';
 import SEO from '../components/SEO';
 
 // Home Components
+import Head from 'next/head';
 import Hero from '../components/Home/Hero';
 import TrustBar from '../components/Home/TrustBar';
+import Capabilities from '../components/Home/Capabilities';
+import Industries from '../components/Home/Industries';
 import Services from '../components/Home/Services';
 import WhyPreconDetailing from '../components/Home/WhyPreconDetailing';
 import Portfolio from '../components/Portfolio';
@@ -143,11 +146,38 @@ export default function Home() {
         description={t('home.seoDescription')}
         keywords={t('home.seoKeywords')}
       />
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              name: 'Precon Detailing',
+              url: 'https://precondetailing.com',
+              logo: 'https://precondetailing.com/logo-full.webp',
+              description:
+                'Steel & Rebar Detailing & Estimation Services — steel detailing, rebar detailing, quantity takeoff, cost estimation, BOQ preparation and shop drawings for clients worldwide.',
+              email: 'info@precondetailing.com',
+              contactPoint: {
+                '@type': 'ContactPoint',
+                telephone: '+92-317-7194108',
+                contactType: 'sales',
+                areaServed: 'Worldwide',
+                availableLanguage: ['English', 'Arabic', 'Spanish'],
+              },
+            }),
+          }}
+        />
+      </Head>
       {/* 1. HERO */}
       <Hero />
 
       {/* 2. TRUST BAR */}
       <TrustBar />
+
+      {/* 2b. CORE CAPABILITIES */}
+      <Capabilities />
 
       {/* 3. SERVICES */}
       <Services
@@ -168,6 +198,9 @@ export default function Home() {
 
       {/* 6. WHAT YOU RECEIVE */}
       <WhatYouReceive />
+
+      {/* 6b. INDUSTRIES WE SUPPORT */}
+      <Industries />
 
       {/* 7. HOW IT WORKS */}
       <HowItWorks />

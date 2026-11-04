@@ -25,6 +25,8 @@ const en = {
       services: 'Services',
       projects: 'Projects',
       tools: 'Tools',
+      resources: 'Resources',
+      blog: 'Blog',
       about: 'About',
       contact: 'Contact',
     },
@@ -56,6 +58,7 @@ const en = {
       about: 'About Us',
       services: 'Services',
       blog: 'Blog',
+      process: 'Our Process',
       contact: 'Contact',
     },
     servicesTitle: 'Our Services',
@@ -97,8 +100,8 @@ const en = {
     hero: {
       slides: [
         {
-          title: 'Preconstruction Detailing & Estimating Services',
-          subtitle: 'Professional steel detailing, rebar detailing, quantity takeoffs, cost estimation, BOQ preparation, and shop drawings for construction professionals worldwide.',
+          title: 'Professional Steel & Rebar Detailing Services',
+          subtitle: 'Professional steel detailing, rebar detailing and construction estimating support for fabricators, contractors and construction professionals worldwide — accurate drawings, organized documentation and reliable project coordination.',
           badge: 'Detailing · Estimating · Shop Drawings',
         },
         {
@@ -133,7 +136,31 @@ const en = {
       supportLabel: 'Support',
       ratingLabel: 'Free Quote Turnaround',
     },
-    trustBar: ['Engineering-Focused', 'Fast Turnaround', '100% Confidential', 'International Clients'],
+    trustBar: ['Founder-Led Coordination', 'Project-Specific Solutions', '100% Confidential', 'Worldwide Support'],
+    capabilities: {
+      badge: 'What We Do',
+      title: 'Engineering Support for Your Construction Projects',
+      subtitle: 'From structural steel and reinforcement detailing to construction quantities and cost documentation, we provide practical technical support tailored to your project requirements.',
+      items: [
+        { title: 'Technical Documentation', desc: 'Fabrication-ready drawings, schedules and documents prepared to your project standards — and checked before they are issued.' },
+        { title: 'Estimating Support', desc: 'Quantity takeoffs, cost estimates and BOQs that give your bids and budgets a measured, defensible basis.' },
+        { title: 'Project Coordination', desc: 'Founder-led communication from the first drawing review to final delivery — one point of contact and agreed schedules.' },
+      ],
+    },
+    industries: {
+      badge: 'Industries',
+      title: 'Industries We Support',
+      subtitle: 'Detailing and estimating support for the teams that build in steel and concrete.',
+      items: [
+        { name: 'Steel Fabrication', desc: 'Fabrication drawings and erection packages for structural steel shops.' },
+        { name: 'Commercial Construction', desc: 'Offices, retail and mixed-use projects, detailed and estimated to programme.' },
+        { name: 'Residential Construction', desc: 'Housing, towers and villas — rebar detailing and takeoffs at any scale.' },
+        { name: 'Industrial Construction', desc: 'Plants, warehouses and heavy structures with connection-heavy detailing.' },
+        { name: 'Reinforcement Contractors', desc: 'Placement drawings and bar bending schedules your fixers can build from.' },
+        { name: 'General Contracting', desc: 'Takeoffs, estimates and BOQs that keep bids sharp and budgets honest.' },
+        { name: 'Engineering Consultancies', desc: 'Overflow detailing and documentation support for busy design teams.' },
+      ],
+    },
     servicesSection: {
       badge: 'Our Services',
       titleWhatWe: 'What We',
@@ -393,6 +420,8 @@ const en = {
   servicesData: {
     'steel-detailing': {
       title: 'Steel Detailing',
+      seoTitle: 'Steel Detailing Services for Fabricators & Contractors',
+      seoDescription: 'Professional steel detailing services: fabrication & erection drawings, connection details, anchor bolt plans and material lists. Fixed quote within 24 hours.',
       shortDescription: 'Precise steel detailing services including connection design and erection drawings.',
       description:
         'Our steel detailing services include comprehensive structural steel drawings, connection details, anchor bolt plans, and material lists. We use industry-standard software to ensure accuracy and compliance with building codes.',
@@ -408,6 +437,8 @@ const en = {
     },
     'rebar-detailing': {
       title: 'Rebar Detailing',
+      seoTitle: 'Rebar Detailing Services & Bar Bending Schedules',
+      seoDescription: 'Rebar detailing services with placement drawings and bar bending schedules to ACI, BS 8666 and project standards. Checked schedules, fixed pricing, fast turnaround.',
       shortDescription: 'Detailed reinforcement bar schedules and placement drawings for concrete structures.',
       description:
         'Complete rebar detailing services including bar bending schedules, placement drawings, and reinforcement details for all types of concrete structures.',
@@ -423,6 +454,8 @@ const en = {
     },
     'quantity-takeoff': {
       title: 'Quantity Takeoff',
+      seoTitle: 'Construction Quantity Takeoff Services',
+      seoDescription: 'Accurate construction quantity takeoff services from drawings: measured quantities by CSI division, waste factors and marked-up drawings. Starting from $99.',
       shortDescription: 'Accurate quantity takeoff services for all construction materials and components.',
       description:
         'We provide accurate quantity takeoff services using advanced software and methodologies to ensure precise material quantities for your projects.',
@@ -438,6 +471,8 @@ const en = {
     },
     'cost-estimation': {
       title: 'Cost Estimation',
+      seoTitle: 'Construction Cost Estimation Services',
+      seoDescription: 'Detailed construction cost estimation services for contractors: takeoff-based pricing, labour and material breakdowns, and bid-ready estimates. Fixed quote in 24 hours.',
       shortDescription: 'Detailed cost estimation services to help you plan and budget your construction projects.',
       description:
         'Comprehensive cost estimation services including material costs, labor costs, equipment costs, and overhead calculations for accurate project budgeting.',
@@ -453,6 +488,8 @@ const en = {
     },
     'boq-preparation': {
       title: 'BOQ Preparation',
+      seoTitle: 'BOQ Preparation Services — Bill of Quantities',
+      seoDescription: 'BOQ preparation services measured to CESMM, NRM and POMI standards: itemised bills of quantities in Excel and PDF, ready for tender. Starting from $149.',
       shortDescription: 'Professional Bill of Quantities preparation for tendering and procurement.',
       description:
         'Detailed Bill of Quantities preparation services for tendering, procurement, and contract management. We ensure accurate and comprehensive BOQ documents.',
@@ -468,6 +505,8 @@ const en = {
     },
     'shop-drawings': {
       title: 'Shop Drawings',
+      seoTitle: 'Construction Shop Drawing Services',
+      seoDescription: 'Shop drawing services for steel, rebar and construction trades: checked, revision-controlled fabrication drawings prepared for first-time approval. From $179.',
       shortDescription: 'Detailed shop drawings for fabrication and construction.',
       description:
         'Comprehensive shop drawing services including fabrication drawings, installation drawings, and as-built drawings for various construction components.',
@@ -608,6 +647,24 @@ const en = {
       ctaText: "Let's discuss your project and see how we can help you achieve your goals.",
       ctaBtn1: 'Get Started Today',
       ctaBtn2: 'View Services',
+    },
+    processPage: {
+      seoTitle: 'Our Process',
+      seoDescription: 'How Precon Detailing works: share your drawings, receive a fixed custom quotation, and get checked detailing and estimating deliverables on an agreed schedule.',
+      badge: 'How We Work',
+      title: 'Our Working Process',
+      subtitle: 'A clear, six-step process from first drawings to checked deliverables — with one point of contact throughout.',
+      steps: [
+        { title: 'Share Your Project Requirements', desc: 'Send your drawings, specifications and deadline through the quote form or WhatsApp. PDF and DWG files are fine.' },
+        { title: 'Drawing & Scope Review', desc: 'We review the documents, flag missing information early and confirm exactly what your project needs — no assumptions buried in the price.' },
+        { title: 'Receive a Custom Quotation', desc: 'A fixed, project-specific quote with deliverables and the delivery schedule stated in writing. No hourly meters, no surprises.' },
+        { title: 'Project Approval & Coordination', desc: 'Once approved, your project is coordinated directly by our founder — a single point of contact from start to finish.' },
+        { title: 'Detailing & Documentation', desc: 'Drawings, schedules and documents are produced to your project standards using professional detailing and estimating workflows.' },
+        { title: 'Quality Review & Delivery', desc: 'Every deliverable is checked before issue and delivered organized and revision-tracked — with revisions handled until you approve.' },
+      ],
+      ctaTitle: 'Ready to Start Your Project?',
+      ctaText: 'Share your drawings today and receive a fixed, project-specific quotation within 24 hours.',
+      ctaBtn: 'Get a Free Quote',
     },
     projects: {
       badge: 'Our Portfolio',

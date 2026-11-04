@@ -55,6 +55,7 @@ export default function Footer() {
     { name: t('footer.quickLinks.about'), href: '/about' },
     { name: t('footer.quickLinks.services'), href: '/services' },
     { name: t('footer.quickLinks.blog'), href: '/blog' },
+    { name: t('footer.quickLinks.process'), href: '/process' },
     { name: t('footer.quickLinks.contact'), href: '/contact' },
   ];
 

@@ -2,14 +2,13 @@ import { useT } from '../../lib/i18n';
 
 export default function SoftwareExpertise() {
   const { t } = useT();
+  // Only tools used in our detailing & estimating delivery — no design/analysis
+  // software is listed, because we do not sell structural design services.
   const softwares = [
     { name: 'Tekla Structures', icon: '🏗️' },
     { name: 'AutoCAD', icon: '📐' },
-    { name: 'Revit', icon: '🏢' },
-    { name: 'STAAD Pro', icon: '📊' },
-    { name: 'ETABS', icon: '🏛️' },
-    { name: 'Navisworks', icon: '🎯' },
-    { name: 'Bluebeam', icon: '📄' },
+    { name: 'Bluebeam Revu', icon: '📄' },
+    { name: 'PlanSwift', icon: '🧮' },
     { name: 'MS Excel', icon: '📊' },
   ];
 

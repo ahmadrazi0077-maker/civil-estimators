@@ -68,9 +68,13 @@ export default function Header() {
     },
     { name: t('header.nav.projects'), href: '/projects' },
     {
-      name: t('header.nav.tools'),
-      href: '/tools',
-      dropdown: TOOL_HREFS.map((href, i) => ({ name: toolNames[i], href })),
+      name: t('header.nav.resources'),
+      href: '/blog',
+      dropdown: [
+        { name: t('header.nav.blog'), href: '/blog' },
+        { name: t('header.nav.tools'), href: '/tools' },
+        ...TOOL_HREFS.map((href, i) => ({ name: toolNames[i], href })),
+      ],
     },
     { name: t('header.nav.about'), href: '/about' },
     { name: t('header.nav.contact'), href: '/contact' },

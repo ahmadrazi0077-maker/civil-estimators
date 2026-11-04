@@ -92,13 +92,25 @@ export default function ServiceDetail({ initialService = null, initialOthers = [
   const localized = localizeService(service, router.locale);
   const imageUrl = localized.image || placeholderImages[localized.slug] || '/images/services/placeholder.svg';
   const processSteps = t('servicesData.detail.processSteps');
-  const seoDescription = localized.shortDescription ||
-    t('servicesData.detail.descFallback').replace('{title}', localized.title);
+  // Per-service SEO title/description live in the locale dictionaries
+  // (servicesData.<slug>.seoTitle / seoDescription). Fall back to the
+  // short description when a locale has no dedicated SEO copy.
+  const seoTitleRaw = t(`servicesData.${localized.slug}.seoTitle`);
+  const seoTitle =
+    seoTitleRaw && !seoTitleRaw.startsWith('servicesData.')
+      ? seoTitleRaw
+      : localized.title;
+  const seoDescRaw = t(`servicesData.${localized.slug}.seoDescription`);
+  const seoDescription =
+    seoDescRaw && !seoDescRaw.startsWith('servicesData.')
+      ? seoDescRaw
+      : localized.shortDescription ||
+        t('servicesData.detail.descFallback').replace('{title}', localized.title);
 
   return (
     <Layout>
       <SEO
-        title={localized.title}
+        title={seoTitle}
         description={seoDescription}
         keywords={`${localized.title}, ${t('servicesData.detail.keywordsSuffix')}`}
         ogImage={imageUrl}

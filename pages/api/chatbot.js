@@ -88,7 +88,7 @@ COMPANY FACTS:
 - 6 Core Services: Steel Detailing, Rebar Detailing, Quantity Takeoff, Cost Estimation, BOQ Preparation, Shop Drawings
 - Free Quote Within 24 Hours
 - Confidential Project Handling — NDA on Request
-- Serving Clients Worldwide (USA, UK, UAE, Australia & more)
+- Serving Clients Worldwide (USA, UK, Canada, Australia, UAE & more)
 
 WEBSITE PAGES:
 - Home: /

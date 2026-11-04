@@ -24,6 +24,8 @@ const es = {
       services: 'Servicios',
       projects: 'Proyectos',
       tools: 'Herramientas',
+      resources: 'Recursos',
+      blog: 'Blog',
       about: 'Nosotros',
       contact: 'Contacto',
     },
@@ -55,6 +57,7 @@ const es = {
       about: 'Nosotros',
       services: 'Servicios',
       blog: 'Blog',
+      process: 'Nuestro Proceso',
       contact: 'Contacto',
     },
     servicesTitle: 'Nuestros servicios',
@@ -96,8 +99,8 @@ const es = {
     hero: {
       slides: [
         {
-          title: 'Servicios de Detallado y Estimación de Preconstrucción',
-          subtitle: 'Detallado profesional de acero, detallado de varilla, cómputos de cantidades, estimación de costos, preparación de BOQ y planos de taller para profesionales de la construcción en todo el mundo.',
+          title: 'Servicios Profesionales de Detallado de Acero y Varilla',
+          subtitle: 'Apoyo profesional en detallado de acero y varilla y estimación de construcción para fabricantes, contratistas y profesionales de la construcción en todo el mundo: planos precisos, documentación organizada y coordinación confiable de proyectos.',
           badge: 'Detallado · Estimación · Planos de taller',
         },
         {
@@ -132,7 +135,31 @@ const es = {
       supportLabel: 'Soporte',
       ratingLabel: 'Cotización gratuita en 24 h',
     },
-    trustBar: ['Enfoque en ingeniería', 'Entrega rápida', '100% confidencial', 'Clientes internacionales'],
+    trustBar: ['Coordinación del fundador', 'Soluciones por proyecto', '100% confidencial', 'Soporte mundial'],
+    capabilities: {
+      badge: 'Qué hacemos',
+      title: 'Apoyo de Ingeniería para tus Proyectos de Construcción',
+      subtitle: 'Desde el detallado de acero estructural y refuerzo hasta cantidades de obra y documentación de costos, ofrecemos apoyo técnico práctico adaptado a los requisitos de tu proyecto.',
+      items: [
+        { title: 'Documentación Técnica', desc: 'Planos, programas y documentos listos para fabricación, preparados según los estándares de tu proyecto y revisados antes de su emisión.' },
+        { title: 'Apoyo en Estimación', desc: 'Cómputos de cantidades, estimaciones de costos y BOQ que dan a tus ofertas y presupuestos una base medida y defendible.' },
+        { title: 'Coordinación de Proyectos', desc: 'Comunicación liderada por el fundador desde la primera revisión de planos hasta la entrega final: un solo contacto y plazos acordados.' },
+      ],
+    },
+    industries: {
+      badge: 'Sectores',
+      title: 'Sectores que Apoyamos',
+      subtitle: 'Apoyo en detallado y estimación para los equipos que construyen en acero y concreto.',
+      items: [
+        { name: 'Fabricación de Acero', desc: 'Planos de fabricación y paquetes de montaje para talleres de acero estructural.' },
+        { name: 'Construcción Comercial', desc: 'Oficinas, retail y proyectos de uso mixto, detallados y estimados según programa.' },
+        { name: 'Construcción Residencial', desc: 'Viviendas, torres y villas: detallado de varilla y cómputos a cualquier escala.' },
+        { name: 'Construcción Industrial', desc: 'Plantas, almacenes y estructuras pesadas con detallado rico en conexiones.' },
+        { name: 'Contratistas de Refuerzo', desc: 'Planos de colocación y programas de doblado que tus equipos pueden ejecutar.' },
+        { name: 'Contratación General', desc: 'Cómputos, estimaciones y BOQ que mantienen ofertas competitivas y presupuestos honestos.' },
+        { name: 'Consultorías de Ingeniería', desc: 'Apoyo adicional en detallado y documentación para equipos de diseño ocupados.' },
+      ],
+    },
     servicesSection: {
       badge: 'Nuestros servicios',
       titleWhatWe: 'Lo que',
@@ -392,6 +419,8 @@ const es = {
   servicesData: {
     'steel-detailing': {
       title: 'Detallado de estructuras de acero',
+      seoTitle: 'Servicios de Detallado de Acero para Fabricantes y Contratistas',
+      seoDescription: 'Servicios profesionales de detallado de acero: planos de fabricación y montaje, detalles de conexión, planos de pernos de anclaje y listas de materiales. Cotización fija en 24 horas.',
       shortDescription: 'Servicios precisos de detallado de estructuras de acero, con diseño de conexiones y planos de montaje.',
       description:
         'Nuestros servicios de detallado de estructuras de acero incluyen planos completos de acero estructural, detalles de conexiones, planos de pernos de anclaje y listas de materiales. Utilizamos software estándar del sector para garantizar precisión y cumplimiento de los códigos de construcción.',
@@ -407,6 +436,8 @@ const es = {
     },
     'rebar-detailing': {
       title: 'Detallado de acero de refuerzo',
+      seoTitle: 'Servicios de Detallado de Varilla y Programas de Doblado',
+      seoDescription: 'Servicios de detallado de varilla con planos de colocación y programas de doblado según ACI, BS 8666 y estándares del proyecto. Programas revisados, precio fijo y entrega rápida.',
       shortDescription: 'Programas detallados de barras de refuerzo y planos de colocación para estructuras de concreto.',
       description:
         'Servicios completos de detallado de acero de refuerzo que incluyen programas de doblado de barras, planos de colocación y detalles de refuerzo para todo tipo de estructuras de concreto.',
@@ -422,6 +453,8 @@ const es = {
     },
     'quantity-takeoff': {
       title: 'Cómputo y medición de cantidades',
+      seoTitle: 'Servicios de Cómputo de Cantidades de Construcción',
+      seoDescription: 'Servicios precisos de cómputo de cantidades desde planos: cantidades medidas por división CSI, factores de desperdicio y planos marcados. Desde $99.',
       shortDescription: 'Servicios precisos de cómputo de cantidades para todos los materiales y componentes de construcción.',
       description:
         'Ofrecemos servicios precisos de cómputo de cantidades utilizando software avanzado y metodologías probadas para garantizar cantidades exactas de materiales en sus proyectos.',
@@ -437,6 +470,8 @@ const es = {
     },
     'cost-estimation': {
       title: 'Estimación de costos de construcción',
+      seoTitle: 'Servicios de Estimación de Costos de Construcción',
+      seoDescription: 'Servicios detallados de estimación de costos para contratistas: precios basados en cómputos, desglose de mano de obra y materiales y estimaciones listas para licitar. Cotización fija en 24 horas.',
       shortDescription: 'Servicios detallados de estimación de costos para planificar y presupuestar sus proyectos de construcción.',
       description:
         'Servicios integrales de estimación de costos que incluyen costos de materiales, mano de obra, equipos y gastos generales para una presupuestación precisa del proyecto.',
@@ -452,6 +487,8 @@ const es = {
     },
     'boq-preparation': {
       title: 'Preparación de listas de cantidades (BOQ)',
+      seoTitle: 'Servicios de Preparación de BOQ — Lista de Cantidades',
+      seoDescription: 'Servicios de preparación de BOQ medidos según CESMM, NRM y POMI: listas de cantidades detalladas en Excel y PDF, listas para licitación. Desde $149.',
       shortDescription: 'Preparación profesional de listas de cantidades (BOQ) para licitaciones y compras.',
       description:
         'Servicios detallados de preparación de listas de cantidades para licitaciones, compras y gestión de contratos. Garantizamos documentos BOQ precisos y completos.',
@@ -467,6 +504,8 @@ const es = {
     },
     'shop-drawings': {
       title: 'Planos de taller',
+      seoTitle: 'Servicios de Planos de Taller de Construcción',
+      seoDescription: 'Servicios de planos de taller para acero, varilla y oficios de construcción: planos de fabricación revisados y con control de revisiones, preparados para aprobarse a la primera. Desde $179.',
       shortDescription: 'Planos de taller detallados para fabricación y construcción.',
       description:
         'Servicios integrales de planos de taller que incluyen planos de fabricación, planos de instalación y planos conforme a obra para diversos componentes de construcción.',
@@ -607,6 +646,24 @@ const es = {
       ctaText: 'Hablemos de su proyecto y veamos cómo podemos ayudarle a alcanzar sus objetivos.',
       ctaBtn1: 'Comenzar hoy',
       ctaBtn2: 'Ver servicios',
+    },
+    processPage: {
+      seoTitle: 'Nuestro Proceso',
+      seoDescription: 'Cómo trabaja Precon Detailing: comparte tus planos, recibe una cotización personalizada fija y obtén entregables de detallado y estimación revisados en un plazo acordado.',
+      badge: 'Cómo trabajamos',
+      title: 'Nuestro Proceso de Trabajo',
+      subtitle: 'Un proceso claro de seis pasos desde los primeros planos hasta los entregables revisados, con un solo punto de contacto.',
+      steps: [
+        { title: 'Comparte los Requisitos de tu Proyecto', desc: 'Envía tus planos, especificaciones y fecha límite mediante el formulario de cotización o WhatsApp. Los archivos PDF y DWG son válidos.' },
+        { title: 'Revisión de Planos y Alcance', desc: 'Revisamos los documentos, señalamos temprano la información faltante y confirmamos exactamente lo que tu proyecto necesita, sin suposiciones ocultas en el precio.' },
+        { title: 'Recibe una Cotización Personalizada', desc: 'Una cotización fija y específica para tu proyecto, con los entregables y el calendario de entrega por escrito. Sin tarifas por hora ni sorpresas.' },
+        { title: 'Aprobación y Coordinación del Proyecto', desc: 'Una vez aprobado, nuestro fundador coordina tu proyecto directamente: un solo punto de contacto de principio a fin.' },
+        { title: 'Detallado y Documentación', desc: 'Los planos, programas y documentos se producen según los estándares de tu proyecto con flujos profesionales de detallado y estimación.' },
+        { title: 'Revisión de Calidad y Entrega', desc: 'Cada entregable se revisa antes de emitirse y se entrega organizado y con control de revisiones, con ajustes hasta tu aprobación.' },
+      ],
+      ctaTitle: '¿Listo para Empezar tu Proyecto?',
+      ctaText: 'Comparte tus planos hoy y recibe una cotización fija y personalizada en 24 horas.',
+      ctaBtn: 'Obtén una Cotización Gratuita',
     },
     projects: {
       badge: 'Nuestro portafolio',

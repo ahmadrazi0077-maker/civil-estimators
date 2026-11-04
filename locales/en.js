@@ -3,7 +3,7 @@
 const en = {
   meta: {
     description:
-      'Civil Engineering Services - Steel Detailing, Rebar Detailing, Quantity Takeoff, Cost Estimation, BOQ Preparation, and Shop Drawings',
+      'Precon Detailing - Steel & Rebar Detailing, Quantity Takeoff, Cost Estimation, BOQ Preparation, and Shop Drawings',
   },
   common: {
     home: 'Home',
@@ -19,7 +19,7 @@ const en = {
   },
   header: {
     workingHours: 'Mon - Sat: 9:00 AM - 6:00 PM',
-    logoSubtitle: 'Engineering Services',
+    logoSubtitle: 'Steel & Rebar Detailing',
     nav: {
       home: 'Home',
       services: 'Services',
@@ -48,8 +48,8 @@ const en = {
     subscribedMsg: '✅ Thank you for subscribing! Check your email for confirmation.',
     subscribeError: 'Failed to subscribe. Please try again.',
     blurb:
-      'Professional civil engineering services for your construction projects. We specialize in steel detailing, rebar detailing, quantity takeoff, and cost estimation.',
-    logoSubtitle: 'Engineering Services',
+      'Professional steel & rebar detailing and estimation services for your construction projects. We specialize in steel detailing, rebar detailing, quantity takeoff, and cost estimation.',
+    logoSubtitle: 'Steel & Rebar Detailing',
     quickLinksTitle: 'Quick Links',
     quickLinks: {
       home: 'Home',
@@ -146,7 +146,7 @@ const en = {
     why: {
       badge: 'Why Choose Us',
       titleWhy: 'Why',
-      titleBrand: 'CivilPro Services',
+      titleBrand: 'Precon Detailing',
       subtitle: 'Trusted by contractors, fabricators, and architects worldwide',
       points: [
         {
@@ -360,7 +360,7 @@ const en = {
       badge: 'Got Questions?',
       titleFreq: 'Frequently Asked',
       titleQuestions: 'Questions',
-      subtitle: 'Everything you need to know about working with CivilPro.',
+      subtitle: 'Everything you need to know about working with Precon Detailing.',
       items: [
         {
           question: 'What services do you offer?',
@@ -656,7 +656,7 @@ const en = {
       uploadFailedNote: '(upload failed - will be requested by email)',
       namePlaceholder: 'John Doe',
       emailPlaceholder: 'john@example.com',
-      phonePlaceholder: '+1 (555) 000-0000',
+      phonePlaceholder: '+92 300 0000000',
       timeline: 'Timeline',
       standard: 'Standard',
       standardDesc: '1-5 business days',
@@ -672,7 +672,7 @@ const en = {
       sending: 'Sending...',
       submitBtn: 'Upload Drawings & Get a Quote →',
       privacyNote: '🔒 Your drawings and project data are always protected.',
-      sidebarTitle: 'Why CivilPro?',
+      sidebarTitle: 'Why Precon Detailing?',
       sidebarPoints: [
         'Accuracy guaranteed — double-checked by senior engineers',
         'Fast turnaround — most projects in 1-5 business days',
@@ -734,7 +734,7 @@ const en = {
       ],
       locationTitle: 'Our Location',
       locationSubtitle: 'Find us at our office',
-      companyName: 'CivilPro Engineering Services',
+      companyName: 'Precon Detailing',
       hoursLine: 'Mon - Sat: 9:00 AM - 6:00 PM',
       ctaTitle: 'Ready to Start Your Project?',
       ctaText: 'Get in touch with us today for a free consultation and quote. Our team is ready to help you succeed.',
@@ -994,9 +994,9 @@ const en = {
   },
   chatbot: {
     greeting:
-      '👋 Welcome to CivilPro Services!\n\nI can help you with our engineering services, pricing, and project information.',
+      '👋 Welcome to Precon Detailing!\n\nI can help you with our engineering services, pricing, and project information.',
     errorText: 'Sorry, I encountered an error. Please try again.',
-    assistantName: 'CivilPro Assistant',
+    assistantName: 'Precon Detailing Assistant',
     online: 'Online',
     placeholder: 'Type message...',
     ariaLabel: 'Chat with AI Assistant',

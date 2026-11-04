@@ -9,27 +9,27 @@ import { useT } from '../lib/i18n';
 const INFO_META = [
   {
     icon: '📧',
-    value: 'info@civilpro.com',
-    href: 'mailto:info@civilpro.com',
+    value: 'info@precondetailing.com',
+    href: 'mailto:info@precondetailing.com',
     color: 'from-blue-500 to-blue-700',
   },
   {
     icon: '💬',
-    value: '+1 (555) 123-4567',
-    href: 'https://wa.me/15551234567?text=Hello! I would like to inquire about your civil engineering services.',
+    value: '+92 317 7194108',
+    href: 'https://wa.me/923177194108?text=Hello! I would like to inquire about your steel & rebar detailing and estimation services.',
     color: 'from-green-500 to-green-700',
   },
   {
     icon: '📞',
-    value: '+1 (555) 123-4567',
-    href: 'tel:+15551234567',
+    value: '+92 317 7194108',
+    href: 'tel:+923177194108',
     color: 'from-purple-500 to-purple-700',
   },
   {
     icon: '📍',
-    value: '123 Engineering St',
-    subValue: 'City, State 12345',
-    href: '#map',
+    value: 'Pakistan',
+    subValue: 'Serving Clients Worldwide',
+    href: '#',
     color: 'from-orange-500 to-orange-700',
   },
 ];
@@ -137,23 +137,23 @@ export default function Contact() {
                 </p>
                 <div className="space-y-3">
                   <a
-                    href="mailto:info@civilpro.com"
+                    href="mailto:info@precondetailing.com"
                     className="flex items-center bg-white/10 rounded-lg p-3 hover:bg-white/20 transition-colors"
                   >
                     <span className="text-2xl mr-3">📧</span>
                     <div>
                       <p className="font-medium">{t('pages.contact.emailLabel')}</p>
-                      <p className="text-sm text-blue-200">info@civilpro.com</p>
+                      <p className="text-sm text-blue-200">info@precondetailing.com</p>
                     </div>
                   </a>
                   <a
-                    href="tel:+15551234567"
+                    href="tel:+923177194108"
                     className="flex items-center bg-white/10 rounded-lg p-3 hover:bg-white/20 transition-colors"
                   >
                     <span className="text-2xl mr-3">📞</span>
                     <div>
                       <p className="font-medium">{t('pages.contact.phoneLabel')}</p>
-                      <p className="text-sm text-blue-200">+1 (555) 123-4567</p>
+                      <p className="text-sm text-blue-200">+92 317 7194108</p>
                     </div>
                   </a>
                 </div>
@@ -189,7 +189,7 @@ export default function Contact() {
                   </div>
                   <div className="text-center md:text-left">
                     <p className="text-lg font-bold mb-1">{t('pages.contact.companyName')}</p>
-                    <p className="text-gray-600">123 Engineering St, City, State 12345</p>
+                    <p className="text-gray-600">Pakistan — Serving Clients Worldwide</p>
                     <p className="text-sm text-gray-500 mt-1">{t('pages.contact.hoursLine')}</p>
                   </div>
                 </div>

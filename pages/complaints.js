@@ -164,7 +164,7 @@ export default function Complaints() {
         <div className="mt-8 bg-blue-50 border border-blue-200 rounded-2xl p-6 text-center">
           <p className="text-gray-700">
             {t('pages.complaints.preferEmailA')}{' '}
-            <a href="mailto:info@civilpro.com" className="text-blue-600 font-semibold hover:underline">info@civilpro.com</a>
+            <a href="mailto:info@precondetailing.com" className="text-blue-600 font-semibold hover:underline">info@precondetailing.com</a>
             {' '}{t('pages.complaints.preferEmailOr')}{' '}
             <Link href="/contact" className="text-blue-600 font-semibold hover:underline">{t('pages.complaints.preferEmailLink')}</Link>.
           </p>

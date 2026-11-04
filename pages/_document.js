@@ -1,9 +1,9 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 const META_DESCRIPTIONS = {
-  en: 'Civil Engineering Services - Steel Detailing, Rebar Detailing, Quantity Takeoff, Cost Estimation, BOQ Preparation, and Shop Drawings',
-  ar: 'خدمات الهندسة المدنية - تفصيل الهياكل الفولاذية، تفصيل حديد التسليح، حصر الكميات، تقدير التكاليف، إعداد جداول الكميات، ومخططات التنفيذ',
-  es: 'Servicios de ingeniería civil: detallado de estructuras de acero, detallado de acero de refuerzo, cómputo de cantidades, estimación de costos, preparación de BOQ y planos de taller',
+  en: 'Precon Detailing - Steel & Rebar Detailing, Quantity Takeoff, Cost Estimation, BOQ Preparation, and Shop Drawings',
+  ar: 'Precon Detailing - تفصيل الصلب وحديد التسليح، حصر الكميات، تقدير التكاليف، إعداد جداول الكميات، ومخططات التنفيذ',
+  es: 'Precon Detailing: detallado de acero y varilla, cómputo de cantidades, estimación de costos, preparación de BOQ y planos de taller',
 }
 
 class MyDocument extends Document {

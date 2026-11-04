@@ -1,5 +1,5 @@
 export async function getServerSideProps({ res }) {
-  const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://your-domain.com';
+  const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://precondetailing.com';
   
   const robotsTxt = `# *
 User-agent: *

@@ -87,13 +87,13 @@ export default function Header() {
                 <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
-                info@civilpro.com
+                info@precondetailing.com
               </span>
               <span className="flex items-center">
                 <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
-                +1 (555) 123-4567
+                +92 317 7194108
               </span>
             </div>
             <div className="flex items-center space-x-4">
@@ -112,11 +112,11 @@ export default function Header() {
             {/* Logo */}
             <Link href="/" className="flex items-center group">
               <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:scale-110 transition-transform">
-                C
+                P
               </div>
               <div className="ml-3">
                 <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-                  CivilPro
+                  Precon Detailing
                 </span>
                 <span className="block text-xs text-gray-500 font-medium tracking-wider">
                   {t('header.logoSubtitle')}
@@ -223,7 +223,7 @@ export default function Header() {
               C
             </div>
             <span className="ml-2 text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-              CivilPro
+              Precon Detailing
             </span>
           </div>
           <button

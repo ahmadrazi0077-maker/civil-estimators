@@ -32,7 +32,7 @@ export default function Sitemap() {
   };
 
  const mainPages = [
-  { name: 'Home', href: '/', description: 'Welcome to CivilPro Services' },
+  { name: 'Home', href: '/', description: 'Welcome to Precon Detailing' },
   { name: 'About Us', href: '/about', description: 'Learn about our company' },
   { name: 'Services', href: '/services', description: 'Explore our services' },
   { name: 'Blog', href: '/blog', description: 'Read our latest articles' },

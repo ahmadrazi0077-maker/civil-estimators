@@ -6,7 +6,7 @@ import SEO from '../components/SEO';
 import Hero from '../components/Home/Hero';
 import TrustBar from '../components/Home/TrustBar';
 import Services from '../components/Home/Services';
-import WhyCivilPro from '../components/Home/WhyCivilPro';
+import WhyPreconDetailing from '../components/Home/WhyPreconDetailing';
 import Portfolio from '../components/Portfolio';
 import WhatYouReceive from '../components/Home/WhatYouReceive';
 import HowItWorks from '../components/Home/HowItWorks';
@@ -157,8 +157,8 @@ export default function Home() {
         onRetry={fetchServices}
       />
 
-      {/* 4. WHY CIVILPRO */}
-      <WhyCivilPro />
+      {/* 4. WHY PRECON DETAILING */}
+      <WhyPreconDetailing />
 
       {/* 5. PROJECTS / CASE STUDIES */}
       <Portfolio />

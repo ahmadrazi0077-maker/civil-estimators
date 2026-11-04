@@ -66,8 +66,8 @@ export default function Footer() {
         </svg>
       ),
       label: t('footer.labels.email'),
-      value: 'info@civilpro.com',
-      href: 'mailto:info@civilpro.com',
+      value: 'info@precondetailing.com',
+      href: 'mailto:info@precondetailing.com',
     },
     {
       icon: (
@@ -76,8 +76,8 @@ export default function Footer() {
         </svg>
       ),
       label: t('footer.labels.whatsapp'),
-      value: '+1 (555) 123-4567',
-      href: 'https://wa.me/15551234567',
+      value: '+92 317 7194108',
+      href: 'https://wa.me/923177194108',
     },
     {
       icon: (
@@ -87,7 +87,7 @@ export default function Footer() {
         </svg>
       ),
       label: t('footer.labels.address'),
-      value: '123 Engineering St, City, State 12345',
+      value: 'Pakistan — Serving Clients Worldwide',
       href: '#',
     },
   ];
@@ -190,11 +190,11 @@ export default function Footer() {
           <div>
             <div className="flex items-center mb-6">
               <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-600/30">
-                C
+                P
               </div>
               <div className="ml-3">
                 <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
-                  CivilPro
+                  Precon Detailing
                 </h3>
                 <p className="text-xs text-gray-500">{t('footer.logoSubtitle')}</p>
               </div>
@@ -313,7 +313,7 @@ export default function Footer() {
   <div className="container mx-auto px-4 py-6">
     <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
       <p className="text-gray-500 text-sm">
-        &copy; {new Date().getFullYear()} CivilPro Services. {t('footer.rights')}
+        &copy; {new Date().getFullYear()} Precon Detailing. {t('footer.rights')}
       </p>
 
       <div className="flex flex-wrap items-center justify-center gap-3 text-sm">

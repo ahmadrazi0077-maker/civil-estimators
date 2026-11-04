@@ -6,7 +6,7 @@ export default function PrivacyPolicy() {
     {
       id: 'introduction',
       title: 'Introduction',
-      content: 'CivilPro Services ("we," "our," or "us") respects your privacy and is committed to protecting your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.',
+      content: 'Precon Detailing ("we," "our," or "us") respects your privacy and is committed to protecting your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.',
     },
     {
       id: 'information-we-collect',
@@ -108,9 +108,9 @@ export default function PrivacyPolicy() {
       title: 'Contact Us',
       content: 'If you have questions about this Privacy Policy, please contact us at:',
       list: [
-        'Email: privacy@civilpro.com',
-        'Phone: +1 (555) 123-4567',
-        'Address: 123 Engineering St, City, State 12345',
+        'Email: info@precondetailing.com',
+        'Phone: +92 317 7194108',
+        'Address: Pakistan — Serving Clients Worldwide',
       ],
     },
   ];

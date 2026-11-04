@@ -27,10 +27,10 @@ export default async function handler(req, res) {
     });
 
     // Website information system prompt
-    const systemPrompt = `You are CivilPro Assistant, an AI chatbot for CivilPro Services (https://civil-estimators.vercel.app).
+    const systemPrompt = `You are Precon Detailing Assistant, an AI chatbot for Precon Detailing (https://precondetailing.com).
 
 COMPANY OVERVIEW:
-CivilPro Services is a professional civil engineering company offering online services worldwide.
+Precon Detailing is a professional steel & rebar detailing and estimation company serving clients worldwide.
 
 OUR SERVICES & PRICING:
 1. 🏗️ Steel Detailing - Starting from $199
@@ -78,10 +78,10 @@ OUR SERVICES & PRICING:
    - Delivery: 4-6 business days
 
 CONTACT INFORMATION:
-- 📧 Email: info@civilpro.com
-- 📞 Phone: +1 (555) 123-4567
-- 💬 WhatsApp: +1 (555) 123-4567
-- 📍 Address: 123 Engineering St, City, State 12345
+- 📧 Email: info@precondetailing.com
+- 📞 Phone: +92 317 7194108
+- 💬 WhatsApp: +92 317 7194108
+- 📍 Address: Pakistan — Serving Clients Worldwide
 - 🕐 Working Hours: Mon-Sat 9AM-6PM, Sunday Closed
 
 COMPANY STATS:
@@ -121,7 +121,7 @@ RESPONSE GUIDELINES:
         },
         {
           role: "model",
-          parts: [{ text: "I understand. I'm CivilPro Assistant and I'll help with information about CivilPro Services, our engineering services, pricing, timelines, and contact details." }],
+          parts: [{ text: "I understand. I'm Precon Detailing Assistant and I'll help with information about Precon Detailing, our engineering services, pricing, timelines, and contact details." }],
         },
         {
           role: "user",
@@ -192,11 +192,11 @@ function getFallbackResponse(input) {
   }
   
   if (text.includes('contact') || text.includes('email') || text.includes('phone') || text.includes('reach')) {
-    return `📞 Contact Us:\n\n📧 info@civilpro.com\n📞 +1 (555) 123-4567\n💬 WhatsApp: +1 (555) 123-4567\n\nMon-Sat: 9AM-6PM`;
+    return `📞 Contact Us:\n\n📧 info@precondetailing.com\n📞 +92 317 7194108\n💬 WhatsApp: +92 317 7194108\n\nMon-Sat: 9AM-6PM`;
   }
   
   if (text.includes('where') || text.includes('address') || text.includes('location')) {
-    return `📍 Our Office:\n\n123 Engineering St, City, State 12345\n\nServing clients globally! 🌍`;
+    return `📍 Our Office:\n\nPakistan — Serving Clients Worldwide\n\nServing clients globally! 🌍`;
   }
   
   if (text.includes('review') || text.includes('rating') || text.includes('quality')) {
@@ -208,12 +208,12 @@ function getFallbackResponse(input) {
   }
   
   if (text.includes('hi') || text.includes('hello') || text.includes('hey')) {
-    return `Hello! 😊 Welcome to CivilPro Services!\n\nI can help with:\n✅ Services\n✅ Pricing\n✅ Delivery times\n✅ Contact info`;
+    return `Hello! 😊 Welcome to Precon Detailing!\n\nI can help with:\n✅ Services\n✅ Pricing\n✅ Delivery times\n✅ Contact info`;
   }
   
   if (text.includes('thank')) {
     return `You're welcome! 😊 Anything else I can help with?`;
   }
   
-  return `I can help with CivilPro Services information:\n\n✅ Our 6 services\n✅ Pricing (from $99)\n✅ Delivery times (1-7 days)\n✅ Contact details\n\nWhat would you like to know?`;
+  return `I can help with Precon Detailing information:\n\n✅ Our 6 services\n✅ Pricing (from $99)\n✅ Delivery times (1-7 days)\n✅ Contact details\n\nWhat would you like to know?`;
 }

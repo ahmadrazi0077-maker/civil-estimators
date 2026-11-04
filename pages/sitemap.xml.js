@@ -1,6 +1,6 @@
 import { servicesAPI, blogAPI, projectsAPI } from '../lib/api';
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://civil-estimators.vercel.app';
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://precondetailing.com';
 const LOCALES = ['en', 'ar', 'es'];
 
 function localizedUrl(path, locale) {

@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://civil-estimators.vercel.app';
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://precondetailing.com';
 const OG_LOCALES = { en: 'en_US', ar: 'ar_EG', es: 'es_ES' };
 const LOCALE_CODES = ['en', 'ar', 'es'];
 
@@ -23,9 +23,9 @@ export default function SEO({
   const router = useRouter();
   const locale = router.locale || 'en';
 
-  const siteTitle = title ? `${title} | CivilPro Services` : 'CivilPro Services';
-  const siteDescription = description || 'Professional Civil Engineering Services - Steel Detailing, Rebar Detailing, Quantity Takeoff, Cost Estimation, BOQ Preparation, and Shop Drawings';
-  const siteKeywords = keywords || 'civil engineering, steel detailing, rebar detailing, quantity takeoff, cost estimation, BOQ, shop drawings';
+  const siteTitle = title ? `${title} | Precon Detailing` : 'Precon Detailing';
+  const siteDescription = description || 'Steel & Rebar Detailing & Estimation Services - Steel Detailing, Rebar Detailing, Quantity Takeoff, Cost Estimation, BOQ Preparation, and Shop Drawings';
+  const siteKeywords = keywords || 'steel detailing, rebar detailing, precon detailing, quantity takeoff, cost estimation, BOQ, shop drawings';
 
   // router.asPath excludes the locale prefix in Next i18n routing.
   const cleanPath = (router.asPath || '/').split('?')[0].split('#')[0] || '/';

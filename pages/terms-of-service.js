@@ -6,7 +6,7 @@ export default function TermsOfService() {
     {
       id: 'acceptance',
       title: 'Acceptance of Terms',
-      content: 'By accessing or using CivilPro Services website and services, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.',
+      content: 'By accessing or using Precon Detailing website and services, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.',
     },
     {
       id: 'services',
@@ -14,7 +14,7 @@ export default function TermsOfService() {
       items: [
         {
           subtitle: 'Scope of Services',
-          text: 'CivilPro Services provides civil engineering services including:',
+          text: 'Precon Detailing provides steel & rebar detailing and estimation services including:',
           list: [
             'Steel Detailing',
             'Rebar Detailing',
@@ -60,7 +60,7 @@ export default function TermsOfService() {
     {
       id: 'intellectual-property',
       title: 'Intellectual Property',
-      content: 'All content, designs, drawings, and materials created by CivilPro Services remain our intellectual property until full payment is received. Upon full payment, ownership transfers to the client.',
+      content: 'All content, designs, drawings, and materials created by Precon Detailing remain our intellectual property until full payment is received. Upon full payment, ownership transfers to the client.',
     },
     {
       id: 'confidentiality',
@@ -70,7 +70,7 @@ export default function TermsOfService() {
     {
       id: 'limitation-of-liability',
       title: 'Limitation of Liability',
-      content: 'CivilPro Services shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from the use of our services. Our total liability shall not exceed the amount paid for the specific service.',
+      content: 'Precon Detailing shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from the use of our services. Our total liability shall not exceed the amount paid for the specific service.',
     },
     {
       id: 'warranty',
@@ -80,7 +80,7 @@ export default function TermsOfService() {
     {
       id: 'indemnification',
       title: 'Indemnification',
-      content: 'You agree to indemnify and hold CivilPro Services harmless from any claims, damages, or expenses arising from your use of our services or violation of these terms.',
+      content: 'You agree to indemnify and hold Precon Detailing harmless from any claims, damages, or expenses arising from your use of our services or violation of these terms.',
     },
     {
       id: 'termination',
@@ -90,7 +90,7 @@ export default function TermsOfService() {
     {
       id: 'governing-law',
       title: 'Governing Law',
-      content: 'These terms shall be governed by and construed in accordance with the laws of the jurisdiction in which CivilPro Services operates.',
+      content: 'These terms shall be governed by and construed in accordance with the laws of the jurisdiction in which Precon Detailing operates.',
     },
     {
       id: 'changes',
@@ -102,9 +102,9 @@ export default function TermsOfService() {
       title: 'Contact Information',
       content: 'For questions about these Terms of Service, please contact us at:',
       list: [
-        'Email: legal@civilpro.com',
-        'Phone: +1 (555) 123-4567',
-        'Address: 123 Engineering St, City, State 12345',
+        'Email: info@precondetailing.com',
+        'Phone: +92 317 7194108',
+        'Address: Pakistan — Serving Clients Worldwide',
       ],
     },
   ];

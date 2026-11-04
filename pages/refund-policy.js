@@ -21,7 +21,7 @@ export default function RefundPolicy() {
             <li>Reasonable cause for cancellation</li>
           </ul>
           <h3>Contact</h3>
-          <p>For refund requests, contact: refunds@civilpro.com</p>
+          <p>For refund requests, contact: info@precondetailing.com</p>
         </div>
       </div>
     </Layout>

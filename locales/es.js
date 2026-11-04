@@ -2,7 +2,7 @@
 const es = {
   meta: {
     description:
-      'Servicios de ingeniería civil: detallado de estructuras de acero, detallado de acero de refuerzo, cómputo de cantidades, estimación de costos, preparación de BOQ y planos de taller',
+      'Precon Detailing: detallado de acero y varilla, cómputo de cantidades, estimación de costos, preparación de BOQ y planos de taller',
   },
   common: {
     home: 'Inicio',
@@ -18,7 +18,7 @@ const es = {
   },
   header: {
     workingHours: 'Lun - Sáb: 9:00 AM - 6:00 PM',
-    logoSubtitle: 'Servicios de Ingeniería',
+    logoSubtitle: 'Detallado de Acero y Varilla',
     nav: {
       home: 'Inicio',
       services: 'Servicios',
@@ -47,8 +47,8 @@ const es = {
     subscribedMsg: '✅ ¡Gracias por suscribirse! Revise su correo para confirmar.',
     subscribeError: 'No se pudo completar la suscripción. Inténtelo de nuevo.',
     blurb:
-      'Servicios profesionales de ingeniería civil para sus proyectos de construcción. Nos especializamos en detallado de estructuras de acero, detallado de acero de refuerzo, cómputo de cantidades y estimación de costos.',
-    logoSubtitle: 'Servicios de Ingeniería',
+      'Servicios profesionales de detallado de acero y varilla y estimación para sus proyectos de construcción. Nos especializamos en detallado de estructuras de acero, detallado de acero de refuerzo, cómputo de cantidades y estimación de costos.',
+    logoSubtitle: 'Detallado de Acero y Varilla',
     quickLinksTitle: 'Enlaces rápidos',
     quickLinks: {
       home: 'Inicio',
@@ -145,7 +145,7 @@ const es = {
     why: {
       badge: 'Por qué elegirnos',
       titleWhy: 'Por qué',
-      titleBrand: 'CivilPro Services',
+      titleBrand: 'Precon Detailing',
       subtitle: 'La confianza de contratistas, fabricantes y arquitectos de todo el mundo',
       points: [
         {
@@ -359,7 +359,7 @@ const es = {
       badge: '¿Tiene preguntas?',
       titleFreq: 'Preguntas',
       titleQuestions: 'Frecuentes',
-      subtitle: 'Todo lo que necesita saber sobre trabajar con CivilPro.',
+      subtitle: 'Todo lo que necesita saber sobre trabajar con Precon Detailing.',
       items: [
         {
           question: '¿Qué servicios ofrecen?',
@@ -671,7 +671,7 @@ const es = {
       sending: 'Enviando...',
       submitBtn: 'Subir planos y cotizar →',
       privacyNote: '🔒 Sus planos y datos del proyecto están siempre protegidos.',
-      sidebarTitle: '¿Por qué CivilPro?',
+      sidebarTitle: '¿Por qué Precon Detailing?',
       sidebarPoints: [
         'Precisión garantizada: revisión doble por ingenieros senior',
         'Entrega rápida: la mayoría de los proyectos en 1-5 días laborables',
@@ -733,7 +733,7 @@ const es = {
       ],
       locationTitle: 'Nuestra ubicación',
       locationSubtitle: 'Encuéntrenos en nuestra oficina',
-      companyName: 'CivilPro Servicios de Ingeniería',
+      companyName: 'Precon Detailing',
       hoursLine: 'Lun - Sáb: 9:00 AM - 6:00 PM',
       ctaTitle: '¿Listo para empezar su proyecto?',
       ctaText: 'Póngase en contacto hoy mismo para una consulta y cotización gratuitas. Nuestro equipo está listo para ayudarle a tener éxito.',
@@ -993,9 +993,9 @@ const es = {
   },
   chatbot: {
     greeting:
-      '👋 ¡Bienvenido a CivilPro Services!\n\nPuedo ayudarle con nuestros servicios de ingeniería, precios e información de proyectos.',
+      '👋 ¡Bienvenido a Precon Detailing!\n\nPuedo ayudarle con nuestros servicios de ingeniería, precios e información de proyectos.',
     errorText: 'Lo sentimos, se produjo un error. Inténtelo de nuevo.',
-    assistantName: 'Asistente de CivilPro',
+    assistantName: 'Asistente de Precon Detailing',
     online: 'En línea',
     placeholder: 'Escriba su mensaje...',
     ariaLabel: 'Chatear con el asistente de IA',

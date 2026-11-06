@@ -106,7 +106,7 @@ function generateSiteMap(services, blogPosts, projects) {
     '<?xml version="1.0" encoding="UTF-8"?>',
     // Stylesheet so the sitemap renders as a readable table in browsers
     // (search engines still read the same underlying XML).
-    `<?xml-stylesheet type="text/xsl" href="${BASE_URL}/sitemap.xsl"?>`,
+    `<?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>`,
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">',
     sections.join('\n'),
     '</urlset>',

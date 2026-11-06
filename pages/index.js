@@ -156,6 +156,13 @@ export default function Home() {
               name: 'Precon Detailing',
               url: 'https://precondetailing.com',
               logo: 'https://precondetailing.com/logo-full.webp',
+              sameAs: [
+                'https://www.instagram.com/precondetailing/',
+                'https://www.facebook.com/precondetailing',
+                'https://x.com/precondetailing',
+                'https://www.tiktok.com/@precon.detailing',
+                'https://www.youtube.com/@precondetailing',
+              ],
               description:
                 'Steel & Rebar Detailing & Estimation Services — steel detailing, rebar detailing, quantity takeoff, cost estimation, BOQ preparation and shop drawings for clients worldwide.',
               email: 'info@precondetailing.com',

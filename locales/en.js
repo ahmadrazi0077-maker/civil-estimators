@@ -16,6 +16,10 @@ const en = {
     other: 'Other',
     whatsappHelp: 'Need Help?',
     whatsappChat: 'Chat with us on WhatsApp!',
+    whatsappOnline: 'Online — replies within minutes',
+    whatsappQuestion: '👋 Hi there! Are you looking for steel or rebar detailing for your next project? Chat with us and get a free quote within 24 hours.',
+    whatsappStart: 'Start Chat',
+    whatsappMessage: 'Hello! I would like to inquire about your steel & rebar detailing and estimation services.',
   },
   header: {
     workingHours: 'Mon - Sat: 9:00 AM - 6:00 PM',

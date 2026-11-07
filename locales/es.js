@@ -15,6 +15,10 @@ const es = {
     other: 'Otro',
     whatsappHelp: '¿Necesitas ayuda?',
     whatsappChat: '¡Chatea con nosotros por WhatsApp!',
+    whatsappOnline: 'En línea — responde en minutos',
+    whatsappQuestion: '👋 ¡Hola! ¿Buscas detallado de acero o de barras de refuerzo para tu próximo proyecto? Chatea con nosotros y recibe una cotización gratuita en 24 horas.',
+    whatsappStart: 'Iniciar chat',
+    whatsappMessage: '¡Hola! Me gustaría consultar sobre sus servicios de detallado y estimación de acero y barras de refuerzo.',
   },
   header: {
     workingHours: 'Lun - Sáb: 9:00 AM - 6:00 PM',

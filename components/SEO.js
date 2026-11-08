@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://precondetailing.com';
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.precondetailing.com';
 const OG_LOCALES = { en: 'en_US', ar: 'ar_EG', es: 'es_ES' };
 const LOCALE_CODES = ['en', 'ar', 'es'];
 

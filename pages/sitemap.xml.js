@@ -1,6 +1,8 @@
-import { servicesAPI, blogAPI, projectsAPI } from '../lib/api';
+import { servicesAPI, blogAPI } from '../lib/api';
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://precondetailing.com';
+// Canonical base is the www host — the apex domain 308-redirects to www,
+// so sitemap URLs must point at www directly instead of via a redirect.
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.precondetailing.com';
 const LOCALES = ['en', 'ar', 'es'];
 
 function escapeXml(value) {
@@ -48,7 +50,7 @@ function urlEntries(path, { lastmod = null, changefreq, priority }) {
   }).join('\n');
 }
 
-function generateSiteMap(services, blogPosts, projects) {
+function generateSiteMap(services, blogPosts) {
   const staticPages = [
     { path: '/', changefreq: 'daily', priority: '1.0' },
     { path: '/services', changefreq: 'daily', priority: '0.9' },
@@ -91,15 +93,9 @@ function generateSiteMap(services, blogPosts, projects) {
         })
       )
       .join('\n'),
-    projects
-      .map((project) =>
-        urlEntries(`/projects/${project.slug}`, {
-          lastmod: project.updatedAt || null,
-          changefreq: 'monthly',
-          priority: '0.6',
-        })
-      )
-      .join('\n'),
+    // Note: individual /projects/<slug> URLs are deliberately NOT listed —
+    // there is no project detail page (they returned 404). Only the
+    // /projects index above is a real page.
   ].filter(Boolean);
 
   return [
@@ -119,12 +115,11 @@ export async function getServerSideProps({ res }) {
   try {
     const services = await servicesAPI.getAll().catch(() => []);
     const blogData = await blogAPI.getAll().catch(() => ({ posts: [] }));
-    const projects = await projectsAPI.getAll().catch(() => []);
     const blogPosts = blogData.posts || blogData || [];
-    sitemap = generateSiteMap(services, blogPosts, projects);
+    sitemap = generateSiteMap(services, blogPosts);
   } catch (error) {
     console.error('Error generating sitemap:', error);
-    sitemap = generateSiteMap([], [], []);
+    sitemap = generateSiteMap([], []);
   }
 
   res.setHeader('Content-Type', 'text/xml; charset=utf-8');

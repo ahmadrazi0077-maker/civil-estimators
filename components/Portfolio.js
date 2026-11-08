@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { projectsAPI } from '../lib/api';
+import { localizeProject } from '../lib/contentTranslations';
 import { useT } from '../lib/i18n';
 
 export default function Portfolio() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState('All');
-  const { t } = useT();
+  const { t, locale } = useT();
 
   useEffect(() => {
     fetchProjects();
@@ -23,10 +24,11 @@ export default function Portfolio() {
     }
   };
 
-  const categories = ['All', ...new Set(projects.map(p => p.category))];
+  const localizedProjects = projects.map(p => localizeProject(p, locale));
+  const categories = ['All', ...new Set(localizedProjects.map(p => p.category))];
   const filteredProjects = activeFilter === 'All'
-    ? projects
-    : projects.filter(p => p.category === activeFilter);
+    ? localizedProjects
+    : localizedProjects.filter(p => p.category === activeFilter);
 
   if (loading) {
     return (

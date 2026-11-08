@@ -286,3 +286,11 @@ html {
 }
 .article-body th { background: #f9fafb; font-weight: 600; color: #111827; }
 .article-body hr { border: none; border-top: 1px solid #e5e7eb; margin: 2.2em 0; }
+/* Translated Arabic articles render inside a dir="rtl" .article-body */
+.article-body[dir="rtl"] ul, .article-body[dir="rtl"] ol { padding-left: 0; padding-right: 1.4em; }
+.article-body[dir="rtl"] blockquote {
+  border-left: none;
+  border-right: 4px solid #2563eb;
+  border-radius: 0.75rem 0 0 0.75rem;
+}
+.article-body[dir="rtl"] th, .article-body[dir="rtl"] td { text-align: right; }

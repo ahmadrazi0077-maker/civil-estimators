@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Layout from '../../components/Layout/Layout';
 import BlogCard from '../../components/BlogCard';
 import { blogAPI } from '../../lib/api';
+import { localizePost } from '../../lib/contentTranslations';
 import { useT } from '../../lib/i18n';
 
 const QUICK_STAT_ICONS = ['📝', '💡', '🎯'];
@@ -14,11 +15,13 @@ export default function Blog() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [sortBy, setSortBy] = useState('newest');
-  const { t } = useT();
+  const { t, locale } = useT();
 
   useEffect(() => {
     fetchPosts();
   }, []);
+
+  const localizedPosts = posts.map((post) => localizePost(post, locale));
 
   const fetchPosts = async () => {
     try {
@@ -35,9 +38,9 @@ export default function Blog() {
     }
   };
 
-  const categories = ['All', ...new Set(posts.map(post => post.category).filter(Boolean))];
+  const categories = ['All', ...new Set(localizedPosts.map(post => post.category).filter(Boolean))];
 
-  const filteredPosts = posts.filter(post => {
+  const filteredPosts = localizedPosts.filter(post => {
     const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          (post.excerpt || '').toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'All' || post.category === selectedCategory;

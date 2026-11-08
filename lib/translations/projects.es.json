@@ -1,0 +1,44 @@
+{
+ "shop-drawings-industrial-plant-manchester": {
+  "title": "Planos de fabricación para planta industrial — Mánchester, Reino Unido",
+  "location": "Mánchester, Reino Unido",
+  "duration": "4 semanas",
+  "category": "Planos de fabricación",
+  "description": "Servicios coordinados de planos de fabricación para una planta industrial de 28.000 pies cuadrados en Mánchester, Reino Unido. Produjimos planos de fabricación listos para taller de acero estructural, metales diversos y elementos prefabricados, totalmente acotados y verificados frente a los planos arquitectónicos, estructurales y de instalaciones (MEP).\n\nNuestra coordinación detectó 23 interferencias antes de la fabricación, reduciendo las consultas (RFI) a menos de la mitad en comparación con el proyecto anterior del cliente. Los planos se aprobaron en dos rondas y la fabricación comenzó según lo previsto."
+ },
+ "boq-preparation-villa-community-dubai": {
+  "title": "Presupuesto de cantidades (BOQ) para conjunto de villas — Dubái, EAU",
+  "location": "Dubái, EAU",
+  "duration": "3 semanas",
+  "category": "Presupuesto de cantidades",
+  "description": "Servicios profesionales de preparación del presupuesto de cantidades (BOQ) para un conjunto residencial de 40 villas en Dubái. Preparamos un BOQ listo para licitación a partir de los planos arquitectónicos y estructurales, con descripciones detalladas de partidas, unidades, cantidades y análisis de precios unitarios con el formato del promotor.\n\nEl BOQ permitió al cliente comparar cinco ofertas de subcontratistas en igualdad de condiciones e identificó vacíos de alcance por más de 200.000 dólares antes de firmar los contratos. También apoyamos el proceso de modificaciones durante la obra."
+ },
+ "construction-cost-estimation-hospital-sydney": {
+  "title": "Estimación de costos de construcción para ampliación de hospital — Sídney, Australia",
+  "location": "Sídney, Australia",
+  "duration": "2 semanas",
+  "category": "Estimación de costos",
+  "description": "Servicios detallados de estimación de costos de construcción para una ampliación hospitalaria de 35.000 pies cuadrados en Sídney. Nuestros estimadores combinaron un cómputo de cantidades preciso con los precios actuales de materiales y mano de obra de Australia para producir una estimación de oferta por partidas que cubre estructura, cerramiento, interiores y provisiones de instalaciones (MEP).\n\nLa estimación incluyó supuestos, exclusiones y precios de alternativas claros, lo que dio al promotor un presupuesto defendible para la aprobación de su consejo y una base sólida para licitar el contrato principal."
+ },
+ "quantity-takeoff-commercial-plaza-london": {
+  "title": "Cómputo de cantidades para centro comercial — Londres, Reino Unido",
+  "location": "Londres, Reino Unido",
+  "duration": "5 días",
+  "category": "Cómputo de cantidades",
+  "description": "Servicios rápidos y precisos de cómputo de cantidades para la licitación de un centro comercial de 120.000 pies cuadrados en Londres. Con PlanSwift y Bluebeam Revu medimos cantidades de hormigón, albañilería, acero estructural, tabiquería seca, acabados y cubiertas, organizadas por divisiones CSI para el equipo de estimaciones del contratista.\n\nEl cómputo completo se entregó en 5 días con planos marcados y resúmenes en Excel. El contratista informó que nuestras cantidades quedaron dentro del 2 % de su verificación interna, y ganó la licitación con plena confianza en sus cifras."
+ },
+ "rebar-detailing-residential-tower-dubai": {
+  "title": "Detallado de barras de refuerzo para torre residencial — Dubái, EAU",
+  "location": "Dubái, EAU",
+  "duration": "3 semanas",
+  "category": "Detallado de barras de refuerzo",
+  "description": "Servicios de detallado de barras de refuerzo para una torre residencial de planta baja + 12 pisos en Dubái, EAU. Produjimos planillas de doblado de barras (BBS) detalladas, planos de colocación de armaduras de cimentación y columnas y resúmenes de cantidades por colada para 1.850 toneladas de acero de refuerzo.\n\nTodo el detallado se preparó según la norma BS 8666, con longitudes de solape optimizadas que redujeron el desperdicio de acero en un 6 % estimado. El contratista utilizó nuestras secuencias de colada para planificar entregas justo a tiempo, evitando la congestión en obra y manteniendo el programa de hormigonado en fecha."
+ },
+ "structural-steel-detailing-warehouse-texas": {
+  "title": "Detallado de acero estructural para almacén de 50.000 pies cuadrados — Texas, EE. UU.",
+  "location": "Houston, Texas, EE. UU.",
+  "duration": "4 semanas",
+  "category": "Detallado de acero estructural",
+  "description": "Servicios completos de detallado de acero estructural para un almacén de distribución de 50.000 pies cuadrados en Houston, Texas. Nuestros detallistas convirtieron los planos de diseño estructural en planos de fabricación listos para taller con Tekla Structures, cubriendo 320 toneladas de vigas, columnas, arriostramientos y detalles de conexión.\n\nLos entregables incluyeron planos de montaje, disposiciones de pernos de anclaje, esquemas de conexiones, listas de materiales y archivos NC/DSTV para las máquinas CNC del fabricante, todo verificado según las normas AISC. El proyecto se entregó en 4 semanas sin ninguna consulta (RFI) desde el taller, manteniendo la fabricación del acero en plazo."
+ }
+}

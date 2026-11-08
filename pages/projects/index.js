@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Layout from '../../components/Layout/Layout';
 import { projectsAPI } from '../../lib/api';
+import { localizeProject } from '../../lib/contentTranslations';
 import PageHero from '../../components/PageHero';
 import HERO_IMAGES from '../../lib/heroImages';
 import { useT } from '../../lib/i18n';
@@ -10,7 +11,7 @@ export default function Projects({ initialProjects = [] }) {
   const [projects, setProjects] = useState(initialProjects);
   const [loading, setLoading] = useState(false);
   const [activeFilter, setActiveFilter] = useState('All');
-  const { t } = useT();
+  const { t, locale } = useT();
 
   useEffect(() => {
     fetchProjects();
@@ -27,9 +28,10 @@ export default function Projects({ initialProjects = [] }) {
     }
   };
 
-  const categories = ['All', ...new Set(projects.map((p) => p.category).filter(Boolean))];
+  const localizedProjects = projects.map((p) => localizeProject(p, locale));
+  const categories = ['All', ...new Set(localizedProjects.map((p) => p.category).filter(Boolean))];
   const filteredProjects =
-    activeFilter === 'All' ? projects : projects.filter((p) => p.category === activeFilter);
+    activeFilter === 'All' ? localizedProjects : localizedProjects.filter((p) => p.category === activeFilter);
 
   return (
     <Layout>

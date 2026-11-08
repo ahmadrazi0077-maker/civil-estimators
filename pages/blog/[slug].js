@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Layout from '../../components/Layout/Layout';
 import { blogAPI } from '../../lib/api';
+import { localizePost } from '../../lib/contentTranslations';
 import { useT } from '../../lib/i18n';
 
 export default function BlogPost() {
@@ -26,7 +27,7 @@ export default function BlogPost() {
     try {
       setLoading(true);
       const data = await blogAPI.getBySlug(slug);
-      setPost(data);
+      setPost(localizePost(data, locale));
       setError(null);
     } catch (err) {
       console.error('Error fetching blog post:', err);
@@ -47,7 +48,7 @@ export default function BlogPost() {
         const bc = post && b.category === post.category ? 0 : 1;
         return ac - bc;
       });
-      setRelatedPosts(others.slice(0, 3));
+      setRelatedPosts(others.slice(0, 3).map((p) => localizePost(p, locale)));
     } catch (err) {
       console.error('Error fetching related posts:', err);
     }
@@ -111,6 +112,8 @@ export default function BlogPost() {
     );
   }
 
+  // Translated Arabic content reads RTL; untranslated content stays LTR
+  const rtlContent = locale === 'ar' && !!post._translated;
   const imageUrl = post.image || getPlaceholderImage(post.category);
   const pageUrl = `https://precondetailing.com/blog/${post.slug || slug}`;
   const shareText = encodeURIComponent(post.title);
@@ -210,8 +213,15 @@ export default function BlogPost() {
           <div className="max-w-3xl mx-auto">
             {/* Excerpt — article intro (articles are English on every locale) */}
             {post.excerpt && (
-              <div dir="ltr" className="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-r-2xl mb-10">
-                <p className="text-lg text-gray-700 italic leading-relaxed text-left">
+              <div
+                dir={rtlContent ? 'rtl' : 'ltr'}
+                className={`bg-blue-50 border-blue-600 p-6 mb-10 ${
+                  rtlContent
+                    ? 'border-r-4 rounded-l-2xl'
+                    : 'border-l-4 rounded-r-2xl'
+                }`}
+              >
+                <p className={`text-lg text-gray-700 italic leading-relaxed ${rtlContent ? 'text-right' : 'text-left'}`}>
                   {post.excerpt}
                 </p>
               </div>
@@ -219,8 +229,8 @@ export default function BlogPost() {
 
             {/* Article Content */}
             <div
-              dir="ltr"
-              className="article-body text-left mb-12"
+              dir={rtlContent ? 'rtl' : 'ltr'}
+              className={`article-body mb-12 ${rtlContent ? 'text-right' : 'text-left'}`}
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
 

@@ -162,6 +162,7 @@ export default function Home() {
                 'https://x.com/precondetailing',
                 'https://www.tiktok.com/@precon.detailing',
                 'https://www.youtube.com/@precondetailing',
+                'https://www.threads.com/@precondetailing',
               ],
               description:
                 'Steel & Rebar Detailing & Estimation Services — steel detailing, rebar detailing, quantity takeoff, cost estimation, BOQ preparation and shop drawings for clients worldwide.',
